@@ -2,6 +2,13 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { projects } from "@/lib/data";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | Bibek Bhattarai",
+  description: "Browse the architectural work and projects of Bibek Bhattarai, specializing in full-stack development and modern UI.",
+};
+
 export default function ProjectsPage() {
   return (
     <main className="pt-32 pb-24 px-6">

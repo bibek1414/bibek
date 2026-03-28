@@ -9,6 +9,13 @@ import { projects } from "@/lib/data";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Bibek Bhattarai | React & Next.js Developer Portfolio",
+  description: "Explore the portfolio of Bibek Bhattarai, a frontend developer specializing in modern web experiences, React, and Next.js.",
+};
+
 export default function Home() {
   const featuredProjects = projects.slice(0, 3);
 
