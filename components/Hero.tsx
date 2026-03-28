@@ -467,7 +467,6 @@ export const Hero = () => {
               animate={{ borderColor: ["rgba(255,255,255,0.1)", "rgba(59,130,246,0.4)", "rgba(255,255,255,0.1)"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              
               Available for work
             </motion.span>
           </motion.div>

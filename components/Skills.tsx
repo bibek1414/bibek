@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, useTransform, Variants } from "framer-motion";
 import { skills } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 
-const columnVariants = {
+const columnVariants: Variants = {
   hidden: {},
   visible: {
     transition: { staggerChildren: 0.06, delayChildren: 0.1 },
   },
 };
 
-const pillVariants = {
+const pillVariants: Variants = {
   hidden: { opacity: 0, rotateX: -60, y: 16, filter: "blur(4px)" },
   visible: {
     opacity: 1,

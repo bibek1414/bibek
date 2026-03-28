@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, animate, Variants } from "framer-motion";
 import { profileData } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 import Image from "next/image";
 
 // ─── Variants ─────────────────────────────────────────────────────────────────
 
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
   visible: (i: number) => ({
     opacity: 1,
@@ -18,7 +18,7 @@ const fadeUpVariant = {
   }),
 };
 
-const slideInVariant = {
+const slideInVariant: Variants = {
   hidden: { opacity: 0, x: 40, filter: "blur(8px)" },
   visible: (i: number) => ({
     opacity: 1,
@@ -113,20 +113,8 @@ const StatCard = ({
       }}
     />
 
-    {/* Pulsing dot + label */}
+    {/* label */}
     <div className="flex items-center gap-2">
-      <motion.span
-        className={`w-1.5 h-1.5 rounded-full ${color === "blue"
-          ? "bg-brand-blue"
-          : color === "purple"
-            ? "bg-brand-purple"
-            : color === "pink"
-              ? "bg-brand-pink"
-              : "bg-green-400"
-          }`}
-        animate={inView ? { scale: [1, 1.6, 1], opacity: [1, 0.5, 1] } : {}}
-        transition={{ duration: 2.5, repeat: Infinity, delay: delay * 0.5 }}
-      />
       <p
         className={`font-bold text-xs uppercase tracking-widest ${color === "blue"
           ? "text-brand-blue"
@@ -186,21 +174,6 @@ const PhotoFrame = ({ name }: { name: string }) => {
         transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Corner accent dots */}
-      {[
-        "top-0 left-0",
-        "top-0 right-0",
-        "bottom-0 left-0",
-        "bottom-0 right-0",
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          className={`absolute ${pos} w-2 h-2 rounded-full bg-brand-blue z-10`}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={inView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ delay: 0.6 + i * 0.1, duration: 0.4, ease: "backOut" }}
-        />
-      ))}
 
       {/* Image with scan-line reveal */}
       <motion.div
@@ -250,11 +223,6 @@ const PhotoFrame = ({ name }: { name: string }) => {
         transition={{ delay: 1.2, duration: 0.5, ease: "backOut" }}
       >
         <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-black/60 backdrop-blur-md text-xs font-bold text-white/70 whitespace-nowrap">
-          <motion.span
-            className="w-2 h-2 rounded-full bg-green-400"
-            animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
           Open to opportunities
         </div>
       </motion.div>
