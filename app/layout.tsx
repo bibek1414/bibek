@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
-import { profileData } from "@/lib/data";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,6 +69,24 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Bibek Bhattarai",
+  url: "https://bibekbhattarai14.com.np",
+  sameAs: [
+    "https://github.com/bibekbhattarai14",
+    "https://linkedin.com/in/bibekbhattarai14"
+  ],
+  jobTitle: "Frontend Developer",
+  description: "React and Next.js developer building modern web applications.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kathmandu",
+    addressCountry: "NP"
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -80,6 +98,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-brand-blue/30 selection:text-foreground relative">
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navbar />
         <CursorGlow />
         <main className="flex-1">{children}</main>
