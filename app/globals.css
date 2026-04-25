@@ -86,6 +86,8 @@
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-brand-blue/30 selection:text-foreground;
+    overscroll-behavior: none;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
@@ -100,11 +102,11 @@
 
 /* Gradients */
 .bg-gradient-premium {
-  @apply bg-linear-to-br from-brand-blue via-brand-purple to-brand-pink;
+  @apply bg-linear-to-br from-white/20 via-white/40 to-white/20;
 }
 
 .text-gradient {
-  @apply bg-linear-to-r from-brand-blue via-brand-purple to-brand-pink bg-clip-text text-transparent;
+  @apply bg-linear-to-r from-white via-white/70 to-white bg-clip-text text-transparent;
 }
 
 /* Animations */

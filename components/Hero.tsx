@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+
 import { motion, Variants, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ChevronRight, Download } from "lucide-react";
 import { profileData } from "@/lib/data";
 import Link from "next/link";
 
@@ -274,7 +275,7 @@ const ShimmerButton = ({
   const [hovered, setHovered] = useState(false);
 
   const base =
-    "relative group px-8 py-4 rounded-full font-bold text-base transition-all duration-300 flex items-center gap-2 overflow-hidden active:scale-95";
+    "relative group px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base transition-all duration-300 flex items-center gap-2 overflow-hidden active:scale-95";
   const styles =
     variant === "primary"
       ? "bg-white text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]"
@@ -414,24 +415,21 @@ export const Hero = () => {
   const rotateX = useSpring(useTransform(mouseY, [-300, 300], [4, -4]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-500, 500], [-4, 4]), springConfig);
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left - rect.width / 2);
-      mouseY.set(e.clientY - rect.top - rect.height / 2);
-    },
-    [mouseX, mouseY]
-  );
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  };
 
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
-  }, [mouseX, mouseY]);
+  };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4 md:pt-32 md:pb-20 md:px-6 overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -463,9 +461,9 @@ export const Hero = () => {
           {/* Eyebrow badge */}
           <motion.div variants={fadeUpVariants} className="flex justify-center">
             <motion.span
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-bold tracking-[0.2em]  text-white/50 backdrop-blur-sm"
-              animate={{ borderColor: ["rgba(255,255,255,0.1)", "rgba(59,130,246,0.4)", "rgba(255,255,255,0.1)"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-medium text-white/50 backdrop-blur-sm"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
               Available for work
             </motion.span>
@@ -473,7 +471,7 @@ export const Hero = () => {
 
           {/* Main headline — letter split */}
           <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1]"
+            className="text-4xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.1]"
             style={{ perspective: "1000px" }}
           >
             <SplitHeading>Crafting</SplitHeading>{" "}
@@ -504,7 +502,6 @@ export const Hero = () => {
                 </motion.span>
               ))}
             </motion.span>
-            <br />
             <SplitHeading>Experiences.</SplitHeading>
           </h1>
 
@@ -536,7 +533,7 @@ export const Hero = () => {
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              <ArrowRight size={18} />
+              <ChevronRight size={18} />
             </motion.span>
           </ShimmerButton>
 
@@ -552,7 +549,7 @@ export const Hero = () => {
           className="pt-20 border-t border-white/5 max-w-4xl mx-auto"
         >
           <motion.p
-            className="text-xs font-bold text-muted-foreground tracking-[0.3em] uppercase mb-10"
+            className="text-xs font-medium text-muted-foreground mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 1 }}

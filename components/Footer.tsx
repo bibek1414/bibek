@@ -6,8 +6,8 @@ export const Footer = () => {
     <footer className="py-12 px-6 border-t border-white/5 bg-background">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <p className="text-xl font-bold text-gradient mb-2 tracking-tighter">BB.</p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xl font-bold text-white mb-2">BB.</p>
+          <p className="text-sm text-muted-foreground font-medium">
             &copy; {new Date().getFullYear()} {profileData.name}. All rights reserved.
           </p>
         </div>

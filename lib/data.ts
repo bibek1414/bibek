@@ -32,9 +32,10 @@ export const profileData = {
     },
   ],
   stats: [
-    { label: "Projects Completed", value: 20 },
-    { label: "Technologies Mastered", value: 10 },
-    { label: "Git Repositories", value: 40 },
+    { label: "Experience", value: "5+ Yrs" },
+    { label: "Nationality", value: "Nepali" },
+    { label: "Languages", value: "English, Nepali" },
+    { label: "Availability", value: "Ready for Work" },
   ],
 };
 

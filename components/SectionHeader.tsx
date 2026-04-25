@@ -29,7 +29,7 @@ export const SectionHeader = ({
         className
       )}
     >
-      <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+      <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
         {title}
       </h2>
       {subtitle && (
@@ -38,7 +38,7 @@ export const SectionHeader = ({
         </p>
       )}
       <div className={cn(
-        "h-1.5 w-20 rounded-full bg-gradient-premium mt-6",
+        "h-1 w-12 rounded-full bg-white/20 mt-6",
         align === "center" ? "mx-auto" : "mr-auto"
       )} />
     </motion.div>

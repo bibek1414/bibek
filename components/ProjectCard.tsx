@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -40,9 +40,9 @@ const TechBadge = ({
 }) => (
   <motion.span
     className={cn(
-      "font-bold uppercase tracking-wider rounded-lg bg-white/5 border border-white/10 text-muted-foreground transition-colors duration-300",
+      "font-medium rounded-lg bg-white/5 border border-white/10 text-muted-foreground transition-colors duration-300",
       cardHovered
-        ? "bg-brand-blue/10 text-brand-blue border-brand-blue/20"
+        ? "bg-white/10 text-white border-white/20"
         : "",
       isCompact ? "px-2 py-0.5 text-[8px]" : "px-3 py-1 text-[10px]"
     )}
@@ -271,14 +271,14 @@ export const ProjectCard = ({
               href={liveLink}
               target="_blank"
               rel="noreferrer"
-              className="group/link flex items-center gap-1.5 text-sm font-semibold text-white hover:text-brand-blue transition-colors duration-200"
+              className="group/link flex items-center justify-center gap-1.5 text-sm font-semibold text-white hover:text-brand-blue transition-colors duration-200 min-h-[44px] min-w-[44px] px-2"
             >
               {isCompact ? "Live" : "Live Project"}
               <motion.span
                 animate={hovered ? { x: 2, y: -2 } : { x: 0, y: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <ArrowUpRight size={isCompact ? 14 : 16} />
+                <ChevronRight size={isCompact ? 14 : 16} />
               </motion.span>
             </a>
           )}
@@ -288,7 +288,7 @@ export const ProjectCard = ({
               href={githubLink}
               target="_blank"
               rel="noreferrer"
-              className="text-muted-foreground hover:text-white transition-colors p-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30"
+              className="text-muted-foreground hover:text-white transition-colors p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/30 flex items-center justify-center min-h-[44px] min-w-[44px]"
               aria-label="GitHub"
             >
               <motion.span

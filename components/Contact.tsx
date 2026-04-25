@@ -2,10 +2,12 @@
 
 import React, { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Send, Mail, Phone, MapPin, Check } from "lucide-react";
+import { ChevronRight, Mail, Phone, MapPin, Check } from "lucide-react";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 import { profileData } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
+import { createContact, ContactFormData, ApiError } from "@/lib/api";
+import { toast } from "sonner";
 
 // ─── Animated contact row ─────────────────────────────────────────────────────
 
@@ -245,13 +247,13 @@ const AnimatedInput = ({
 
 // ─── Submit button ────────────────────────────────────────────────────────────
 
-const SubmitButton = ({ submitted }: { submitted: boolean }) => {
+const SubmitButton = ({ submitted, loading }: { submitted: boolean; loading: boolean }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
     <motion.button
       type="submit"
-      className="relative w-full py-5 rounded-xl font-bold flex items-center justify-center gap-2 overflow-hidden active:scale-[0.98]"
+      disabled={loading || submitted}
       animate={
         submitted
           ? { backgroundColor: "rgb(34,197,94)" }
@@ -302,14 +304,25 @@ const SubmitButton = ({ submitted }: { submitted: boolean }) => {
           >
             Send Message
             <motion.span
-              animate={hovered ? { x: 3, y: -3 } : { x: 0, y: 0 }}
+              animate={hovered ? { x: 3 } : { x: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <Send size={18} />
+              <ChevronRight size={18} />
             </motion.span>
           </motion.span>
         )}
       </AnimatePresence>
+      
+      {/* Loading spinner */}
+      {loading && (
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="w-6 h-6 border-2 border-background border-t-transparent rounded-full animate-spin" />
+        </motion.div>
+      )}
     </motion.button>
   );
 };
@@ -317,22 +330,47 @@ const SubmitButton = ({ submitted }: { submitted: boolean }) => {
 // ─── Contact ──────────────────────────────────────────────────────────────────
 
 export const Contact = () => {
-  const [formState, setFormState] = useState({ name: "", email: "", message: "" });
+  const [formState, setFormState] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    phone_number: "",
+    message: "",
+    website: "", // Honeypot
+  });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const leftInView = useInView(leftRef, { once: true, margin: "-60px" });
   const rightInView = useInView(rightRef, { once: true, margin: "-60px" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formState);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormState({ name: "", email: "", message: "" });
-    }, 2800);
+    
+    // Check honeypot
+    if (formState.website) {
+      console.log("Spam detected");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { name, email, phone_number, message } = formState;
+      const submitData = { name, email, phone_number, message };
+      await createContact(submitData);
+      setSubmitted(true);
+      toast.success("Message sent successfully!");
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormState({ name: "", email: "", phone_number: "", message: "", website: "" });
+      }, 2800);
+    } catch (error) {
+      const apiError = error as ApiError;
+      toast.error(apiError.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const socialIconMap: Record<string, React.ElementType> = {
@@ -407,7 +445,7 @@ export const Contact = () => {
             {/* Socials */}
             <div className="pt-2">
               <motion.p
-                className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-6"
+                className="text-sm font-medium text-muted-foreground mb-6"
                 initial={{ opacity: 0 }}
                 animate={leftInView ? { opacity: 1 } : {}}
                 transition={{ delay: 0.55 }}
@@ -453,6 +491,18 @@ export const Contact = () => {
             />
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field - hidden */}
+              <div className="hidden">
+                <input
+                  type="text"
+                  name="website"
+                  value={formState.website as string}
+                  onChange={(e) => setFormState({ ...formState, website: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <AnimatedInput
                 id="name"
                 label="Name"
@@ -463,17 +513,28 @@ export const Contact = () => {
                 index={0}
                 inView={rightInView}
               />
-              <AnimatedInput
-                id="email"
-                label="Email"
-                type="email"
-                required
-                value={formState.email}
-                onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                placeholder="john@example.com"
-                index={1}
-                inView={rightInView}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <AnimatedInput
+                  id="email"
+                  label="Email (optional)"
+                  type="email"
+                  value={formState.email || ""}
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  placeholder="john@example.com"
+                  index={1}
+                  inView={rightInView}
+                />
+                <AnimatedInput
+                  id="phone_number"
+                  label="Phone Number (optional)"
+                  type="tel"
+                  value={formState.phone_number || ""}
+                  onChange={(e) => setFormState({ ...formState, phone_number: e.target.value })}
+                  placeholder="+977 98..."
+                  index={1.5}
+                  inView={rightInView}
+                />
+              </div>
               <AnimatedInput
                 id="message"
                 label="Message"
@@ -492,7 +553,7 @@ export const Contact = () => {
                 animate={rightInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.55 }}
               >
-                <SubmitButton submitted={submitted} />
+                <SubmitButton submitted={submitted} loading={loading} />
               </motion.div>
             </form>
           </motion.div>

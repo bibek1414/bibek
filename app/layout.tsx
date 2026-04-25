@@ -1,10 +1,13 @@
 import { Navbar } from "@/components/Navbar";
+import { MobileNav } from "@/components/MobileNav";
+import { FAB } from "@/components/FAB";
 import { CursorGlow } from "@/components/CursorGlow";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,10 +106,29 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navbar />
+        
+        {/* Desktop Navigation */}
+        <div className="hidden lg:block">
+          <Navbar />
+        </div>
+
+        <Toaster position="top-right" theme="dark" richColors />
+
         <CursorGlow />
-        <main className="flex-1">{children}</main>
+        
+        <main className="flex-1">
+          {children}
+          {/* Spacer for bottom nav on mobile/tablet */}
+          <div className="h-20 lg:hidden" />
+        </main>
+
         <Footer />
+
+        {/* Mobile/Tablet App Navigation */}
+        <div className="lg:hidden">
+          <MobileNav />
+          <FAB />
+        </div>
       </body>
     </html>
   );

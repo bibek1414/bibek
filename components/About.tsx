@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring, animate, Variants } from "framer-motion";
+import { motion, useInView, animate, Variants } from "framer-motion";
 import { profileData } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 import Image from "next/image";
@@ -113,10 +113,9 @@ const StatCard = ({
       }}
     />
 
-    {/* label */}
     <div className="flex items-center gap-2">
       <p
-        className={`font-bold text-xs uppercase tracking-widest ${color === "blue"
+        className={`font-bold text-xs ${color === "blue"
           ? "text-brand-blue"
           : color === "purple"
             ? "text-brand-purple"
@@ -284,35 +283,15 @@ export const About = () => {
   const textInView = useInView(textRef, { once: true, margin: "-60px" });
   const statsInView = useInView(statsRef, { once: true, margin: "-60px" });
 
-  const stats = [
-    {
-      label: "Experience",
-      value: "5+ Years",
-      isNumeric: true,
-      numericTarget: 5,
-      suffix: "+ Yrs",
-      color: "blue",
-      delay: 0,
-    },
-    {
-      label: "Nationality",
-      value: profileData.nationality,
-      color: "purple",
-      delay: 1,
-    },
-    {
-      label: "Languages",
-      value: profileData.languages.join(", "),
-      color: "pink",
-      delay: 2,
-    },
-    {
-      label: "Availability",
-      value: "Ready for Work",
-      color: "green",
-      delay: 3,
-    },
-  ];
+  const stats = profileData.stats.map((stat, i) => ({
+    label: stat.label,
+    value: stat.value,
+    isNumeric: typeof stat.value === "number",
+    numericTarget: typeof stat.value === "number" ? stat.value : undefined,
+    suffix: stat.label === "Experience" ? "+ Yrs" : "",
+    color: i === 0 ? "blue" : i === 1 ? "purple" : i === 2 ? "pink" : "green",
+    delay: i,
+  }));
 
   const paragraphs = [
     `I am ${profileData.name}, a ${profileData.role} dedicated to building scalable and efficient digital solutions. With a strong foundation in both frontend and backend technologies, I thrive on solving complex problems and turning innovative ideas into reality.`,

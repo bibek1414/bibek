@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { profileData } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 import { GraduationCap, Calendar, Briefcase } from "lucide-react";
@@ -10,17 +10,15 @@ import { GraduationCap, Calendar, Briefcase } from "lucide-react";
 
 const TimelineLine = ({
   inView,
-  color,
   itemCount,
 }: {
   inView: boolean;
-  color: "blue" | "purple";
   itemCount: number;
 }) => {
   // Approximate: 12px gap + ~140px per entry
   const estimatedHeight = itemCount * 148 + 24;
-  const stroke = color === "blue" ? "rgba(59,130,246,0.7)" : "rgba(168,85,247,0.7)";
-  const track = color === "blue" ? "rgba(59,130,246,0.08)" : "rgba(168,85,247,0.08)";
+  const stroke = "rgba(255,255,255,0.3)";
+  const track = "rgba(255,255,255,0.05)";
 
   return (
     <div
@@ -44,34 +42,22 @@ const TimelineLine = ({
 // ─── Sonar ping dot ───────────────────────────────────────────────────────────
 
 const SonarDot = ({
-  color,
   inView,
   delay,
   hovered,
 }: {
-  color: "blue" | "purple";
   inView: boolean;
   delay: number;
   hovered: boolean;
 }) => {
-  const bg = color === "blue" ? "bg-brand-blue" : "bg-brand-purple";
-  const ring =
-    color === "blue"
-      ? "rgba(59,130,246,0.5)"
-      : "rgba(168,85,247,0.5)";
-  const glow =
-    color === "blue"
-      ? "shadow-[0_0_16px_rgba(59,130,246,0.5)]"
-      : "shadow-[0_0_16px_rgba(168,85,247,0.5)]";
-
   return (
-    <div className="absolute -left-[1.625rem] top-0 z-10">
+    <div className="absolute -left-6.5 top-0 z-10">
       {/* Ping rings — 2 staggered */}
       {[0, 1].map((i) => (
         <motion.span
           key={i}
           className="absolute inset-0 rounded-full"
-          style={{ border: `1px solid ${ring}` }}
+          style={{ border: `1px solid rgba(255,255,255,0.2)` }}
           initial={{ scale: 1, opacity: 0 }}
           animate={
             inView
@@ -93,7 +79,7 @@ const SonarDot = ({
 
       {/* Core dot */}
       <motion.div
-        className={`relative w-4 h-4 rounded-full ${bg} border-4 border-background ${glow}`}
+        className="relative w-4 h-4 rounded-full bg-white border-4 border-background shadow-[0_0_12px_rgba(255,255,255,0.2)]"
         initial={{ scale: 0, opacity: 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : {}}
         transition={{ duration: 0.5, delay, ease: [0.34, 1.56, 0.64, 1] }}
@@ -108,12 +94,10 @@ const SonarDot = ({
 const TimelineEntry = ({
   children,
   index,
-  color,
   inView,
 }: {
   children: React.ReactNode;
   index: number;
-  color: "blue" | "purple";
   inView: boolean;
 }) => {
   const [hovered, setHovered] = useState(false);
@@ -125,7 +109,7 @@ const TimelineEntry = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <SonarDot color={color} inView={inView} delay={delay} hovered={hovered} />
+      <SonarDot inView={inView} delay={delay} hovered={hovered} />
 
       {/* Card reveal — clip-path wipe */}
       <motion.div
@@ -143,10 +127,7 @@ const TimelineEntry = ({
           animate={
             hovered
               ? {
-                backgroundColor:
-                  color === "blue"
-                    ? "rgba(59,130,246,0.04)"
-                    : "rgba(168,85,247,0.04)",
+                backgroundColor: "rgba(255,255,255,0.04)",
               }
               : { backgroundColor: "rgba(0,0,0,0)" }
           }
@@ -164,20 +145,15 @@ const TimelineEntry = ({
 const ColumnHeader = ({
   icon: Icon,
   label,
-  color,
   inView,
 }: {
   icon: React.ElementType;
   label: string;
-  color: "blue" | "purple";
   inView: boolean;
 }) => {
-  const bg = color === "blue" ? "bg-brand-blue/10" : "bg-brand-purple/10";
-  const text = color === "blue" ? "text-brand-blue" : "text-brand-purple";
-  const glow =
-    color === "blue"
-      ? "0 0 24px rgba(59,130,246,0.4)"
-      : "0 0 24px rgba(168,85,247,0.4)";
+  const bg = "bg-white/10";
+  const text = "text-white/70";
+  const glow = "0 0 24px rgba(255,255,255,0.2)";
 
   return (
     <motion.div
@@ -204,7 +180,7 @@ const ColumnHeader = ({
       >
         <Icon size={20} />
       </motion.div>
-      <h3 className="text-2xl font-bold text-white tracking-tight">{label}</h3>
+      <h3 className="text-2xl font-bold text-white">{label}</h3>
     </motion.div>
   );
 };
@@ -218,17 +194,17 @@ const WorkColumn = () => {
 
   return (
     <div ref={ref} className="space-y-10">
-      <ColumnHeader icon={Briefcase} label="Work Experience" color="blue" inView={inView} />
+      <ColumnHeader icon={Briefcase} label="Work Experience" inView={inView} />
 
       <div className="relative pl-8 space-y-12">
-        <TimelineLine inView={inView} color="blue" itemCount={items.length} />
+        <TimelineLine inView={inView} itemCount={items.length} />
 
         {items.map((item, idx) => (
-          <TimelineEntry key={idx} index={idx} color="blue" inView={inView}>
+          <TimelineEntry key={idx} index={idx} inView={inView}>
             <div className="space-y-3">
               {/* Date */}
               <motion.div
-                className="flex items-center gap-2 text-xs text-brand-blue font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 text-xs text-muted-foreground font-medium"
                 initial={{ opacity: 0, x: -8 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.35 + idx * 0.18 }}
@@ -266,17 +242,17 @@ const EducationColumn = () => {
 
   return (
     <div ref={ref} className="space-y-10">
-      <ColumnHeader icon={GraduationCap} label="Education" color="purple" inView={inView} />
+      <ColumnHeader icon={GraduationCap} label="Education" inView={inView} />
 
       <div className="relative pl-8 space-y-12">
-        <TimelineLine inView={inView} color="purple" itemCount={items.length} />
+        <TimelineLine inView={inView} itemCount={items.length} />
 
         {items.map((item, idx) => (
-          <TimelineEntry key={idx} index={idx} color="purple" inView={inView}>
+          <TimelineEntry key={idx} index={idx} inView={inView}>
             <div className="space-y-3">
               {/* Date */}
               <motion.div
-                className="flex items-center gap-2 text-xs text-brand-purple font-bold tracking-widest uppercase"
+                className="flex items-center gap-2 text-xs text-muted-foreground font-medium"
                 initial={{ opacity: 0, x: -8 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.35 + idx * 0.18 }}

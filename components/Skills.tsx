@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, useTransform, Variants } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, Variants } from "framer-motion";
 import { skills } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 
@@ -91,7 +91,7 @@ const MagneticPill = ({
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
             background:
-              "radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.25) 0%, transparent 70%)",
+              "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%)",
           }}
         />
 
@@ -100,10 +100,10 @@ const MagneticPill = ({
           animate={
             hovered
               ? {
-                backgroundColor: "rgba(59,130,246,0.12)",
-                borderColor: "rgba(59,130,246,0.45)",
+                backgroundColor: "rgba(255,255,255,0.1)",
+                borderColor: "rgba(255,255,255,0.3)",
                 color: "rgba(255,255,255,1)",
-                boxShadow: "0 0 16px rgba(59,130,246,0.2)",
+                boxShadow: "0 0 16px rgba(255,255,255,0.1)",
               }
               : {
                 backgroundColor: "rgba(255,255,255,0.05)",
@@ -138,7 +138,7 @@ const ColumnLine = ({ inView, itemCount }: { inView: boolean; itemCount: number 
       <div className="absolute inset-0 bg-white/5" />
       {/* Animated fill */}
       <motion.div
-        className="absolute top-0 left-0 w-full bg-gradient-to-b from-brand-blue via-brand-purple to-transparent"
+        className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 via-white/10 to-transparent"
         initial={{ height: "0%" }}
         animate={inView ? { height: "100%" } : { height: "0%" }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
@@ -151,11 +151,9 @@ const ColumnLine = ({ inView, itemCount }: { inView: boolean; itemCount: number 
 
 const CategoryColumn = ({
   category,
-  categoryIndex,
   globalOffset,
 }: {
   category: { category: string; items: { name: string }[] };
-  categoryIndex: number;
   globalOffset: number;
 }) => {
   const ref = useRef(null);
@@ -221,7 +219,6 @@ export const Skills = () => {
             <CategoryColumn
               key={idx}
               category={category}
-              categoryIndex={idx}
               globalOffset={offsets[idx]}
             />
           ))}
