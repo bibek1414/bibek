@@ -7,9 +7,12 @@ import { Experience } from "@/components/Experience";
 import { Services } from "@/components/Services";
 import { Newsletter } from "@/components/Newsletter";
 import { Contact } from "@/components/Contact";
+import { BlogPreview } from "@/components/BlogPreview";
+import { FAQ } from "@/components/FAQ";
+import { Testimonials } from "@/components/Testimonials";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 import type { Metadata } from "next";
 
@@ -53,11 +56,17 @@ export default function Home() {
         </div>
       </section>
 
+      <Testimonials />
+
       <Skills />
       
       <Experience />
 
+      <BlogPreview />
+
       <Newsletter />
+
+      <FAQ />
 
       <Contact />
     </div>

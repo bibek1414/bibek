@@ -33,6 +33,22 @@ export interface ApiError extends Error {
   fieldErrors?: FieldErrors;
 }
 
+export interface Newsletter {
+  id?: string;
+  email: string;
+  created_at?: string;
+}
+
+export interface CreateNewsletterRequest {
+  email: string;
+}
+
+export interface CreateNewsletterResponse {
+  success: boolean;
+  data: Newsletter;
+  message: string;
+}
+
 export const getApiBaseUrl = () => "";
 export const getTenantDomain = () => ""; // No longer needed on client
 
@@ -141,6 +157,21 @@ export const createContact = async (contactData: ContactFormData) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(contactData),
+  });
+
+  await handleApiError(response);
+  return await response.json();
+};
+
+export const createNewsletter = async (
+  data: CreateNewsletterRequest
+): Promise<CreateNewsletterResponse> => {
+  const response = await fetch(`/api/newsletter`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
 
   await handleApiError(response);

@@ -3,20 +3,28 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Bell } from "lucide-react";
+import { createNewsletter, ApiError } from "@/lib/api";
+import { toast } from "sonner";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "loading">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    // Simulate API call
-    setTimeout(() => {
+    
+    try {
+      await createNewsletter({ email });
       setStatus("success");
       setEmail("");
+      toast.success("Subscribed successfully!");
       setTimeout(() => setStatus("idle"), 3000);
-    }, 1500);
+    } catch (error) {
+      const apiError = error as ApiError;
+      setStatus("idle");
+      toast.error(apiError.message || "Failed to subscribe. Please try again.");
+    }
   };
 
   return (
