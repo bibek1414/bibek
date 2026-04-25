@@ -15,7 +15,7 @@ export const profileData = {
     {
       degree: "Bachelor's in Computer Science and Information Technology (BSc CSIT)",
       institution: "Hetauda City College",
-      period: "2019 - 2024",
+      period: "2022 - 2026",
     },
     {
       degree: "+2 in Science",
@@ -27,7 +27,7 @@ export const profileData = {
     {
       role: "Software Developer",
       company: "Baliyo Technologies",
-      period: "May 13, 2024 - Present",
+      period: "May 13, 2025 - Present",
       description: "Leading the development of complex web applications using Next.js and Node.js. Focused on optimizing performance, implementing robust backend systems with PostgreSQL, and ensuring seamless deployment using Docker and AWS.",
     },
   ],
@@ -130,7 +130,7 @@ export const blogs = [
   {
     title: "Mastering Next.js 15: What's New?",
     excerpt: "Exploring the latest features in Next.js 15, from improved caching to React 19 integration and the new Compiler.",
-    date: "March 20, 2024",
+    date: "March 20, 2026",
     readTime: "5 min read",
     category: "Development",
     slug: "mastering-nextjs-15",
@@ -155,7 +155,7 @@ export const blogs = [
   {
     title: "The Future of AI in Web Development",
     excerpt: "How machine learning models and LLMs are reshaping the way we build, test, and interact with the modern web.",
-    date: "March 15, 2024",
+    date: "March 15, 2026",
     readTime: "8 min read",
     category: "AI & ML",
     slug: "future-of-ai-web",
@@ -175,7 +175,7 @@ export const blogs = [
   {
     title: "DevOps Best Practices for Startups",
     excerpt: "A comprehensive guide to implementing robust CI/CD pipelines, containerization, and cloud infrastructure on a budget.",
-    date: "March 10, 2024",
+    date: "March 10, 2026",
     readTime: "12 min read",
     category: "DevOps",
     slug: "devops-best-practices",
@@ -195,12 +195,12 @@ export const blogs = [
     `
   },
   {
-    title: "Modern CSS Techniques in 2024",
+    title: "Modern CSS Techniques in 2026",
     excerpt: "Mastering Container Queries, Subgrid, and CSS Nesting to create truly responsive and maintainable layouts.",
-    date: "March 05, 2024",
+    date: "March 05, 2026",
     readTime: "6 min read",
     category: "Design",
-    slug: "modern-css-2024",
+    slug: "modern-css-2026",
     content: `
       <h2>Beyond Flexbox and Grid</h2>
       <p>CSS has evolved more in the last two years than in the previous decade. We now have native tools that were once only possible with complex JavaScript or pre-processors.</p>
@@ -217,10 +217,10 @@ export const blogs = [
   {
     title: "State Management in Modern React",
     excerpt: "Choosing between Redux, Zustand, Recoil, and Context API for your next enterprise-level React application.",
-    date: "March 01, 2024",
+    date: "March 01, 2026",
     readTime: "10 min read",
     category: "Architecture",
-    slug: "state-management-2024",
+    slug: "state-management-2026",
     content: `
       <h2>The State Management Dilemma</h2>
       <p>With so many options available, choosing a state management library for React has never been harder—or easier, depending on your needs.</p>
