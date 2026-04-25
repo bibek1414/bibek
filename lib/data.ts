@@ -1,7 +1,7 @@
 export const profileData = {
   name: "Bibek Bhattarai",
-  role: "Versatile Full Stack Developer",
-  tagline: "Blending frontend creativity with backend efficiency and DevOps practices!",
+  role: "Versatile Full Stack Developer & Software Engineer",
+  tagline: "Specializing in React, Next.js, and modern web architectures. Blending frontend creativity with backend efficiency and DevOps practices to build high-performance digital experiences.",
   email: "bbhattarai770@gmail.com",
   phone: "+977 9860425440",
   nationality: "Nepali",
@@ -28,7 +28,7 @@ export const profileData = {
       role: "Software Developer",
       company: "Baliyo Technologies",
       period: "May 13, 2024 - Present",
-      description: "Developing and maintaining web applications using modern stacks, focusing on performance and scalability.",
+      description: "Leading the development of complex web applications using Next.js and Node.js. Focused on optimizing performance, implementing robust backend systems with PostgreSQL, and ensuring seamless deployment using Docker and AWS.",
     },
   ],
   stats: [

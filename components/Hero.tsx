@@ -187,11 +187,18 @@ const GridLines = () => (
 
 const Typewriter = () => {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState(roles[0]); // Initialize with first role for SSR
   const [isDeleting, setIsDeleting] = useState(false);
-  const [speed, setSpeed] = useState(150);
+  const [speed, setSpeed] = useState(2000); // Start with longer pause
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const handleType = () => {
       const currentRole = roles[roleIndex];
       const isFinishingType = !isDeleting && displayText === currentRole;
@@ -216,7 +223,7 @@ const Typewriter = () => {
 
     const timer = setTimeout(handleType, speed);
     return () => clearTimeout(timer);
-  }, [displayText, isDeleting, roleIndex, speed]);
+  }, [displayText, isDeleting, roleIndex, speed, mounted]);
 
   return (
     <span className="relative text-brand-blue">
@@ -240,21 +247,25 @@ const SplitHeading = ({ children, className }: { children: string; className?: s
       variants={letterContainerVariants}
       initial="hidden"
       animate="visible"
+      aria-label={children}
       style={{ display: "inline-block", perspective: "800px" }}
     >
-      {words.map((word, wi) => (
-        <span key={wi} style={{ display: "inline-block", overflow: "hidden", marginRight: "0.3em" }}>
-          {word.split("").map((char, ci) => (
-            <motion.span
-              key={ci}
-              variants={letterVariants}
-              style={{ display: "inline-block", transformOrigin: "top center" }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </span>
-      ))}
+      <span className="sr-only">{children}</span>
+      <span aria-hidden="true">
+        {words.map((word, wi) => (
+          <span key={wi} style={{ display: "inline-block", overflow: "hidden", marginRight: "0.3em" }}>
+            {word.split("").map((char, ci) => (
+              <motion.span
+                key={ci}
+                variants={letterVariants}
+                style={{ display: "inline-block", transformOrigin: "top center" }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
+        ))}
+      </span>
     </motion.span>
   );
 };

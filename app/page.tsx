@@ -7,13 +7,14 @@ import { Experience } from "@/components/Experience";
 import { Contact } from "@/components/Contact";
 import { projects } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bibek Bhattarai | React & Next.js Developer Portfolio",
-  description: "Explore the portfolio of Bibek Bhattarai, a frontend developer specializing in modern web experiences, React, and Next.js.",
+  title: "Bibek Bhattarai | Full Stack Developer & Software Engineer Portfolio",
+  description: "Explore the professional portfolio of Bibek Bhattarai, a versatile Full Stack Developer specializing in React, Next.js, Node.js, and modern web architectures. Transforming ideas into high-performance digital solutions.",
+  keywords: ["Bibek Bhattarai", "Full Stack Developer", "Software Engineer", "React Developer", "Next.js Portfolio", "Nepal Developer"],
 };
 
 export default function Home() {
@@ -43,7 +44,7 @@ export default function Home() {
             className="group flex items-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white font-bold hover:bg-white hover:text-background transition-all hover:scale-105 active:scale-95"
           >
             Review All Projects 
-            <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+            <ChevronRight size={20} className="transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </section>

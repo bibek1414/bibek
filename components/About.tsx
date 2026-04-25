@@ -41,11 +41,16 @@ const CountingNumber = ({
   inView: boolean;
   delay?: number;
 }) => {
-  const [display, setDisplay] = useState(0);
+  const [display, setDisplay] = useState(target); // Initialize with target for SSR
+  const [mounted, setMounted] = useState(false);
   const hasRun = useRef(false);
 
   useEffect(() => {
-    if (!inView || hasRun.current) return;
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !inView || hasRun.current) return;
     hasRun.current = true;
 
     const timeout = setTimeout(() => {
@@ -58,7 +63,7 @@ const CountingNumber = ({
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, [inView, target, delay]);
+  }, [inView, target, delay, mounted]);
 
   return (
     <span>
