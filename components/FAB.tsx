@@ -16,7 +16,7 @@ export const FAB = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
       >
         <Link
-          href="/#contact"
+          href="/contact"
           className="flex items-center justify-center w-14 h-14 bg-brand-blue text-white rounded-full shadow-[0_8px_24px_rgba(59,130,246,0.4)] border border-white/20 transition-all hover:bg-brand-blue/90"
           aria-label="Hire Me"
         >

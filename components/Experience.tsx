@@ -123,7 +123,7 @@ const TimelineEntry = ({
       >
         {/* Hover glow card background */}
         <motion.div
-          className="relative rounded-xl p-4 -mx-4 transition-colors"
+          className="relative rounded-xl p-4 -mx-4 transition-colors cursor-pointer"
           animate={
             hovered
               ? {

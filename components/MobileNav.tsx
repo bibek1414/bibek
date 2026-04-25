@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const navItems = [
-  { name: "Home", href: "/#home", icon: Home },
-  { name: "About", href: "/#about", icon: User },
-  { name: "Projects", href: "/#projects", icon: Briefcase },
-  { name: "Experience", href: "/#experience", icon: History },
+  { name: "Home", href: "/", icon: Home },
+  { name: "About", href: "/about", icon: User },
+  { name: "Projects", href: "/projects", icon: Briefcase },
+  { name: "Experience", href: "/experience", icon: History },
   { name: "Blog", href: "/blog", icon: BookOpen },
 ];
 

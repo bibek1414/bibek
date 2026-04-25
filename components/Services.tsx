@@ -64,7 +64,7 @@ export const Services = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={serviceVariants}
-              className="group relative p-8 rounded-3xl border border-white/5 bg-white/2 hover:bg-white/5 transition-all duration-500 overflow-hidden"
+              className="group relative flex flex-col p-8 rounded-3xl border border-white/5 bg-white/2 hover:bg-white/5 transition-all duration-500 overflow-hidden cursor-pointer"
             >
               {/* Background Glow */}
               <div 

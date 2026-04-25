@@ -70,7 +70,7 @@ const MagneticPill = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className="relative cursor-default"
+      className="relative cursor-pointer"
     >
       {/* Idle breath wrapper */}
       <motion.span

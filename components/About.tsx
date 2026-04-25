@@ -102,7 +102,7 @@ const StatCard = ({
     variants={fadeUpVariant}
     initial="hidden"
     animate={inView ? "visible" : "hidden"}
-    className="relative space-y-2 p-4 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm overflow-hidden group"
+    className="relative space-y-2 p-4 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm overflow-hidden group cursor-pointer"
   >
     {/* Hover glow */}
     <motion.div

@@ -26,7 +26,7 @@ const testimonials = [
 
 export const Testimonials = () => {
   return (
-    <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 bg-white/2">
+    <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 ">
       <SectionHeader
         title="Kind Words"
         subtitle="Feedback from clients and colleagues I've had the pleasure of working with."

@@ -287,7 +287,7 @@ const ShimmerButton = ({
   const [hovered, setHovered] = useState(false);
 
   const base =
-    "relative group px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base transition-all duration-300 flex items-center gap-2 overflow-hidden active:scale-95";
+    "relative group px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base transition-all duration-300 flex items-center gap-2 overflow-hidden active:scale-95 cursor-pointer";
   const styles =
     variant === "primary"
       ? "bg-white text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]"
@@ -547,7 +547,7 @@ export const Hero = () => {
           variants={fadeUpVariants}
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <ShimmerButton href="#projects" variant="primary">
+          <ShimmerButton href="/projects" variant="primary">
             Explore My Work
             <motion.span
               animate={{ x: [0, 4, 0] }}

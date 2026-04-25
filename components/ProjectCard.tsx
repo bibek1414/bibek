@@ -148,7 +148,7 @@ export const ProjectCard = ({
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-colors duration-300",
+        "group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-colors duration-300 cursor-pointer",
         hovered ? "border-transparent bg-white/8" : "",
         isCompact ? "p-3" : "p-0",
         className
