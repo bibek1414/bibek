@@ -26,7 +26,7 @@ const testimonials = [
 
 export const Testimonials = () => {
   return (
-    <section id="testimonials" className="container mx-auto px-6 py-24 ">
+    <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 bg-white/2">
       <SectionHeader
         title="Kind Words"
         subtitle="Feedback from clients and colleagues I've had the pleasure of working with."
@@ -41,7 +41,7 @@ export const Testimonials = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
-            className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 flex flex-col justify-between space-y-8 hover:border-brand-blue/30 transition-all duration-300 relative group"
+            className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 flex flex-col justify-between space-y-8 hover:border-brand-blue/30 transition-all duration-300 relative group cursor-pointer"
           >
             <Quote className="absolute top-8 right-8 text-white/5 group-hover:text-brand-blue/10 transition-colors" size={60} />
 

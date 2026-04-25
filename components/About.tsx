@@ -305,7 +305,7 @@ export const About = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="relative container mx-auto px-6 py-24 overflow-hidden">
+    <section ref={sectionRef} id="about" className="relative max-w-7xl mx-auto px-6 py-24 overflow-hidden">
       {/* Decorative diagonal lines */}
       <DiagonalAccent inView={sectionInView} />
 

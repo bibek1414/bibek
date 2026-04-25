@@ -37,7 +37,7 @@ const FAQItem = ({ question, answer, index }: { question: string; answer: string
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex items-center justify-between text-left group"
+        className="w-full py-6 flex items-center justify-between text-left group cursor-pointer"
       >
         <span className="text-lg md:text-xl font-medium text-white group-hover:text-brand-blue transition-colors">
           {question}
@@ -67,7 +67,7 @@ const FAQItem = ({ question, answer, index }: { question: string; answer: string
 
 export const FAQ = () => {
   return (
-    <section id="faq" className="container mx-auto px-6 py-24">
+    <section id="faq" className="max-w-7xl mx-auto px-6 py-24">
       <SectionHeader
         title="Common Questions"
         subtitle="Answers to some of the most frequent inquiries about my development process and services."

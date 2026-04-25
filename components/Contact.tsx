@@ -383,7 +383,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="container mx-auto px-6 py-24">
+    <section id="contact" className="max-w-7xl mx-auto px-6 py-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Let's Connect"

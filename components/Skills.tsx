@@ -206,7 +206,7 @@ export const Skills = () => {
   }
 
   return (
-    <section id="skills" className="container mx-auto px-6 py-24">
+    <section id="skills" className="py-24 max-w-7xl mx-auto px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Technical Arsenal"

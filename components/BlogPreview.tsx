@@ -11,7 +11,7 @@ export const BlogPreview = () => {
   const latestBlogs = blogs.slice(0, 3);
 
   return (
-    <section id="blog-preview" className="container mx-auto px-6 py-24">
+    <section id="blog-preview" className="max-w-7xl mx-auto px-6 py-24">
       <SectionHeader
         title="Latest Insights"
         subtitle="Exploring the frontiers of web development, AI, and software engineering through deep-dives and tutorials."
@@ -26,7 +26,7 @@ export const BlogPreview = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
-            className="group relative bg-white/5 border border-white/10 rounded-4xl overflow-hidden hover:border-brand-blue/30 transition-all duration-300"
+            className="group relative bg-white/5 border border-white/10 rounded-4xl overflow-hidden hover:border-brand-blue/30 transition-all duration-300 cursor-pointer"
           >
             <div className="p-8 space-y-4">
               <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-brand-blue">

@@ -47,7 +47,7 @@ const serviceVariants = {
 
 export const Services = () => {
   return (
-    <section id="services" className="py-24 container mx-auto px-6 overflow-hidden">
+    <section id="services" className="py-24 max-w-7xl mx-auto px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Exceptional Services"

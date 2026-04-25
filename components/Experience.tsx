@@ -280,7 +280,7 @@ const EducationColumn = () => {
 
 export const Experience = () => {
   return (
-    <section id="experience" className="container mx-auto px-6 py-24">
+    <section id="experience" className="max-w-7xl mx-auto px-6 py-24">
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Professional Journey"
