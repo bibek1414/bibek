@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bibekbhattarai14.com.np"),
   title: {
     default: "Bibek Bhattarai | React & Next.js Developer",
     template: "%s | Bibek Bhattarai"
@@ -36,6 +37,15 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Bibek Bhattarai" }],
   creator: "Bibek Bhattarai",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -77,17 +87,34 @@ const jsonLd = {
   "@type": "Person",
   name: "Bibek Bhattarai",
   url: "https://bibekbhattarai14.com.np",
+  image: "https://bibekbhattarai14.com.np/images/profile.png",
   sameAs: [
-    "https://github.com/bibekbhattarai14",
-    "https://linkedin.com/in/bibekbhattarai14"
+    "https://github.com/bibek1414",
+    "https://linkedin.com/in/bibek-bhattarai-292b90342/",
+    "https://www.facebook.com/bibek.bhattarai.3133719"
   ],
-  jobTitle: "Frontend Developer",
-  description: "React and Next.js developer building modern web applications.",
+  jobTitle: "Software Developer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Baliyo Technologies"
+  },
+  description: "React and Next.js developer building modern web applications with a focus on frontend creativity and backend efficiency.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Kathmandu",
+    addressLocality: "Hetauda",
     addressCountry: "NP"
-  }
+  },
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Node.js",
+    "Python",
+    "Django",
+    "Machine Learning",
+    "DevOps"
+  ]
 };
 
 export default function RootLayout({

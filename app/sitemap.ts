@@ -1,8 +1,16 @@
 import { MetadataRoute } from 'next';
+import { blogs, projects } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://bibekbhattarai14.com.np';
   
+  const blogEntries: MetadataRoute.Sitemap = blogs.map((blog) => ({
+    url: `${baseUrl}/blog/${blog.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
   return [
     {
       url: baseUrl,
@@ -28,5 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    ...blogEntries,
   ];
 }

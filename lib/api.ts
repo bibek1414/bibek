@@ -33,8 +33,8 @@ export interface ApiError extends Error {
   fieldErrors?: FieldErrors;
 }
 
-export const getApiBaseUrl = () => "https://nepdora.baliyoventures.com";
-export const getTenantDomain = () => "bibek.nepdora.com";
+export const getApiBaseUrl = () => "";
+export const getTenantDomain = () => ""; // No longer needed on client
 
 export const handleApiError = async (response: Response): Promise<Response> => {
   if (!response.ok) {
@@ -135,12 +135,10 @@ export const handleApiError = async (response: Response): Promise<Response> => {
 };
 
 export const createContact = async (contactData: ContactFormData) => {
-  const BASE_API_URL = getApiBaseUrl();
-  const response = await fetch(`${BASE_API_URL}/api/contact/`, {
+  const response = await fetch(`/api/contact`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Tenant-Domain": getTenantDomain(),
     },
     body: JSON.stringify(contactData),
   });

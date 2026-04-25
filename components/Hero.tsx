@@ -386,23 +386,7 @@ const FloatingLogo = ({
 
 // ─── Scroll indicator ─────────────────────────────────────────────────────────
 
-const ScrollIndicator = () => (
-  <motion.div
-    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 2.5, duration: 1 }}
-  >
-    <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">Scroll</span>
-    <div className="w-[1px] h-10 bg-gradient-to-b from-white/30 to-transparent overflow-hidden relative">
-      <motion.div
-        className="absolute top-0 left-0 w-full bg-white/60 h-4 rounded-full"
-        animate={{ y: ["-100%", "300%"] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </div>
-  </motion.div>
-);
+
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -566,7 +550,6 @@ export const Hero = () => {
       </motion.div>
 
       {/* Scroll cue */}
-      <ScrollIndicator />
     </section>
   );
 };

@@ -254,10 +254,13 @@ const SubmitButton = ({ submitted, loading }: { submitted: boolean; loading: boo
     <motion.button
       type="submit"
       disabled={loading || submitted}
+      className="relative w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 overflow-hidden active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed border border-white/10 shadow-xl transition-all duration-300"
       animate={
         submitted
-          ? { backgroundColor: "rgb(34,197,94)" }
-          : { backgroundColor: "rgb(255,255,255)" }
+          ? { backgroundColor: "rgb(34,197,94)", color: "rgb(255,255,255)" }
+          : hovered
+            ? { backgroundColor: "rgb(255,255,255)", scale: 1.01 }
+            : { backgroundColor: "rgba(255,255,255,0.95)", scale: 1 }
       }
       transition={{ duration: 0.3 }}
       onHoverStart={() => setHovered(true)}

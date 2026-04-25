@@ -6,37 +6,26 @@ import { Menu, X } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Skills", href: "/skills" },
+  { name: "Experience", href: "/experience" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-
-      // Simple scroll spy logic
-      const sections = navLinks.map(link => link.href.substring(1));
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top >= 0 && rect.top <= 300) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -63,14 +52,14 @@ export const Navbar = () => {
               href={link.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-brand-blue",
-                activeSection === link.href.substring(1) ? "text-brand-blue" : "text-muted-foreground"
+                pathname === link.href ? "text-brand-blue" : "text-muted-foreground"
               )}
             >
               {link.name}
             </Link>
           ))}
           <Link
-            href="#contact"
+            href="/contact"
             className="px-5 py-2 bg-white text-background rounded-full text-sm font-semibold hover:bg-white/90 transition-all hover:scale-105 active:scale-95"
           >
             Hire Me
@@ -101,7 +90,7 @@ export const Navbar = () => {
                 href={link.href}
                 className={cn(
                   "text-lg font-medium transition-colors hover:text-brand-blue",
-                  activeSection === link.href.substring(1) ? "text-brand-blue" : "text-muted-foreground"
+                  pathname === link.href ? "text-brand-blue" : "text-muted-foreground"
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
