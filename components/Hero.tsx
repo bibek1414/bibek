@@ -193,7 +193,8 @@ const Typewriter = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -397,7 +398,31 @@ const FloatingLogo = ({
 
 // ─── Scroll indicator ─────────────────────────────────────────────────────────
 
-
+const ScrollIndicator = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 2, duration: 1 }}
+      className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+    >
+      <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em]">Scroll</span>
+      <div className="w-px h-12 bg-linear-to-b from-brand-blue to-transparent relative overflow-hidden">
+        <motion.div
+          className="absolute top-0 left-0 w-full h-1/2 bg-white"
+          animate={{
+            y: ["-100%", "200%"],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+};
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -561,6 +586,7 @@ export const Hero = () => {
       </motion.div>
 
       {/* Scroll cue */}
+      <ScrollIndicator />
     </section>
   );
 };

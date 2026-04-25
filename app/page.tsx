@@ -4,6 +4,8 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Skills } from "@/components/Skills";
 import { Experience } from "@/components/Experience";
+import { Services } from "@/components/Services";
+import { Newsletter } from "@/components/Newsletter";
 import { Contact } from "@/components/Contact";
 import { projects } from "@/lib/data";
 import Link from "next/link";
@@ -26,6 +28,8 @@ export default function Home() {
       <Hero />
       
       <About />
+
+      <Services />
       
       <section id="projects" className="max-w-7xl mx-auto px-6 py-24">
         <SectionHeader 
@@ -52,6 +56,8 @@ export default function Home() {
       <Skills />
       
       <Experience />
+
+      <Newsletter />
 
       <Contact />
     </div>
