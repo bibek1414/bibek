@@ -6,9 +6,11 @@ import { blogs } from "@/lib/data";
 import { SectionHeader } from "./SectionHeader";
 import Link from "next/link";
 import { Calendar, Clock, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const BlogPreview = () => {
   const latestBlogs = blogs.slice(0, 3);
+  const router = useRouter();
 
   return (
     <section id="blog-preview" className="max-w-7xl mx-auto px-6 py-24">
@@ -27,6 +29,7 @@ export const BlogPreview = () => {
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
             className="group relative bg-white/5 border border-white/10 rounded-4xl overflow-hidden hover:border-brand-blue/30 transition-all duration-300 cursor-pointer"
+            onClick={() => router.push(`/blog/${blog.slug}`)}
           >
             <div className="p-8 space-y-4">
               <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-brand-blue">
