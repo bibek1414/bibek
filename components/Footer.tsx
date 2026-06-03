@@ -27,8 +27,8 @@ export const Footer = () => {
             Workspace Coordinates
           </h4>
           <div className="space-y-2 text-xs text-stone-400 font-sans">
-            <p>Hetauda, Bagmati Province</p>
-            <p>Nepal, 44107</p>
+            <p>Sankhamul, Lalitpur</p>
+            <p>Nepal, 44700</p>
             <p className="font-mono text-[10px] text-stone-400">
               Tel: {profileData.phone}
             </p>
