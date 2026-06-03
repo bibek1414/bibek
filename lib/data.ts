@@ -1,7 +1,7 @@
 export const profileData = {
   name: "Bibek Bhattarai",
-  role: "Versatile Full Stack Developer & Software Engineer",
-  tagline: "Specializing in React, Next.js, and modern web architectures. Blending frontend creativity with backend efficiency and DevOps practices to build high-performance digital experiences.",
+  role: "Frontend Developer",
+  tagline: "Passionate and detail-oriented Frontend Developer with hands-on experience in building dynamic, user-friendly, and scalable web applications. Adept at transforming ideas into seamless digital experiences.",
   email: "bbhattarai770@gmail.com",
   phone: "+977 9860425440",
   nationality: "Nepali",
@@ -13,28 +13,27 @@ export const profileData = {
   ],
   education: [
     {
-      degree: "Bachelor's in Computer Science and Information Technology (BSc CSIT)",
+      degree: "Bachelor of Computer Science and Information Technology (BSc.CSIT)",
       institution: "Hetauda City College",
-      period: "2022 - 2026",
+      period: "2019 – 2024",
     },
     {
-      degree: "+2 in Science",
+      degree: "Higher Secondary Education – Science (Physics, Mathematics)",
       institution: "Makwanpur Multiple Campus",
-      period: "2017 - 2019",
+      period: "2017 – 2019",
     },
   ],
   experience: [
     {
-      role: "Software Developer",
-      company: "Baliyo Technologies",
-      period: "May 13, 2025 - Present",
-      description: "Leading the development of complex web applications using Next.js and Node.js. Focused on optimizing performance, implementing robust backend systems with PostgreSQL, and ensuring seamless deployment using Docker and AWS.",
+      role: "Frontend Developer",
+      company: "Baliyo Ventures",
+      period: "May 2025 – Present",
+      description: "Developing and maintaining responsive web applications using React, Next.js, and TailwindCSS. Collaborating with cross-functional teams to design and implement interactive user interfaces. Contributing to Nepdora, a no-code website builder that allows users to drag and drop UI components to create fully functional websites. Built reusable and customizable components using Next.js and TailwindCSS. Implemented dynamic rendering of JSON-based UI configurations for a modular builder experience. Worked on real-time site preview, page management, and subdomain-based site deployment.",
     },
   ],
   stats: [
-    { label: "Experience", value: "5+ Yrs" },
-    { label: "Nationality", value: "Nepali" },
-    { label: "Languages", value: "English, Nepali" },
+    { label: "Experience", value: "May 2025 - Present" },
+    { label: "Location", value: "New Baneshwor, Kathmandu" },
     { label: "Availability", value: "Ready for Work" },
   ],
 };
@@ -43,27 +42,19 @@ export const skills = [
   {
     category: "Frontend",
     items: [
-      { name: "HTML", color: "orange" },
-      { name: "CSS", color: "blue" },
-      { name: "JavaScript", color: "yellow" },
       { name: "React.js", color: "blue" },
       { name: "Next.js", color: "green" },
-      { name: "Tailwind CSS", color: "blue" },
-      { name: "GSAP", color: "purple" },
-      { name: "Framer Motion", color: "pink" },
+      { name: "TailwindCSS", color: "blue" },
+      { name: "JavaScript", color: "yellow" },
+      { name: "TypeScript", color: "blue" },
     ],
   },
   {
     category: "Backend",
     items: [
       { name: "Node.js", color: "green" },
-      { name: "Python", color: "blue" },
       { name: "Django", color: "green" },
-      { name: "FastAPI", color: "teal" },
-      { name: "NumPy", color: "blue" },
-      { name: "Pandas", color: "blue" },
-      { name: "Scikit-learn", color: "orange" },
-      { name: "TensorFlow", color: "yellow" },
+      { name: "REST APIs", color: "teal" },
     ],
   },
   {
@@ -71,18 +62,23 @@ export const skills = [
     items: [
       { name: "MongoDB", color: "green" },
       { name: "PostgreSQL", color: "blue" },
-      { name: "MySQL", color: "blue" },
-      { name: "Redis", color: "red" },
     ],
   },
   {
-    category: "Cloud & DevOps",
+    category: "Tools & Cloud",
     items: [
-      { name: "AWS", color: "orange" },
-      { name: "Docker", color: "blue" },
-      { name: "Kubernetes", color: "blue" },
+      { name: "Git", color: "orange" },
+      { name: "GitHub", color: "black" },
+      { name: "AWS (S3)", color: "orange" },
       { name: "Vercel", color: "white" },
-      { name: "Linux", color: "yellow" },
+    ],
+  },
+  {
+    category: "Other",
+    items: [
+      { name: "Responsive Design", color: "purple" },
+      { name: "State Management", color: "pink" },
+      { name: "Performance Optimization", color: "teal" },
     ],
   },
 ];
@@ -90,39 +86,59 @@ export const skills = [
 export const projects = [
   {
     title: "Hamro Pasal",
-    description: "A simple e-commerce web application built with Next.js, Tailwind CSS, MongoDB, AWS, Google Console, and Stripe.",
+    description: "Full-stack e-commerce platform developed with Next.js (frontend + backend). Integrated Stripe for payment processing and implemented user authentication, product filtering, and shopping cart features. Used MongoDB for database management and AWS S3 for secure storage. Deployed on Vercel for optimal performance and scalability.",
     technologies: ["Next.js", "Tailwind CSS", "MongoDB", "AWS", "Stripe"],
-    liveLink: "https://ecommerce-front-nine-mu.vercel.app/",
+    liveLink: "",
     githubLink: "https://github.com/bibek1414/ecommerce-frontend-backend",
     image: "/images/hamro-pasal2.png",
     id: "01",
+    category: "Web App",
+    year: "2025",
+    location: "Personal Project",
+    materials: ["Next.js", "Tailwind CSS", "MongoDB", "AWS S3", "Stripe API"],
+    details: [
+      "Integrated Stripe for payment processing.",
+      "Implemented user authentication and product filtering.",
+      "Used MongoDB for database management.",
+      "Deployed on Vercel with AWS S3 secure storage."
+    ]
   },
   {
-    title: "YouTube Comment Analyzer",
-    description: "A comprehensive analytics platform using sentiment analysis and trends to analyze YouTube comments, featuring a Chrome extension.",
-    technologies: ["Python", "MLflow", "Flask", "Docker", "Chrome Extension"],
-    liveLink: "",
-    githubLink: "https://github.com/bibek1414/youtube-comment-analyzer",
-    image: "/images/youtube-analysis.png",
-    id: "02",
-  },
-  {
-    title: "BookMyProblem",
-    description: "A platform for booking problem-solving services with real-time updates and notifications.",
+    title: "Book My Problem",
+    description: "Built with Next.js for both frontend and backend, offering users a platform to book problem-solving services. Real-time updates and notifications for both users and service providers. Categories include tech, legal, and repair services. Core booking and service features implemented; payment integration under development.",
     technologies: ["Next.js", "React", "Node.js", "Tailwind CSS"],
     liveLink: "",
-    githubLink: "https://github.com/bibek1414/bookmyproblems",
+    githubLink: "https://github.com/bibek1414/bookmyproblem",
     image: "/images/bookmyproblem.png",
-    id: "03",
+    id: "02",
+    category: "Web App",
+    year: "2025",
+    location: "Personal Project",
+    materials: ["Next.js", "React.js", "Node.js", "Express.js", "Tailwind CSS"],
+    details: [
+      "Built offering platform to book problem-solving services.",
+      "Configured real-time updates and notifications.",
+      "Categories cover tech, legal, and repair services.",
+      "Core booking services implemented."
+    ]
   },
   {
-    title: "ChatApp",
-    description: "Real-time chat with text, audio, and video call support using Django Channels and WebRTC.",
-    technologies: ["Django", "WebRTC", "Redis", "Tailwind CSS"],
-    liveLink: "https://chatapp-cuvv.onrender.com/",
-    githubLink: "https://github.com/bibek1414/chatapp",
-    image: "/images/chat-app.png",
-    id: "04",
+    title: "Aakar Education",
+    description: "Designed and developed a responsive and modern educational website for Aakar Education using Next.js and TailwindCSS. The platform highlights Aakar’s mission to empower students through creativity and collaboration, featuring sections like Our Story, Programs, and Community. Focused on clean UI design, mobile responsiveness, and optimized performance for a seamless user experience.",
+    technologies: ["Next.js", "Tailwind CSS"],
+    liveLink: "https://www.aakareducation.com",
+    githubLink: "https://github.com/bibek1414/aakar-education",
+    image: "/images/aakar-education.png",
+    id: "03",
+    category: "Web Site",
+    year: "2024",
+    location: "Client Website",
+    materials: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    details: [
+      "Highlights Aakar's mission to empower students.",
+      "Features Our Story, Programs, and Community.",
+      "Focused on clean UI, mobile responsiveness, and performance optimization."
+    ]
   },
 ];
 

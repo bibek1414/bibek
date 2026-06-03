@@ -1,64 +1,112 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { SectionHeader } from "./SectionHeader";
-import { Quote } from "lucide-react";
-import Image from "next/image";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const testimonials = [
+const TESTIMONIALS = [
   {
-    name: "Smriti Sharma",
-    content: "Working with Bibek was a game-changer for our platform. His attention to detail in the frontend and robust backend architecture significantly improved our user retention.",
-    image: "https://i.pravatar.cc/150?u=rajesh"
+    quote: "Working with Bibek was a game-changer for our platform. His attention to detail in the frontend and robust backend architecture significantly improved our user retention.",
+    author: "Smriti Sharma",
+    role: "Co-Founder",
+    firm: "Baliyo Tech",
   },
   {
-    name: "Sarah Johnson",
-    content: "Bibek is an exceptional developer who truly understands modern web standards. He delivered a complex Next.js application ahead of schedule with flawless execution.",
-    image: "https://i.pravatar.cc/150?u=sarah"
+    quote: "Bibek is an exceptional developer who truly understands modern web standards. He delivered a complex Next.js application ahead of schedule with flawless execution.",
+    author: "Sarah Johnson",
+    role: "Product Lead",
+    firm: "SaaS Systems",
   },
   {
-    name: "Sushmita Thapa",
-    content: "A versatile engineer who isn't afraid of complex challenges. Bibek's ability to integrate machine learning with web apps is quite impressive.",
-    image: "https://i.pravatar.cc/150?u=anil"
-  }
+    quote: "A versatile engineer who isn't afraid of complex challenges. Bibek's ability to integrate machine learning with web apps is quite impressive.",
+    author: "Sushmita Thapa",
+    role: "Engineering Lead",
+    firm: "HCC Labs",
+  },
 ];
 
 export const Testimonials = () => {
+  const [index, setIndex] = useState(0);
+
+  const handlePrev = () => {
+    setIndex((prev) => (prev === 0 ? TESTIMONIALS.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 ">
-      <SectionHeader
-        title="Kind Words"
-        subtitle="Feedback from clients and colleagues I've had the pleasure of working with."
-        align="center"
-      />
+    <section id="testimonials" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        
+        <div className="max-w-4xl mx-auto space-y-12">
+          <div className="text-center space-y-2">
+            <span className="font-mono text-xs text-[#6B6661]">
+              06 / Direct Feedback
+            </span>
+            <h2 className="font-serif text-3xl text-[#1C1A17] font-medium">
+              Client Dialogues
+            </h2>
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-6xl mx-auto">
-        {testimonials.map((t, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 flex flex-col justify-between space-y-8 hover:border-brand-blue/30 transition-all duration-300 relative group cursor-pointer"
-          >
-            <Quote className="absolute top-8 right-8 text-white/5 group-hover:text-brand-blue/10 transition-colors" size={60} />
+          {/* Slider frame */}
+          <div className="border border-[#E8E6E1] p-8 md:p-16 relative bg-[#FAF9F6] bg-white">
+            {/* Giant Serif opening quote mark */}
+            <div className="absolute top-4 left-6 text-[#E8E6E1]/50 text-7xl font-serif font-bold pointer-events-none">
+              &ldquo;
+            </div>
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8 relative"
+              >
+                <p className="font-serif text-xl sm:text-2xl text-[#1C1A17] leading-relaxed italic text-center text-stone-700">
+                  {TESTIMONIALS[index].quote}
+                </p>
 
-            <p className="text-lg text-white/80 leading-relaxed italic relative z-10">
-              &ldquo;{t.content}&rdquo;
-            </p>
+                <div className="text-center pt-4 border-t border-[#E8E6E1] max-w-xs mx-auto">
+                  <div className="font-serif text-base font-medium text-[#1C1A17]">
+                    {TESTIMONIALS[index].author}
+                  </div>
+                  <div className="font-mono text-[10px] text-[#6B6661] mt-1">
+                    {TESTIMONIALS[index].role} / {TESTIMONIALS[index].firm}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
-            <div className="flex items-center gap-4 relative z-10">
-              <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-blue/20 relative">
-                <Image src={t.image} alt={t.name} fill className="object-cover" />
-              </div>
-              <div>
-                <h4 className="font-bold text-white">{t.name}</h4>
+            {/* Slider tools */}
+            <div className="flex justify-between items-center mt-12 md:mt-8 pt-4 border-t border-[#E8E6E1]">
+              <span className="font-mono text-xs text-[#6B6661]">
+                {index + 1} / {TESTIMONIALS.length}
+              </span>
+              <div className="flex space-x-3">
+                <button 
+                  onClick={handlePrev}
+                  className="p-3 border border-[#E8E6E1] hover:bg-[#1C1A17] hover:text-[#FAF9F6] text-[#1C1A17] transition-all rounded-none cursor-pointer"
+                  aria-label="Previous Testimonial"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={handleNext}
+                  className="p-3 border border-[#E8E6E1] hover:bg-[#1C1A17] hover:text-[#FAF9F6] text-[#1C1A17] transition-all rounded-none cursor-pointer"
+                  aria-label="Next Testimonial"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
-          </motion.div>
-        ))}
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

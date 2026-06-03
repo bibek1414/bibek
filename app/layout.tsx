@@ -3,7 +3,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { FAB } from "@/components/FAB";
 import { CursorGlow } from "@/components/CursorGlow";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import Script from "next/script";
@@ -17,6 +17,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -125,9 +132,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
+      className={`${geistSans.variable} ${geistMono.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-brand-blue/30 selection:text-foreground relative">
+      <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1A17] selection:bg-[#1C1A17] selection:text-[#FAF9F6] relative">
         <Script
           id="schema-org"
           type="application/ld+json"

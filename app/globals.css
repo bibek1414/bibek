@@ -52,12 +52,17 @@
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-serif);
   --font-mono: var(--font-geist-mono);
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  --color-brand-beige: #FAF9F6;
+  --color-brand-charcoal: #1C1A17;
+  --color-brand-muted: #6B6661;
+  --color-brand-border: #E8E6E1;
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-popover: hsl(var(--popover));
@@ -85,7 +90,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-brand-blue/30 selection:text-foreground;
+    @apply bg-brand-beige text-brand-charcoal antialiased selection:bg-brand-charcoal selection:text-brand-beige;
     overscroll-behavior: none;
     padding-bottom: env(safe-area-inset-bottom);
   }

@@ -84,7 +84,7 @@ export default function ProfilePage() {
                     {profileData.education.map((edu, idx) => (
                       <div key={idx} className="relative pl-8 border-l border-white/10 space-y-2">
                         <div className="absolute -left-[5px] top-2 w-2 h-2 rounded-full bg-brand-blue shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-                        <span className="text-sm font-bold text-brand-blue uppercase tracking-widest">{edu.period}</span>
+                        <span className="text-sm font-bold text-brand-blue">{edu.period}</span>
                         <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
                         <p className="text-muted-foreground">{edu.institution}</p>
                       </div>
@@ -96,7 +96,7 @@ export default function ProfilePage() {
                   <div className="space-y-12">
                     {skills.map((category) => (
                       <div key={category.category} className="space-y-6">
-                        <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground/50 border-b border-white/5 pb-2">
+                        <h3 className="text-sm font-black text-muted-foreground/50 border-b border-white/5 pb-2">
                           {category.category}
                         </h3>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                             <info.icon size={20} />
                           </div>
                           <div>
-                            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">{info.label}</p>
+                            <p className="text-xs font-bold text-muted-foreground mb-1">{info.label}</p>
                             <p className="text-lg text-white font-medium">{info.value}</p>
                           </div>
                         </div>

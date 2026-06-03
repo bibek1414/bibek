@@ -1,6 +1,5 @@
 import React from "react";
 import { blogs } from "@/lib/data";
-import { SectionHeader } from "@/components/SectionHeader";
 import { Calendar, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
@@ -45,55 +44,61 @@ const jsonLd = {
 
 export default function BlogPage() {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen">
+    <main className="pt-32 pb-24 px-6 min-h-screen bg-[#FAF9F6]">
       <Script
         id="blog-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader
-          title="Insights & Articles"
-          subtitle="Thoughts on technology, software engineering, and the future of digital innovation."
-          align="left"
-        />
+      <div className="max-w-7xl mx-auto space-y-12">
+        <div className="space-y-4">
+          <span className="font-mono text-xs text-[#6B6661]">
+            07 / Written Records
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17]">
+            Insights & Articles
+          </h1>
+          <p className="text-[#6B6661] text-sm max-w-xl font-sans leading-relaxed">
+            Thoughts on technology, backend system architecture, and clean engineering.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 gap-8 mt-16">
           {blogs.map((blog) => (
             <div
               key={blog.slug}
-              className="glass-card flex flex-col md:flex-row gap-8 items-start border border-white/5"
+              className="bg-white border border-[#E8E6E1] p-8 md:p-12 flex flex-col md:flex-row gap-8 items-start hover:border-[#1C1A17] transition-colors duration-300"
             >
               <div className="flex-1 space-y-4">
-                <div className="flex items-center gap-4 text-xs font-bold text-brand-blue">
-                  <span className="px-3 py-1 rounded-full bg-brand-blue/10 border border-brand-blue/20">
+                <div className="flex flex-wrap items-center gap-4 text-xs">
+                  <span className="font-mono text-[9px] text-[#1C1A17] bg-[#E8E6E1] px-2.5 py-0.5">
                     {blog.category}
                   </span>
-                  <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <Calendar size={14} />
+                  <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#6B6661]">
+                    <Calendar size={12} />
                     {blog.date}
                   </div>
-                  <div className="flex items-center gap-1.5 text-muted-foreground">
-                    <Clock size={14} />
+                  <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#6B6661]">
+                    <Clock size={12} />
                     {blog.readTime}
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white transition-colors">
+                <h3 className="font-serif text-2xl font-medium text-[#1C1A17]">
                   {blog.title}
                 </h3>
 
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm text-[#6B6661] leading-relaxed font-sans max-w-3xl">
                   {blog.excerpt}
                 </p>
 
                 <div className="pt-4">
                   <Link
                     href={`/blog/${blog.slug}`}
-                    className="inline-flex items-center gap-2 text-white font-semibold transition-all"
+                    className="inline-flex items-center gap-2 border border-[#1C1A17] text-[#1C1A17] text-xs font-mono px-4 py-2 hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-colors"
                   >
                     Read Article
-                    <ChevronRight size={18} className="text-brand-blue" />
+                    <ChevronRight size={14} />
                   </Link>
                 </div>
               </div>

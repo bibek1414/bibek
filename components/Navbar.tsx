@@ -2,20 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
-  { name: "Skills", href: "/skills" },
-  { name: "Experience", href: "/experience" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "About", href: "/#about" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Services", href: "/#services" },
+  { name: "FAQ", href: "/#faq" },
 ];
 
 export const Navbar = () => {
@@ -25,7 +23,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -35,43 +33,47 @@ export const Navbar = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
-        isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-white/10 py-3" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        isScrolled 
+          ? "bg-[#FAF9F6]/85 backdrop-blur-md border-[#E8E6E1] py-4" 
+          : "bg-transparent border-transparent py-6"
       )}
     >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity">
-          BIBEK<span className="text-brand-blue">.</span>
+      <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <Link 
+          href="/" 
+          className="font-serif text-xl font-semibold text-[#1C1A17] hover:opacity-80 transition-opacity"
+        >
+          Bibek
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-8 text-[11px] font-mono text-[#6B6661]">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-brand-blue",
-                pathname === link.href ? "text-brand-blue" : "text-muted-foreground"
-              )}
+              className="hover:text-[#1C1A17] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-[#1C1A17] after:transition-all duration-300"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
-          <Link
-            href="/contact"
-            className="px-5 py-2 bg-white text-background rounded-full text-sm font-semibold hover:bg-white/90 transition-all hover:scale-105 active:scale-95"
+          <a
+            href="#contact"
+            className="px-5 py-2.5 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-all rounded-none font-medium flex items-center gap-1.5"
           >
-            Hire Me
-          </Link>
+            Initiate Project
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-white p-2"
+          className="md:hidden text-[#1C1A17] p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
@@ -79,28 +81,29 @@ export const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-white/10 p-6 md:hidden flex flex-col space-y-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="absolute top-full left-0 right-0 bg-[#FAF9F6] border-b border-[#E8E6E1] overflow-hidden"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "text-lg font-medium transition-colors hover:text-brand-blue",
-                  pathname === link.href ? "text-brand-blue" : "text-muted-foreground"
-                )}
+            <div className="flex flex-col space-y-6 px-6 py-8 text-xs font-mono text-[#6B6661]">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="hover:text-[#1C1A17] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                className="w-full text-center px-4 py-3 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-all"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-4 flex items-center space-x-6">
-              <FaGithub size={20} className="text-muted-foreground hover:text-white cursor-pointer" />
-              <FaLinkedin size={20} className="text-muted-foreground hover:text-white cursor-pointer" />
-              <FaTwitter size={20} className="text-muted-foreground hover:text-white cursor-pointer" />
+                Initiate Project
+              </a>
             </div>
           </motion.div>
         )}

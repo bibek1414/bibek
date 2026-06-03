@@ -28,72 +28,73 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-24 max-w-7xl mx-auto px-6">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="relative p-8 md:p-16 rounded-[2.5rem] border border-white/10 bg-white/5 overflow-hidden text-center space-y-8"
-        >
-          {/* Decorative background glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 rounded-full blur-[100px] -z-10" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-purple/10 rounded-full blur-[100px] -z-10" />
-
+    <section className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="flex justify-center"
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative p-8 md:p-16 border border-[#E8E6E1] bg-[#FAF9F6] bg-white text-center space-y-8"
           >
-            <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-brand-blue">
-              <Bell size={32} />
-            </div>
-          </motion.div>
-
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-              Stay in the <span className="text-brand-blue">Loop.</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Subscribe to my newsletter for insights on modern web development, 
-              AI experiments, and technical deep-dives.
-            </p>
-          </div>
-
-          <form 
-            onSubmit={handleSubmit}
-            className="relative max-w-lg mx-auto flex flex-col sm:flex-row gap-3"
-          >
-            <input
-              type="email"
-              required
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-6 py-4 rounded-full bg-white/5 border border-white/10 text-white focus:outline-none focus:border-brand-blue/50 transition-colors"
-            />
-            <button
-              disabled={status === "loading"}
-              className="px-8 py-4 rounded-full bg-white text-black font-bold hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="flex justify-center"
             >
-              {status === "loading" ? (
-                "Subscribing..."
-              ) : status === "success" ? (
-                "Subscribed!"
-              ) : (
-                <>
-                  Join Now
-                  <Send size={18} />
-                </>
-              )}
-            </button>
-          </form>
+              <div className="w-14 h-14 border border-[#E8E6E1] flex items-center justify-center text-stone-700 bg-[#FAF9F6]">
+                <Bell size={24} />
+              </div>
+            </motion.div>
 
-          <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold">
-            No spam. Just pure technical value.
-          </p>
-        </motion.div>
+            <div className="space-y-4">
+              <span className="font-mono text-xs text-[#6B6661]">
+                07 / Dispatch
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
+                Stay in the Loop
+              </h2>
+              <p className="text-[#6B6661] text-sm max-w-xl mx-auto font-sans leading-relaxed">
+                Subscribe to my newsletter for insights on modern web development, 
+                AI pipelines, and clean technical execution notes.
+              </p>
+            </div>
+
+            <form 
+              onSubmit={handleSubmit}
+              className="relative max-w-lg mx-auto flex flex-col sm:flex-row gap-3"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 bg-[#FAF9F6] border border-[#E8E6E1] text-[#1C1A17] placeholder:text-[#6B6661]/60 focus:outline-none focus:border-[#1C1A17] font-sans text-sm rounded-none"
+              />
+              <button
+                disabled={status === "loading"}
+                className="px-6 py-3 bg-[#1C1A17] text-[#FAF9F6] text-xs font-mono hover:bg-stone-800 transition-colors font-semibold flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer rounded-none"
+              >
+                {status === "loading" ? (
+                  "Subscribing..."
+                ) : status === "success" ? (
+                  "Subscribed!"
+                ) : (
+                  <>
+                    Join Now
+                    <Send size={12} />
+                  </>
+                )}
+              </button>
+            </form>
+
+            <p className="text-[10px] text-[#6B6661] font-mono">
+              No spam. Just pure technical value.
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

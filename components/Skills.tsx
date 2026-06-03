@@ -1,228 +1,115 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, Variants } from "framer-motion";
-import { skills } from "@/lib/data";
-import { SectionHeader } from "./SectionHeader";
-
-// ─── Variants ─────────────────────────────────────────────────────────────────
-
-const columnVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
-  },
-};
-
-const pillVariants: Variants = {
-  hidden: { opacity: 0, rotateX: -60, y: 16, filter: "blur(4px)" },
-  visible: {
-    opacity: 1,
-    rotateX: 0,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 120, damping: 14 },
-  },
-};
-
-// ─── Magnetic Pill ────────────────────────────────────────────────────────────
-
-const MagneticPill = ({
-  name,
-  globalIndex,
-}: {
-  name: string;
-  globalIndex: number;
-}) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [hovered, setHovered] = useState(false);
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 200, damping: 18 });
-  const springY = useSpring(y, { stiffness: 200, damping: 18 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    // Pull toward cursor — capped at ±6px
-    x.set(Math.max(-6, Math.min(6, (e.clientX - cx) * 0.35)));
-    y.set(Math.max(-5, Math.min(5, (e.clientY - cy) * 0.35)));
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-    setHovered(false);
-  };
-
-  // Slow idle breath — unique phase per pill so they don't all sync
-  const idleDelay = (globalIndex * 0.37) % 3;
-
-  return (
-    <motion.span
-      ref={ref}
-      variants={pillVariants}
-      style={{ x: springX, y: springY, display: "inline-block" }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className="relative cursor-pointer"
-    >
-      {/* Idle breath wrapper */}
-      <motion.span
-        className="block"
-        animate={{ scale: [1, 1.016, 1] }}
-        transition={{
-          duration: 3.5,
-          delay: idleDelay,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        {/* Inner glow — fires on hover entry */}
-        <motion.span
-          className="absolute inset-0 rounded-xl pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={hovered ? { opacity: [0, 1, 0.4] } : { opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%)",
-          }}
-        />
-
-        <motion.span
-          className="relative px-4 py-2 rounded-xl border text-sm font-medium backdrop-blur-sm block"
-          animate={
-            hovered
-              ? {
-                backgroundColor: "rgba(255,255,255,0.1)",
-                borderColor: "rgba(255,255,255,0.3)",
-                color: "rgba(255,255,255,1)",
-                boxShadow: "0 0 16px rgba(255,255,255,0.1)",
-              }
-              : {
-                backgroundColor: "rgba(255,255,255,0.05)",
-                borderColor: "rgba(255,255,255,0.1)",
-                color: "rgba(160,160,180,1)",
-                boxShadow: "0 0 0px transparent",
-              }
-          }
-          transition={{ duration: 0.2 }}
-        >
-          {name}
-        </motion.span>
-      </motion.span>
-    </motion.span>
-  );
-};
-
-// ─── Column Line ──────────────────────────────────────────────────────────────
-// Traces down from the header border as items load in.
-
-const ColumnLine = ({ inView, itemCount }: { inView: boolean; itemCount: number }) => {
-  // Approximate height: header (~36px) + gap (24px) + pills (~40px * rows estimate)
-  const estimatedRows = Math.ceil(itemCount / 3);
-  const lineHeight = 36 + 24 + estimatedRows * 52;
-
-  return (
-    <div
-      className="absolute left-0 top-0 w-[2px] overflow-hidden"
-      style={{ height: lineHeight }}
-    >
-      {/* Base track */}
-      <div className="absolute inset-0 bg-white/5" />
-      {/* Animated fill */}
-      <motion.div
-        className="absolute top-0 left-0 w-full bg-gradient-to-b from-white/20 via-white/10 to-transparent"
-        initial={{ height: "0%" }}
-        animate={inView ? { height: "100%" } : { height: "0%" }}
-        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-      />
-    </div>
-  );
-};
-
-// ─── Category Column ──────────────────────────────────────────────────────────
-
-const CategoryColumn = ({
-  category,
-  globalOffset,
-}: {
-  category: { category: string; items: { name: string }[] };
-  globalOffset: number;
-}) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      variants={columnVariants}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      className="relative space-y-6 pl-6"
-    >
-      {/* Traced vertical line */}
-      <ColumnLine inView={inView} itemCount={category.items.length} />
-
-      {/* Category title */}
-      <motion.h3
-        className="text-xl font-bold text-white"
-        initial={{ opacity: 0, x: -12 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {category.category}
-      </motion.h3>
-
-      {/* Pills */}
-      <div className="flex flex-wrap gap-3" style={{ perspective: "600px" }}>
-        {category.items.map((skill, sIdx) => (
-          <MagneticPill
-            key={sIdx}
-            name={skill.name}
-            globalIndex={globalOffset + sIdx}
-          />
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
-// ─── Skills ───────────────────────────────────────────────────────────────────
+import React from "react";
+import { Code2, Cpu, Database, Server } from "lucide-react";
 
 export const Skills = () => {
-  // Compute global pill index offsets so idle breath phases are unique across all columns
-  const offsets: number[] = [];
-  let running = 0;
-  for (const cat of skills) {
-    offsets.push(running);
-    running += cat.items.length;
-  }
-
   return (
-    <section id="skills" className="py-24 max-w-7xl mx-auto px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader
-          title="Technical Arsenal"
-          subtitle="The tools and technologies I use to bring ideas to life."
-          align="left"
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-12">
-          {skills.map((category, idx) => (
-            <CategoryColumn
-              key={idx}
-              category={category}
-              globalOffset={offsets[idx]}
-            />
-          ))}
+    <section id="skills" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        
+        {/* Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+          <div className="lg:col-span-5 space-y-4">
+            <span className="font-mono text-xs text-[#6B6661]">
+              04 / Systematic Expertise
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] leading-tight">
+              Design & Tech Frameworks
+            </h2>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="text-[#6B6661] text-sm leading-relaxed font-sans max-w-xl">
+              I synthesize modern engineering paradigms with clean, pixel-perfect user interfaces to deliver robust and performant software solutions. Every API, layout grid, and deployment container follows strict standards.
+            </p>
+          </div>
         </div>
+
+        {/* Grid Boxes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          {/* Box 1 - Frontend */}
+          <div className="border border-[#E8E6E1] p-8 space-y-6 flex flex-col justify-between bg-white">
+            <div className="space-y-6">
+              <div className="w-10 h-10 border border-[#1C1A17]/10 flex items-center justify-center bg-[#FAF9F6]">
+                <Code2 className="w-5 h-5 text-stone-700" />
+              </div>
+              <h3 className="font-serif text-xl text-[#1C1A17] font-medium">
+                Frontend Craft
+              </h3>
+              <p className="text-xs text-[#6B6661] leading-relaxed">
+                Responsive interface engineering, advanced layouts, performance-focused client routing, typography rendering, and fluid animations.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-[#E8E6E1]/50">
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">React.js</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">Next.js 15</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">Tailwind CSS</span>
+            </div>
+          </div>
+
+          {/* Box 2 - Backend */}
+          <div className="border border-[#E8E6E1] p-8 space-y-6 flex flex-col justify-between bg-white">
+            <div className="space-y-6">
+              <div className="w-10 h-10 border border-[#1C1A17]/10 flex items-center justify-center bg-[#FAF9F6]">
+                <Database className="w-5 h-5 text-stone-700" />
+              </div>
+              <h3 className="font-serif text-xl text-[#1C1A17] font-medium">
+                Systems & APIs
+              </h3>
+              <p className="text-xs text-[#6B6661] leading-relaxed">
+                Scalable HTTP/REST API endpoints, real-time WebRTC communication layers, structured schemas, relational logic, and cache pipelines.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-[#E8E6E1]/50">
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">Node.js</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">PostgreSQL</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">MongoDB</span>
+            </div>
+          </div>
+
+          {/* Box 3 - DevOps */}
+          <div className="border border-[#E8E6E1] p-8 space-y-6 flex flex-col justify-between bg-white">
+            <div className="space-y-6">
+              <div className="w-10 h-10 border border-[#1C1A17]/10 flex items-center justify-center bg-[#FAF9F6]">
+                <Server className="w-5 h-5 text-stone-700" />
+              </div>
+              <h3 className="font-serif text-xl text-[#1C1A17] font-medium">
+                DevOps & Cloud
+              </h3>
+              <p className="text-xs text-[#6B6661] leading-relaxed">
+                Container management pipelines, local science deployments, cloud services automation, security certificates configuration, and Linux server commands.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-[#E8E6E1]/50">
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">AWS</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">Docker</span>
+              <span className="font-mono text-[9px] text-[#1C1A17] bg-[#1C1A17]/5 px-2 py-0.5">Vercel</span>
+            </div>
+          </div>
+
+          {/* Box 4 - Dark Accent - AI */}
+          <div className="border border-[#E8E6E1] p-8 space-y-6 flex flex-col justify-between bg-[#1C1A17] text-[#FAF9F6]">
+            <div className="space-y-6">
+              <div className="w-10 h-10 border border-white/20 flex items-center justify-center bg-stone-850">
+                <Cpu className="w-5 h-5 text-stone-200" />
+              </div>
+              <h3 className="font-serif text-xl text-white font-medium">
+                AI & Analytics
+              </h3>
+              <p className="text-xs text-stone-400 leading-relaxed">
+                Sentiment analysis computation on user comments databases, vector models management, relational dataset processing, and custom script automation.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/10">
+              <span className="font-mono text-[9px] text-[#FAF9F6] bg-white/10 px-2 py-0.5">Python</span>
+              <span className="font-mono text-[9px] text-[#FAF9F6] bg-white/10 px-2 py-0.5">TensorFlow</span>
+              <span className="font-mono text-[9px] text-[#FAF9F6] bg-white/10 px-2 py-0.5">Scikit-learn</span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

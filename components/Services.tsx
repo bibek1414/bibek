@@ -1,93 +1,160 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { SectionHeader } from "./SectionHeader";
-import { Code2, Cpu, Layout, ShieldCheck } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
-const services = [
+interface Service {
+  id: string;
+  title: string;
+  short: string;
+  description: string;
+  deliverables: string[];
+  duration: string;
+}
+
+const SERVICES: Service[] = [
   {
-    title: "Full Stack Development",
-    description: "Building scalable, high-performance web applications using React, Next.js, and robust backend systems.",
-    icon: Code2,
-    color: "blue",
+    id: "fullstack",
+    title: "Full Stack Web & Application Engineering",
+    short: "Forming robust client interfaces coupled with scalable backend APIs.",
+    description: "Bespoke Next.js layouts, server-side data mutations, and responsive, interactive components. Engineered with strict performance budgets, optimized layouts, and TypeScript state models.",
+    deliverables: ["Custom Next.js Systems", "Typesafe State Architecture", "Responsive Layout Layouts", "REST & WebSocket Endpoints"],
+    duration: "1 to 3 months",
   },
   {
-    title: "AI & Machine Learning",
-    description: "Integrating intelligent models and LLMs to create predictive systems and automated workflows.",
-    icon: Cpu,
-    color: "purple",
+    id: "systems",
+    title: "Systems Integration & AI Curation",
+    short: "Integrating advanced analytics, language models, and databases.",
+    description: "Data extraction pipelines, real-time sentiment analysis, text-based analytics, and scalable integrations. Standardizing unstructured data into clean SQL or document stores.",
+    deliverables: ["Data Analytics Pipelines", "Sentiment Analysis Modules", "Database Schema Designs", "Python Integration Scripts"],
+    duration: "1 to 2 months",
   },
   {
-    title: "Cloud & DevOps",
-    description: "Optimizing infrastructure with Docker, Kubernetes, and automated CI/CD pipelines for seamless scaling.",
-    icon: ShieldCheck,
-    color: "green",
-  },
-  {
-    title: "UI/UX Architecture",
-    description: "Designing intuitive, motion-rich user interfaces that prioritize engagement and accessibility.",
-    icon: Layout,
-    color: "pink",
+    id: "cloud",
+    title: "Cloud Architecture & DevOps Operations",
+    short: "Deploying secure, isolated containers with automated workflows.",
+    description: "Docker multi-stage files, AWS infrastructure components, Vercel deployments, secure domain routing, database backup schedules, and GitHub Actions automation workflows.",
+    deliverables: ["Docker Integration Plans", "CI/CD Deploy Scripts", "Cloud Infrastructure Maps", "Security Hardening Setups"],
+    duration: "2 to 4 weeks",
   },
 ];
 
-const serviceVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  }),
-};
-
 export const Services = () => {
+  const [expandedService, setExpandedService] = useState<string | null>("fullstack");
+
   return (
-    <section id="services" className="py-24 max-w-7xl mx-auto px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader
-          title="Exceptional Services"
-          subtitle="Specialized solutions tailored to transform complex challenges into elegant digital realities."
-          align="center"
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={serviceVariants}
-              className="group relative flex flex-col p-8 rounded-3xl border border-white/5 bg-white/2 hover:bg-white/5 transition-all duration-500 overflow-hidden cursor-pointer"
-            >
-              {/* Background Glow */}
-              <div 
-                className={`absolute -bottom-10 -right-10 w-32 h-32 blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-full bg-brand-${service.color}`} 
-              />
-
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 bg-brand-${service.color}/10 border border-brand-${service.color}/20 text-brand-${service.color} group-hover:scale-110 transition-transform duration-500`}>
-                <service.icon size={24} />
-              </div>
-
-              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-blue transition-colors">
-                {service.title}
-              </h3>
-
-              <p className="text-muted-foreground leading-relaxed text-sm">
-                {service.description}
-              </p>
-
-              {/* Decorative line */}
-              <div className="mt-8 h-[2px] w-0 group-hover:w-full transition-all duration-700 bg-linear-to-r from-brand-blue to-transparent" />
-            </motion.div>
-          ))}
+    <section id="services" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        
+        {/* Left Column - Image */}
+        <div className="lg:col-span-5">
+          <div className="aspect-[3/4] relative w-full overflow-hidden bg-[#E8E6E1] border border-[#E8E6E1]">
+            <img 
+              src="/photos/IMG_1404.jpg" 
+              alt="Bibek Bhattarai workspace setup" 
+              className="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 transition-all duration-700"
+            />
+            {/* Fine metrics overlay */}
+            <div className="absolute inset-x-0 bottom-0 bg-[#1C1A17]/35 backdrop-blur-sm p-4 text-white flex justify-between text-[9px] font-mono">
+              <span>WORK STATION // KATHMANDU</span>
+              <span>DEV FRAMEWORK // 2026</span>
+            </div>
+          </div>
         </div>
+
+        {/* Right Column - Accordion */}
+        <div className="lg:col-span-7 space-y-8">
+          <div className="space-y-4">
+            <span className="font-mono text-xs text-[#6B6661]">
+              03 / Tactical Capabilities
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
+              Studio Services
+            </h2>
+            <p className="text-[#6B6661] text-sm leading-relaxed max-w-xl font-sans">
+              Click on each engineering capability below to reveal operational details, cycle timelines, and concrete deliverables.
+            </p>
+          </div>
+
+          <div className="space-y-4 border-t border-[#E8E6E1] pt-4">
+            {SERVICES.map((serv) => {
+              const isExpanded = expandedService === serv.id;
+              return (
+                <div 
+                  key={serv.id} 
+                  className={`border-b border-[#E8E6E1] pb-5 transition-all duration-300 ${isExpanded ? "bg-[#FAF9F6]" : ""}`}
+                >
+                  <button
+                    onClick={() => setExpandedService(isExpanded ? null : serv.id)}
+                    className="w-full flex items-center justify-between text-left py-3 group cursor-pointer"
+                  >
+                    <div className="space-y-1">
+                      <h3 className="font-serif text-lg sm:text-xl font-medium text-[#1C1A17] tracking-normal group-hover:text-[#1C1A17] transition-all">
+                        {serv.title}
+                      </h3>
+                      <p className="text-xs font-mono text-[#6B6661] group-hover:text-[#1C1A17] transition-all">
+                        {serv.short}
+                      </p>
+                    </div>
+                    <div className="p-1 px-1.5 border border-[#1C1A17]/10 rounded-full shrink-0">
+                      {isExpanded ? (
+                        <ChevronDown className="w-4 h-4 text-[#1C1A17]" />
+                      ) : (
+                        <ChevronRight className="w-4 h-4 text-[#6B6661]" />
+                      )}
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 pb-2 space-y-5">
+                          <p className="text-xs text-[#6B6661] leading-relaxed font-sans max-w-2xl">
+                            {serv.description}
+                          </p>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div>
+                              <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
+                                Curated Deliverables:
+                              </span>
+                              <div className="space-y-1.5">
+                                {serv.deliverables.map((del, i) => (
+                                  <div key={i} className="text-[11px] text-[#6B6661] font-mono flex items-center">
+                                    <span className="w-1.5 h-[1px] bg-[#6B6661]/40 mr-2 shrink-0"></span>
+                                    {del}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
+                                Standard Commission Cadence:
+                              </span>
+                              <div className="p-3 bg-[#1C1A17]/5 border border-[#1C1A17]/10 font-mono text-[11px] text-[#1C1A17]">
+                                <p className="mb-1">Est: {serv.duration}</p>
+                                <p className="text-[#6B6661] leading-snug">Requires development scoping and codebase coordinates.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
     </section>
   );

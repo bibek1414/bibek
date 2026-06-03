@@ -1,566 +1,360 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ChevronRight, Mail, Phone, MapPin, Check } from "lucide-react";
-import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, MapPin, Clock, CheckCircle2 } from "lucide-react";
 import { profileData } from "@/lib/data";
-import { SectionHeader } from "./SectionHeader";
-import { createContact, ContactFormData, ApiError } from "@/lib/api";
+import { createContact } from "@/lib/api";
 import { toast } from "sonner";
 
-// ─── Animated contact row ─────────────────────────────────────────────────────
+interface ProposalFormData {
+  name: string;
+  email: string;
+  type: string;
+  budget: number;
+  goals: string;
+  website?: string; // honeypot
+}
 
-const ContactRow = ({
-  icon: Icon,
-  label,
-  children,
-  index,
-  inView,
-}: {
-  icon: React.ElementType;
-  label: string;
-  children: React.ReactNode;
-  index: number;
-  inView: boolean;
-}) => {
-  const [hovered, setHovered] = useState(false);
-  const delay = 0.2 + index * 0.12;
-
-  return (
-    <motion.div
-      className="flex items-center gap-4 group"
-      initial={{ opacity: 0, x: -24, filter: "blur(6px)" }}
-      animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Icon box — Y-axis flip on entry */}
-      <motion.div
-        className="relative w-12 h-12 rounded-xl border flex items-center justify-center flex-shrink-0 overflow-hidden"
-        initial={{ rotateY: -90, opacity: 0 }}
-        animate={inView ? { rotateY: 0, opacity: 1 } : {}}
-        transition={{ duration: 0.55, delay: delay + 0.1, ease: [0.16, 1, 0.3, 1] }}
-        style={{ perspective: "400px" }}
-      >
-        {/* Idle rock */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          animate={
-            hovered
-              ? { backgroundColor: "rgb(59,130,246)", borderColor: "rgb(59,130,246)" }
-              : { backgroundColor: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)" }
-          }
-          transition={{ duration: 0.2 }}
-        />
-        <motion.span
-          className={`relative z-10 transition-colors duration-200 ${hovered ? "text-white" : "text-brand-blue"}`}
-          animate={!hovered ? { rotate: [0, 2, 0, -2, 0] } : { rotate: 0 }}
-          transition={
-            !hovered
-              ? { duration: 5, repeat: Infinity, ease: "easeInOut", delay: index * 1.2 }
-              : {}
-          }
-        >
-          <Icon size={20} />
-        </motion.span>
-      </motion.div>
-
-      {/* Text */}
-      <motion.div
-        initial={{ opacity: 0, x: -8 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, delay: delay + 0.2 }}
-      >
-        <p className="text-sm text-muted-foreground font-medium">{label}</p>
-        {children}
-      </motion.div>
-    </motion.div>
-  );
-};
-
-// ─── Social icon ──────────────────────────────────────────────────────────────
-
-const SocialIcon = ({
-  href,
-  icon: Icon,
-  index,
-  inView,
-}: {
-  href: string;
-  icon: React.ElementType;
-  index: number;
-  inView: boolean;
-}) => {
-  const [spinning, setSpinning] = useState(false);
-
-  return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground overflow-hidden"
-      initial={{ opacity: 0, scale: 0.4 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{
-        duration: 0.5,
-        delay: 0.6 + index * 0.1,
-        ease: [0.34, 1.56, 0.64, 1],
-      }}
-      whileHover={{
-        backgroundColor: "rgb(59,130,246)",
-        color: "rgb(255,255,255)",
-        borderColor: "rgb(59,130,246)",
-        scale: 1.15,
-      }}
-      onHoverStart={() => setSpinning(true)}
-      onHoverEnd={() => setSpinning(false)}
-    >
-      <motion.span
-        animate={spinning ? { rotate: 360 } : { rotate: 0 }}
-        transition={{ duration: 0.45, ease: "easeInOut" }}
-        style={{ display: "flex" }}
-      >
-        <Icon size={18} />
-      </motion.span>
-    </motion.a>
-  );
-};
-
-// ─── Animated input ───────────────────────────────────────────────────────────
-
-const AnimatedInput = ({
-  id,
-  label,
-  type = "text",
-  required,
-  value,
-  onChange,
-  placeholder,
-  multiline,
-  rows,
-  index,
-  inView,
-}: {
-  id: string;
-  label: string;
-  type?: string;
-  required?: boolean;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  placeholder: string;
-  multiline?: boolean;
-  rows?: number;
-  index: number;
-  inView: boolean;
-}) => {
-  const [focused, setFocused] = useState(false);
-  const hasValue = value.length > 0;
-  const active = focused || hasValue;
-
-  const inputClass =
-    "w-full px-5 py-4 bg-white/5 rounded-xl outline-none text-white placeholder:text-white/20 transition-colors duration-200 resize-none border-transparent border";
-
-  return (
-    <motion.div
-      className="space-y-2 relative"
-      initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
-      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-      transition={{ duration: 0.6, delay: 0.15 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {/* Floating label */}
-      <motion.label
-        htmlFor={id}
-        className="block text-sm font-medium text-muted-foreground"
-        animate={active ? { color: "rgb(59,130,246)", y: 0 } : { color: "rgba(160,160,180,1)", y: 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        {label}
-      </motion.label>
-
-      {/* Border trace container */}
-      <div className="relative">
-        {/* Rotating border glow on focus */}
-        <motion.div
-          className="absolute inset-0 rounded-xl pointer-events-none z-10"
-          style={{
-            background: focused
-              ? "conic-gradient(from 0deg, rgba(59,130,246,0) 0%, rgba(59,130,246,0.7) 20%, rgba(139,92,246,0.4) 50%, rgba(59,130,246,0) 70%)"
-              : "none",
-            WebkitMask:
-              "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-            padding: "1.5px",
-          }}
-          animate={focused ? { rotate: 360 } : { rotate: 0 }}
-          transition={
-            focused
-              ? { rotate: { duration: 2, ease: "linear", repeat: Infinity } }
-              : {}
-          }
-        />
-
-        {/* Static border */}
-        <motion.div
-          className="absolute inset-0 rounded-xl pointer-events-none border"
-          animate={
-            focused
-              ? { borderColor: "rgba(59,130,246,0.5)" }
-              : hasValue
-                ? { borderColor: "rgba(255,255,255,0.12)" }
-                : { borderColor: "rgba(255,255,255,0.08)" }
-          }
-          transition={{ duration: 0.2 }}
-        />
-
-        {multiline ? (
-          <textarea
-            id={id}
-            required={required}
-            rows={rows}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            className={inputClass}
-          />
-        ) : (
-          <input
-            type={type}
-            id={id}
-            required={required}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            className={inputClass}
-          />
-        )}
-      </div>
-    </motion.div>
-  );
-};
-
-// ─── Submit button ────────────────────────────────────────────────────────────
-
-const SubmitButton = ({ submitted, loading }: { submitted: boolean; loading: boolean }) => {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <motion.button
-      type="submit"
-      disabled={loading || submitted}
-      className="relative w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 overflow-hidden active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed border border-white/10 shadow-xl transition-all duration-300"
-      animate={
-        submitted
-          ? { backgroundColor: "rgb(34,197,94)", color: "rgb(255,255,255)" }
-          : hovered
-            ? { backgroundColor: "rgb(255,255,255)", scale: 1.01 }
-            : { backgroundColor: "rgba(255,255,255,0.95)", scale: 1 }
-      }
-      transition={{ duration: 0.3 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-    >
-      {/* Shimmer */}
-      <motion.span
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.35) 50%, transparent 80%)",
-        }}
-        initial={{ x: "-100%" }}
-        animate={hovered && !submitted ? { x: "150%" } : { x: "-100%" }}
-        transition={hovered ? { duration: 0.5, ease: "easeInOut" } : { duration: 0 }}
-      />
-
-      <AnimatePresence mode="wait">
-        {submitted ? (
-          <motion.span
-            key="check"
-            className="flex items-center gap-2 text-white"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ type: "spring", stiffness: 200, damping: 14 }}
-          >
-            <motion.span
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <Check size={18} strokeWidth={3} />
-            </motion.span>
-            Message Sent!
-          </motion.span>
-        ) : (
-          <motion.span
-            key="send"
-            className="flex items-center gap-2 text-background"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            Send Message
-            <motion.span
-              animate={hovered ? { x: 3 } : { x: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronRight size={18} />
-            </motion.span>
-          </motion.span>
-        )}
-      </AnimatePresence>
-      
-      {/* Loading spinner */}
-      {loading && (
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center bg-white/10 backdrop-blur-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <div className="w-6 h-6 border-2 border-background border-t-transparent rounded-full animate-spin" />
-        </motion.div>
-      )}
-    </motion.button>
-  );
-};
-
-// ─── Contact ──────────────────────────────────────────────────────────────────
+type SubmissionStep = "idle" | "verifying" | "caching" | "completed";
 
 export const Contact = () => {
-  const [formState, setFormState] = useState<ContactFormData>({
+  const [formData, setFormData] = useState<ProposalFormData>({
     name: "",
     email: "",
-    phone_number: "",
-    message: "",
-    website: "", // Honeypot
+    type: "Digital Systems",
+    budget: 5000,
+    goals: "",
+    website: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const leftInView = useInView(leftRef, { once: true, margin: "-60px" });
-  const rightInView = useInView(rightRef, { once: true, margin: "-60px" });
+  const [submissionStep, setSubmissionStep] = useState<SubmissionStep>("idle");
+  const [submittedData, setSubmittedData] = useState<ProposalFormData & { timestamp: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Check honeypot
-    if (formState.website) {
-      console.log("Spam detected");
+
+    if (formData.website) {
+      // Honeypot spam filter
       return;
     }
 
-    setLoading(true);
-    try {
-      const { name, email, phone_number, message } = formState;
-      const submitData = { name, email, phone_number, message };
-      await createContact(submitData);
-      setSubmitted(true);
-      toast.success("Message sent successfully!");
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormState({ name: "", email: "", phone_number: "", message: "", website: "" });
-      }, 2800);
-    } catch (error) {
-      const apiError = error as ApiError;
-      toast.error(apiError.message || "Failed to send message. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    setSubmissionStep("verifying");
+
+    // Simulate editorial security validation sequence
+    setTimeout(async () => {
+      setSubmissionStep("caching");
+
+      try {
+        // Construct the message detail for the backend API
+        const richMessage = `[Commission Typology]: ${formData.type}
+[Allocated Budget Limit]: $${formData.budget.toLocaleString()} USD
+
+[Design Scope & Intent]:
+${formData.goals}`;
+
+        // Call the real backend API
+        await createContact({
+          name: formData.name,
+          email: formData.email,
+          phone_number: "",
+          message: richMessage,
+        });
+
+        setTimeout(() => {
+          setSubmittedData({
+            ...formData,
+            timestamp: new Date().toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+          });
+          setSubmissionStep("completed");
+          toast.success("Proposal queued successfully!");
+        }, 1200);
+
+      } catch (error) {
+        toast.error("Failed to submit proposal. Please try again.");
+        setSubmissionStep("idle");
+      }
+    }, 1200);
   };
 
-  const socialIconMap: Record<string, React.ElementType> = {
-    Github: FaGithub,
-    Linkedin: FaLinkedin,
-    Facebook: FaFacebook,
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      type: "Digital Systems",
+      budget: 5000,
+      goals: "",
+      website: "",
+    });
+    setSubmissionStep("idle");
+    setSubmittedData(null);
   };
 
   return (
-    <section id="contact" className="max-w-7xl mx-auto px-6 py-24">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader
-          title="Let's Connect"
-          subtitle="Have a project in mind or just want to say hi? I'm always open to discussing new opportunities."
-          align="center"
-        />
+    <section id="contact" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        
+        {/* Left Side - Info Coordinates */}
+        <div className="lg:col-span-5 space-y-8">
+          <div className="space-y-4">
+            <span className="font-mono text-xs tracking-[0.25em] text-[#6B6661]">
+              09 / Project Initiation
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] tracking-wide leading-tight">
+              Initiate a Commission
+            </h2>
+            <p className="text-[#6B6661] text-sm leading-relaxed font-sans">
+              Ready to introduce structural clarity to your systems or digital products? Use the commission parameters on the right to share your development needs.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-16 max-w-6xl mx-auto">
-          {/* ── Left: Contact Info ───────────────────────────────────────── */}
-          <motion.div
-            ref={leftRef}
-            initial={{ opacity: 0, x: -36, filter: "blur(10px)" }}
-            animate={leftInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-12"
-          >
-            <div className="space-y-4">
-              <motion.h3
-                className="text-3xl font-bold text-white tracking-tight"
-                initial={{ opacity: 0, y: 12 }}
-                animate={leftInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                Contact Information
-              </motion.h3>
-              <motion.p
-                className="text-muted-foreground text-lg leading-relaxed"
-                initial={{ opacity: 0, y: 12 }}
-                animate={leftInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.18 }}
-              >
-                I&apos;m currently looking for new opportunities and collaborations. Whether you
-                have a question or just want to say hi, I&apos;ll try my best to get back to you!
-              </motion.p>
-            </div>
-
-            {/* Contact rows */}
-            <div className="space-y-6">
-              <ContactRow icon={Mail} label="Email Me" index={0} inView={leftInView}>
-                <a
-                  href={`mailto:${profileData.email}`}
-                  className="text-lg text-white font-semibold hover:text-brand-blue transition-colors"
-                >
+          <div className="space-y-6 border-t border-[#E8E6E1] pt-8">
+            <div className="flex items-start space-x-4">
+              <div className="p-2 border border-[#E8E6E1]/80 rounded-none bg-white">
+                <Mail className="w-5 h-5 text-stone-700" />
+              </div>
+              <div>
+                <span className="font-mono text-[10px] text-[#6B6661] block">
+                  Secure Intake Desk
+                </span>
+                <a href={`mailto:${profileData.email}`} className="font-serif text-base text-[#1C1A17] hover:underline">
                   {profileData.email}
                 </a>
-              </ContactRow>
-
-              <ContactRow icon={Phone} label="Call Me" index={1} inView={leftInView}>
-                <a
-                  href={`tel:${profileData.phone}`}
-                  className="text-lg text-white font-semibold hover:text-brand-blue transition-colors"
-                >
-                  {profileData.phone}
-                </a>
-              </ContactRow>
-
-              <ContactRow icon={MapPin} label="Location" index={2} inView={leftInView}>
-                <p className="text-lg text-white font-semibold">Hetauda, Nepal</p>
-              </ContactRow>
-            </div>
-
-            {/* Socials */}
-            <div className="pt-2">
-              <motion.p
-                className="text-sm font-medium text-muted-foreground mb-6"
-                initial={{ opacity: 0 }}
-                animate={leftInView ? { opacity: 1 } : {}}
-                transition={{ delay: 0.55 }}
-              >
-                Social Presence
-              </motion.p>
-              <div className="flex items-center gap-4">
-                {profileData.socials.map((social, idx) => {
-                  const Icon = socialIconMap[social.name];
-                  if (!Icon) return null;
-                  return (
-                    <SocialIcon
-                      key={idx}
-                      href={social.url}
-                      icon={Icon}
-                      index={idx}
-                      inView={leftInView}
-                    />
-                  );
-                })}
               </div>
             </div>
-          </motion.div>
 
-          {/* ── Right: Form ──────────────────────────────────────────────── */}
-          <motion.div
-            ref={rightRef}
-            initial={{ opacity: 0, x: 36, filter: "blur(10px)" }}
-            animate={rightInView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-card p-8 md:p-12 relative overflow-hidden"
-          >
-            {/* Drifting ambient blobs */}
-            <motion.div
-              className="absolute top-0 right-0 w-40 h-40 bg-brand-blue/10 blur-[80px] -z-10 rounded-full"
-              animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="absolute bottom-0 left-0 w-32 h-32 bg-brand-purple/8 blur-[60px] -z-10 rounded-full"
-              animate={{ x: [0, -15, 0], y: [0, 20, 0] }}
-              transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-            />
+            <div className="flex items-start space-x-4">
+              <div className="p-2 border border-[#E8E6E1]/80 rounded-none bg-white">
+                <MapPin className="w-5 h-5 text-stone-700" />
+              </div>
+              <div>
+                <span className="font-mono text-[10px] text-[#6B6661] block">
+                  Physical Coordinates
+                </span>
+                <address className="not-italic font-serif text-base text-[#1C1A17]">
+                  Hetauda, Bagmati Province,<br />
+                  Nepal
+                </address>
+              </div>
+            </div>
 
+            <div className="flex items-start space-x-4">
+              <div className="p-2 border border-[#E8E6E1]/80 rounded-none bg-white">
+                <Clock className="w-5 h-5 text-stone-700" />
+              </div>
+              <div>
+                <span className="font-mono text-[10px] text-[#6B6661] block">
+                  Active Drafting Interval
+                </span>
+                <div className="font-serif text-base text-[#1C1A17]">
+                  09:00 — 17:00 NST<br />
+                  <span className="font-mono text-[11px] text-[#6B6661]">Monday through Friday</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Warning disclaimer */}
+          <div className="p-4 bg-stone-100 border border-[#E8E6E1] text-[11px] font-mono text-[#6B6661] tracking-wide leading-relaxed">
+            * By completing this secure proposal intake, your engineering parameters will be archived in our queue for principal curation. We respond within exactly 48 physical workspace hours.
+          </div>
+        </div>
+
+        {/* Right Side - Form & Steps */}
+        <div className="lg:col-span-7 bg-white border border-[#E8E6E1] p-8 md:p-12">
+          
+          {submissionStep === "idle" && (
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Honeypot field - hidden */}
+              {/* Honeypot spam filter */}
               <div className="hidden">
                 <input
                   type="text"
                   name="website"
-                  value={formState.website as string}
-                  onChange={(e) => setFormState({ ...formState, website: e.target.value })}
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                   tabIndex={-1}
                   autoComplete="off"
                 />
               </div>
 
-              <AnimatedInput
-                id="name"
-                label="Name"
-                required
-                value={formState.name}
-                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                placeholder="John Doe"
-                index={0}
-                inView={rightInView}
-              />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <AnimatedInput
-                  id="email"
-                  label="Email (optional)"
-                  type="email"
-                  value={formState.email || ""}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                  placeholder="john@example.com"
-                  index={1}
-                  inView={rightInView}
-                />
-                <AnimatedInput
-                  id="phone_number"
-                  label="Phone Number (optional)"
-                  type="tel"
-                  value={formState.phone_number || ""}
-                  onChange={(e) => setFormState({ ...formState, phone_number: e.target.value })}
-                  placeholder="+977 98..."
-                  index={1.5}
-                  inView={rightInView}
+              <div>
+                <label htmlFor="client-name" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
+                  Your Name *
+                </label>
+                <input 
+                  id="client-name"
+                  type="text" 
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="E.g., Marcus Aurelier"
+                  className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] rounded-none font-sans"
                 />
               </div>
-              <AnimatedInput
-                id="message"
-                label="Message"
-                required
-                multiline
-                rows={5}
-                value={formState.message}
-                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                placeholder="Hi, I'd like to talk about..."
-                index={2}
-                inView={rightInView}
-              />
 
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={rightInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.55 }}
+              <div>
+                <label htmlFor="client-email" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
+                  Electronic Mail Coordinates *
+                </label>
+                <input 
+                  id="client-email"
+                  type="email" 
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="E.g., marcus@aurelier-partners.com"
+                  className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] rounded-none font-sans"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="commission-type" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
+                    Commission Category
+                  </label>
+                  <select 
+                    id="commission-type"
+                    value={formData.type}
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                    className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] select-none rounded-none font-sans"
+                  >
+                    <option value="Digital Systems">Digital Systems & Code Craft</option>
+                    <option value="Fullstack Application">Fullstack Web App Engineering</option>
+                    <option value="AI Integration">AI Integration & Pipelines</option>
+                    <option value="Consulting">Technical Scope Scrutiny</option>
+                  </select>
+                </div>
+
+                <div>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <label htmlFor="budget-slider" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-semibold">
+                      Allocated Budget Limit
+                    </label>
+                    <span className="font-mono text-xs text-[#1C1A17] font-bold">
+                      ${formData.budget.toLocaleString()}
+                    </span>
+                  </div>
+                  <input 
+                    id="budget-slider"
+                    type="range" 
+                    min="1000" 
+                    max="50000" 
+                    step="1000"
+                    value={formData.budget}
+                    onChange={(e) => setFormData({ ...formData, budget: parseInt(e.target.value) })}
+                    className="w-full h-1 bg-[#E8E6E1] rounded-none outline-none accent-[#1C1A17] cursor-pointer"
+                  />
+                  <div className="flex justify-between text-[9px] font-mono text-[#6B6661] mt-1.5">
+                    <span>$1k</span>
+                    <span>$25k</span>
+                    <span>$50k+</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="project-goals" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
+                  Development Scope and Intent
+                </label>
+                <textarea 
+                  id="project-goals"
+                  required
+                  rows={4}
+                  value={formData.goals}
+                  onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
+                  placeholder="Detail the technical specifications, architectural boundaries, or high-end platform requirements..."
+                  className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] resize-none rounded-none font-sans"
+                />
+              </div>
+
+              <button 
+                type="submit"
+                className="w-full bg-[#1C1A17] text-[#FAF9F6] py-4 text-xs font-mono tracking-widest hover:bg-[#1c1a17]/90 transition-colors font-semibold cursor-pointer"
               >
-                <SubmitButton submitted={submitted} loading={loading} />
-              </motion.div>
+                Archive Proposal Commission
+              </button>
             </form>
-          </motion.div>
+          )}
+
+          {submissionStep === "verifying" && (
+            <div className="h-96 flex flex-col items-center justify-center space-y-6">
+              <div className="w-12 h-12 border-2 border-stone-100 border-t-stone-800 rounded-full animate-spin"></div>
+              <div className="text-center space-y-1">
+                <p className="font-mono text-xs tracking-widest font-bold">Verifying Coordinates</p>
+                <p className="text-[11px] font-mono text-[#6B6661]">Filtering spam & evaluating envelope standards...</p>
+              </div>
+            </div>
+          )}
+
+          {submissionStep === "caching" && (
+            <div className="h-96 flex flex-col items-center justify-center space-y-6">
+              <div className="w-12 h-12 border-2 border-stone-100 border-t-stone-800 rounded-full animate-spin"></div>
+              <div className="text-center space-y-1">
+                <p className="font-mono text-xs tracking-widest font-bold">Securing Storage Entry</p>
+                <p className="text-[11px] font-mono text-[#6B6661]">Committing parameters to design queue vault...</p>
+              </div>
+            </div>
+          )}
+
+          {submissionStep === "completed" && submittedData && (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="space-y-8"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="bg-stone-900 p-3 text-[#FAF9F6]">
+                  <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl tracking-wide font-medium text-[#1C1A17]">
+                    Commission Queued
+                  </h3>
+                  <p className="font-mono text-[10px] text-[#6B6661]">
+                    Archived Entry at {submittedData.timestamp}
+                  </p>
+                </div>
+              </div>
+
+              <div className="border border-[#E8E6E1]/80 p-6 bg-[#FAF9F6]/50 space-y-4">
+                <p className="text-sm text-[#6B6661] leading-relaxed font-sans">
+                  Thank you <strong className="text-[#1C1A17]">{submittedData.name}</strong>. Your development scope parameters have been successfully received and allocated in our queue for review:
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 border-t border-[#E8E6E1] pt-4 font-mono text-[11px]">
+                  <div>
+                    <span className="text-[#6B6661] block">Commission Typology</span>
+                    <strong className="text-[#1C1A17]">{submittedData.type}</strong>
+                  </div>
+                  <div>
+                    <span className="text-[#6B6661] block">Target Invest Limit</span>
+                    <strong className="text-[#1C1A17]">${submittedData.budget.toLocaleString()} USD</strong>
+                  </div>
+                  <div className="col-span-2 pt-2 border-t border-[#E8E6E1]/50">
+                    <span className="text-[#6B6661] block">Electronic Log</span>
+                    <strong className="text-[#1C1A17] text-xs font-semibold">{submittedData.email}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-stone-100 border border-[#E8E6E1] text-xs leading-relaxed text-[#6B6661] font-mono">
+                We will review your submission and connect with you on technical feasibility. Expect an email scoping invitation soon.
+              </div>
+
+              <button 
+                onClick={resetForm}
+                className="px-6 py-3 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] text-xs font-mono tracking-widest transition-all rounded-none cursor-pointer"
+              >
+                Submit alternative scope
+              </button>
+            </motion.div>
+          )}
         </div>
+
       </div>
     </section>
   );

@@ -3,9 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { blogs } from "@/lib/data";
-import { SectionHeader } from "./SectionHeader";
 import Link from "next/link";
-import { Calendar, Clock, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const BlogPreview = () => {
@@ -13,71 +12,79 @@ export const BlogPreview = () => {
   const router = useRouter();
 
   return (
-    <section id="blog-preview" className="max-w-7xl mx-auto px-6 py-24">
-      <SectionHeader
-        title="Latest Insights"
-        subtitle="Exploring the frontiers of web development, AI, and software engineering through deep-dives and tutorials."
-        align="center"
-      />
+    <section id="blog" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="space-y-4">
+            <span className="font-mono text-xs text-[#6B6661]">
+              07 / Written Records
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
+              Latest Insights
+            </h2>
+          </div>
+          <p className="text-[#6B6661] text-sm max-w-md font-sans leading-relaxed">
+            Exploring backend engineering patterns, Next.js optimization strategies, and systematic API pipelines.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-        {latestBlogs.map((blog, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="group relative bg-white/5 border border-white/10 rounded-4xl overflow-hidden hover:border-brand-blue/30 transition-all duration-300 cursor-pointer"
-            onClick={() => router.push(`/blog/${blog.slug}`)}
-          >
-            <div className="p-8 space-y-4">
-              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-brand-blue">
-                <span>{blog.category}</span>
-              </div>
-              
-              <h3 className="text-xl font-bold text-white group-hover:text-brand-blue transition-colors line-clamp-2">
-                <Link href={`/blog/${blog.slug}`}>
-                  {blog.title}
-                </Link>
-              </h3>
-              
-              <p className="text-muted-foreground line-clamp-3 text-sm leading-relaxed">
-                {blog.excerpt}
-              </p>
-
-              <div className="pt-4 flex items-center justify-between border-t border-white/5">
-                <div className="flex items-center gap-4 text-xs text-white/40">
-                  <span className="flex items-center gap-1">
-                    <Calendar size={12} />
-                    {blog.date}
+        {/* Blog Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {latestBlogs.map((blog, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between cursor-pointer hover:border-[#1C1A17] transition-colors duration-300"
+              onClick={() => router.push(`/blog/${blog.slug}`)}
+            >
+              <div className="p-8 space-y-6 flex-1 flex flex-col justify-between bg-white">
+                <div className="space-y-4">
+                  <span className="font-mono text-[9px] text-[#1C1A17] bg-[#E8E6E1] px-2.5 py-0.5 w-fit block">
+                    {blog.category}
                   </span>
-                  <span className="flex items-center gap-1">
-                    <Clock size={12} />
-                    {blog.readTime}
+                  
+                  <h3 className="font-serif text-xl font-medium text-[#1C1A17] group-hover:text-stone-600 transition-colors line-clamp-2">
+                    <Link href={`/blog/${blog.slug}`} onClick={(e) => e.stopPropagation()}>
+                      {blog.title}
+                    </Link>
+                  </h3>
+                  
+                  <p className="text-xs text-[#6B6661] leading-relaxed font-sans line-clamp-3">
+                    {blog.excerpt}
+                  </p>
+                </div>
+
+                <div className="pt-6 border-t border-[#E8E6E1] flex items-center justify-between">
+                  <div className="flex space-x-3 text-[10px] font-mono text-[#6B6661]">
+                    <span>{blog.date}</span>
+                    <span>&bull;</span>
+                    <span>{blog.readTime}</span>
+                  </div>
+                  
+                  <span className="text-[#1C1A17] group-hover:translate-x-1 transition-transform flex items-center">
+                    <ChevronRight size={16} />
                   </span>
                 </div>
-                
-                <Link 
-                  href={`/blog/${blog.slug}`}
-                  className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-white group-hover:bg-brand-blue transition-all"
-                >
-                  <ChevronRight size={16} />
-                </Link>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="flex justify-center mt-12">
-        <Link 
-          href="/blog"
-          className="text-sm font-bold text-white/60 hover:text-white flex items-center gap-2 transition-colors group"
-        >
-          View all articles
-          <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-        </Link>
+        <div className="flex justify-center mt-16">
+          <Link 
+            href="/blog"
+            className="px-8 py-4 border border-[#1C1A17] text-[#1C1A17] text-xs font-mono font-medium hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-all flex items-center gap-2"
+          >
+            View all articles
+            <ChevronRight size={14} />
+          </Link>
+        </div>
+
       </div>
     </section>
   );
