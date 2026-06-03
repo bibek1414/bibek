@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   keywords: ["Bibek Bhattarai", "Full Stack Developer", "Software Engineer", "React Developer", "Next.js Portfolio", "Nepal Developer"],
 };
 
-const jsonLd = {
+const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Bibek Bhattarai Portfolio",
@@ -35,13 +35,57 @@ const jsonLd = {
   "description": "Explore the professional portfolio of Bibek Bhattarai, a versatile Full Stack Developer specializing in React, Next.js, Node.js, and modern web architectures."
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What services do you provide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I specialize in full-stack web development, creating high-performance applications with React, Next.js, and Node.js. My services also include machine learning integration, DevOps automation, and UI/UX design focusing on premium digital experiences."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a typical project take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The timeline depends on the complexity of the project. A standard business website might take 2-4 weeks, while a complex full-stack application could take 8-12 weeks. I prioritize quality and performance in every project I undertake."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you work with startups and international clients?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, I have extensive experience working with startups and collaborating with international clients across different time zones. I use modern communication and project management tools to ensure smooth collaboration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is your approach to SEO and Performance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I build websites with a performance-first mindset, ensuring fast load times and excellent Core Web Vitals. I implement technical SEO best practices, including semantic HTML, meta-tag optimization, and structured data (JSON-LD) for better search engine visibility."
+      }
+    }
+  ]
+};
+
 export default function Home() {
   return (
     <div className="flex flex-col pb-24">
       <Script
-        id="home-jsonld"
+        id="home-website-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <Script
+        id="home-faq-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       {/* Hero section */}
       <Hero />

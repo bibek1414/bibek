@@ -3,6 +3,7 @@ import { blogs } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import Script from "next/script";
 import type { Metadata } from "next";
 
 interface Props {
@@ -54,9 +55,34 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": blog.title,
+    "description": blog.excerpt,
+    "datePublished": blog.date,
+    "author": {
+      "@type": "Person",
+      "name": "Bibek Bhattarai"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Bibek Bhattarai"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://bibekbhattarai14.com.np/blog/${slug}`
+    }
+  };
+
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-[#FAF9F6]">
-      <div className="max-w-4xl mx-auto">
+    <main className="pt-32 pb-24 min-h-screen bg-[#FAF9F6]">
+      <Script
+        id="blog-post-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="max-w-4xl mx-auto px-6">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-[#6B6661] hover:text-[#1C1A17] transition-colors mb-8 group font-mono text-xs"

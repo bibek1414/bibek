@@ -67,7 +67,7 @@ export const Services = () => {
         <div className="lg:col-span-7 space-y-8">
           <div className="space-y-4">
             <span className="font-mono text-xs text-[#6B6661]">
-              03 / Tactical Capabilities
+              02 / Tactical Capabilities
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
               Studio Services

@@ -37,7 +37,7 @@ export const Experience = () => {
         {/* Left Stick Column */}
         <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-28 h-fit">
           <span className="font-mono text-xs tracking-[0.25em] text-[#6B6661]">
-            05 / Historic Milestones
+            07 / Historic Milestones
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] tracking-wide">
             Chronology

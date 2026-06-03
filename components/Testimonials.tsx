@@ -43,7 +43,7 @@ export const Testimonials = () => {
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-2">
             <span className="font-mono text-xs text-[#6B6661]">
-              06 / Direct Feedback
+              05 / Direct Feedback
             </span>
             <h2 className="font-serif text-3xl text-[#1C1A17] font-medium">
               Client Dialogues

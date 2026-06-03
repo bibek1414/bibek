@@ -44,13 +44,13 @@ const jsonLd = {
 
 export default function BlogPage() {
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen bg-[#FAF9F6]">
+    <main className="pt-32 pb-24 min-h-screen bg-[#FAF9F6]">
       <Script
         id="blog-jsonld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="space-y-4">
           <span className="font-mono text-xs text-[#6B6661]">
             07 / Written Records

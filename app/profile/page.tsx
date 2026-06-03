@@ -27,8 +27,8 @@ export default function ProfilePage() {
   ];
 
   return (
-    <main className="pt-32 pb-24 px-6 min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <main className="pt-32 pb-24 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6">
         <SectionHeader 
           title="Digital Identity" 
           subtitle="Experienced in architecting modern web applications and machine learning pipelines."

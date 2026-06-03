@@ -50,7 +50,7 @@ export const Newsletter = () => {
 
             <div className="space-y-4">
               <span className="font-mono text-xs text-[#6B6661]">
-                07 / Dispatch
+                09 / Dispatch
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
                 Stay in the Loop
