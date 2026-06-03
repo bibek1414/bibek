@@ -136,7 +136,7 @@ ${formData.goals}`;
                   Physical Coordinates
                 </span>
                 <address className="not-italic font-serif text-base text-[#1C1A17]">
-                  Hetauda, Bagmati Province,<br />
+                  Sankhamul, Lalitpur,<br />
                   Nepal
                 </address>
               </div>

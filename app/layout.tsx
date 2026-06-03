@@ -108,7 +108,7 @@ const jsonLd = {
   description: "React and Next.js developer building modern web applications with a focus on frontend creativity and backend efficiency.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Hetauda",
+    addressLocality: "Sankhamul, Lalitpur",
     addressCountry: "NP"
   },
   knowsAbout: [

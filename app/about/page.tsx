@@ -30,7 +30,7 @@ const jsonLd = {
     "jobTitle": "Software Developer",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Hetauda",
+      "addressLocality": "Sankhamul, Lalitpur",
       "addressCountry": "NP"
     }
   }

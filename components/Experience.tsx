@@ -8,7 +8,7 @@ const CHRONOLOGY = [
     title: "Software Developer",
     institution: "Baliyo Technologies",
     type: "Work",
-    location: "Hetauda, NP",
+    location: "Sankhamul, Lalitpur, NP",
     description: "Leading the development of complex web applications using Next.js and Node.js. Focused on optimizing performance, implementing robust backend systems with PostgreSQL, and ensuring seamless deployment using Docker and AWS.",
   },
   {
