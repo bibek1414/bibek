@@ -102,13 +102,13 @@ ${formData.goals}`;
         <div className="lg:col-span-5 space-y-8">
           <div className="space-y-4">
             <span className="font-mono text-xs tracking-[0.25em] text-[#6B6661]">
-              11 / Project Initiation
+              11 / Start a Project
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] tracking-wide leading-tight">
-              Initiate a Commission
+              Get in Touch
             </h2>
             <p className="text-[#6B6661] text-sm leading-relaxed font-sans">
-              Ready to introduce structural clarity to your systems or digital products? Use the commission parameters on the right to share your development needs.
+              Ready to bring your ideas to life? Use the form on the right to share your project details and get started.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ ${formData.goals}`;
               </div>
               <div>
                 <span className="font-mono text-[10px] text-[#6B6661] block">
-                  Secure Intake Desk
+                  Email Address
                 </span>
                 <a href={`mailto:${profileData.email}`} className="font-serif text-base text-[#1C1A17] hover:underline">
                   {profileData.email}
@@ -133,7 +133,7 @@ ${formData.goals}`;
               </div>
               <div>
                 <span className="font-mono text-[10px] text-[#6B6661] block">
-                  Physical Coordinates
+                  Location
                 </span>
                 <address className="not-italic font-serif text-base text-[#1C1A17]">
                   Sankhamul, Lalitpur,<br />
@@ -148,11 +148,11 @@ ${formData.goals}`;
               </div>
               <div>
                 <span className="font-mono text-[10px] text-[#6B6661] block">
-                  Active Drafting Interval
+                  Working Hours
                 </span>
                 <div className="font-serif text-base text-[#1C1A17]">
                   09:00 — 17:00 NST<br />
-                  <span className="font-mono text-[11px] text-[#6B6661]">Monday through Friday</span>
+                  <span className="font-mono text-[11px] text-[#6B6661]">Monday to Friday</span>
                 </div>
               </div>
             </div>
@@ -160,7 +160,7 @@ ${formData.goals}`;
 
           {/* Warning disclaimer */}
           <div className="p-4 bg-stone-100 border border-[#E8E6E1] text-[11px] font-mono text-[#6B6661] tracking-wide leading-relaxed">
-            * By completing this secure proposal intake, your engineering parameters will be archived in our queue for principal curation. We respond within exactly 48 physical workspace hours.
+            * By submitting this form, your request will be sent to my inbox for review. I typically respond within 48 business hours.
           </div>
         </div>
 
@@ -198,7 +198,7 @@ ${formData.goals}`;
 
               <div>
                 <label htmlFor="client-email" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
-                  Electronic Mail Coordinates *
+                  Email Address *
                 </label>
                 <input 
                   id="client-email"
@@ -214,7 +214,7 @@ ${formData.goals}`;
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="commission-type" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
-                    Commission Category
+                    Project Category
                   </label>
                   <select 
                     id="commission-type"
@@ -222,17 +222,17 @@ ${formData.goals}`;
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                     className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] select-none rounded-none font-sans"
                   >
-                    <option value="Digital Systems">Digital Systems & Code Craft</option>
-                    <option value="Fullstack Application">Fullstack Web App Engineering</option>
-                    <option value="AI Integration">AI Integration & Pipelines</option>
-                    <option value="Consulting">Technical Scope Scrutiny</option>
+                    <option value="Digital Systems">Software Development</option>
+                    <option value="Fullstack Application">Full Stack Web Apps</option>
+                    <option value="AI Integration">AI & Data Solutions</option>
+                    <option value="Consulting">Consulting & Strategy</option>
                   </select>
                 </div>
 
                 <div>
                   <div className="flex justify-between items-baseline mb-2">
                     <label htmlFor="budget-slider" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-semibold">
-                      Allocated Budget Limit
+                      Estimated Budget
                     </label>
                     <span className="font-mono text-xs text-[#1C1A17] font-bold">
                       ${formData.budget.toLocaleString()}
@@ -258,7 +258,7 @@ ${formData.goals}`;
 
               <div>
                 <label htmlFor="project-goals" className="font-mono text-[10px] tracking-widest text-[#1C1A17] block font-bold mb-2">
-                  Development Scope and Intent
+                  Project Details
                 </label>
                 <textarea 
                   id="project-goals"
@@ -266,7 +266,7 @@ ${formData.goals}`;
                   rows={4}
                   value={formData.goals}
                   onChange={(e) => setFormData({ ...formData, goals: e.target.value })}
-                  placeholder="Detail the technical specifications, architectural boundaries, or high-end platform requirements..."
+                  placeholder="Describe your project, goals, and what you would like to build..."
                   className="w-full bg-[#FAF9F6] border border-[#E8E6E1] text-sm text-[#1C1A17] px-4 py-3 focus:outline-none focus:border-[#1C1A17] resize-none rounded-none font-sans"
                 />
               </div>
@@ -275,7 +275,7 @@ ${formData.goals}`;
                 type="submit"
                 className="w-full bg-[#1C1A17] text-[#FAF9F6] py-4 text-xs font-mono tracking-widest hover:bg-[#1c1a17]/90 transition-colors font-semibold cursor-pointer"
               >
-                Archive Proposal Commission
+                Send Message
               </button>
             </form>
           )}
@@ -284,8 +284,8 @@ ${formData.goals}`;
             <div className="h-96 flex flex-col items-center justify-center space-y-6">
               <div className="w-12 h-12 border-2 border-stone-100 border-t-stone-800 rounded-full animate-spin"></div>
               <div className="text-center space-y-1">
-                <p className="font-mono text-xs tracking-widest font-bold">Verifying Coordinates</p>
-                <p className="text-[11px] font-mono text-[#6B6661]">Filtering spam & evaluating envelope standards...</p>
+                <p className="font-mono text-xs tracking-widest font-bold">Verifying Details</p>
+                <p className="text-[11px] font-mono text-[#6B6661]">Checking input fields...</p>
               </div>
             </div>
           )}
@@ -294,8 +294,8 @@ ${formData.goals}`;
             <div className="h-96 flex flex-col items-center justify-center space-y-6">
               <div className="w-12 h-12 border-2 border-stone-100 border-t-stone-800 rounded-full animate-spin"></div>
               <div className="text-center space-y-1">
-                <p className="font-mono text-xs tracking-widest font-bold">Securing Storage Entry</p>
-                <p className="text-[11px] font-mono text-[#6B6661]">Committing parameters to design queue vault...</p>
+                <p className="font-mono text-xs tracking-widest font-bold">Sending Message</p>
+                <p className="text-[11px] font-mono text-[#6B6661]">Delivering your message...</p>
               </div>
             </div>
           )}
@@ -312,44 +312,44 @@ ${formData.goals}`;
                 </div>
                 <div>
                   <h3 className="font-serif text-xl tracking-wide font-medium text-[#1C1A17]">
-                    Commission Queued
+                    Message Sent!
                   </h3>
                   <p className="font-mono text-[10px] text-[#6B6661]">
-                    Archived Entry at {submittedData.timestamp}
+                    Sent at {submittedData.timestamp}
                   </p>
                 </div>
               </div>
 
               <div className="border border-[#E8E6E1]/80 p-6 bg-[#FAF9F6]/50 space-y-4">
                 <p className="text-sm text-[#6B6661] leading-relaxed font-sans">
-                  Thank you <strong className="text-[#1C1A17]">{submittedData.name}</strong>. Your development scope parameters have been successfully received and allocated in our queue for review:
+                  Thank you <strong className="text-[#1C1A17]">{submittedData.name}</strong>. Your inquiry has been successfully sent. I will review the details and get back to you soon:
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 border-t border-[#E8E6E1] pt-4 font-mono text-[11px]">
                   <div>
-                    <span className="text-[#6B6661] block">Commission Typology</span>
+                    <span className="text-[#6B6661] block">Project Category</span>
                     <strong className="text-[#1C1A17]">{submittedData.type}</strong>
                   </div>
                   <div>
-                    <span className="text-[#6B6661] block">Target Invest Limit</span>
+                    <span className="text-[#6B6661] block">Estimated Budget</span>
                     <strong className="text-[#1C1A17]">${submittedData.budget.toLocaleString()} USD</strong>
                   </div>
                   <div className="col-span-2 pt-2 border-t border-[#E8E6E1]/50">
-                    <span className="text-[#6B6661] block">Electronic Log</span>
+                    <span className="text-[#6B6661] block">Email Address</span>
                     <strong className="text-[#1C1A17] text-xs font-semibold">{submittedData.email}</strong>
                   </div>
                 </div>
               </div>
 
               <div className="p-4 bg-stone-100 border border-[#E8E6E1] text-xs leading-relaxed text-[#6B6661] font-mono">
-                We will review your submission and connect with you on technical feasibility. Expect an email scoping invitation soon.
+                I will review your message and reply via email to discuss the next steps.
               </div>
 
               <button 
                 onClick={resetForm}
                 className="px-6 py-3 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] text-xs font-mono tracking-widest transition-all rounded-none cursor-pointer"
               >
-                Submit alternative scope
+                Send another message
               </button>
             </motion.div>
           )}

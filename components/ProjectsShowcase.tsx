@@ -39,7 +39,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-4">
             <span className="font-mono text-xs text-[#6B6661]">
-              03 / Selected Commissions
+              03 / Selected Projects
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
               Selected Works
@@ -125,7 +125,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                       onClick={() => setSelectedProject(project as Project)}
                       className="font-mono text-[10px] text-[#1C1A17] flex items-center hover:translate-x-1 transition-transform font-medium cursor-pointer"
                     >
-                      Specification
+                      View Details
                       <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </button>
                   </div>
@@ -194,7 +194,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
 
                   <div className="space-y-3">
                     <span className="font-mono text-[11px] text-[#1C1A17] block font-bold">
-                      Material Formulation / Directives:
+                      Technologies Used:
                     </span>
                     <ul className="space-y-1">
                       {selectedProject.materials.map((material, i) => (
@@ -208,7 +208,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
 
                   <div className="space-y-3 pt-2">
                     <span className="font-mono text-[11px] text-[#1C1A17] block font-bold">
-                      Design & Integration Notes:
+                      Key Highlights:
                     </span>
                     <div className="space-y-2">
                       {selectedProject.details.map((detail, index) => (

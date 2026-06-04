@@ -12,7 +12,7 @@ export const About = () => {
         <div className="lg:col-span-6 relative">
           <div className="aspect-[4/5] relative w-full overflow-hidden bg-[#E8E6E1] border border-[#E8E6E1]">
             <img 
-              src="/photos/IMG20260502074315.jpg" 
+              src="/photos/IMG-20251005-WA0402.jpg" 
               alt="Quiet architectural landscape" 
               className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 hover:scale-[1.02] transition-all duration-1000 ease-out"
             />

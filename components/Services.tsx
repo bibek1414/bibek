@@ -16,26 +16,26 @@ interface Service {
 const SERVICES: Service[] = [
   {
     id: "fullstack",
-    title: "Full Stack Web & Application Engineering",
-    short: "Forming robust client interfaces coupled with scalable backend APIs.",
-    description: "Bespoke Next.js layouts, server-side data mutations, and responsive, interactive components. Engineered with strict performance budgets, optimized layouts, and TypeScript state models.",
-    deliverables: ["Custom Next.js Systems", "Typesafe State Architecture", "Responsive Layout Layouts", "REST & WebSocket Endpoints"],
+    title: "Full Stack Web Development",
+    short: "Building responsive frontends and scalable backend APIs.",
+    description: "Custom Next.js applications, server-side rendering, and responsive, interactive interfaces. Designed for high performance and clean, maintainable code.",
+    deliverables: ["Custom Next.js Systems", "State Management", "Responsive Design", "REST & WebSocket Endpoints"],
     duration: "1 to 3 months",
   },
   {
     id: "systems",
-    title: "Systems Integration & AI Curation",
-    short: "Integrating advanced analytics, language models, and databases.",
-    description: "Data extraction pipelines, real-time sentiment analysis, text-based analytics, and scalable integrations. Standardizing unstructured data into clean SQL or document stores.",
-    deliverables: ["Data Analytics Pipelines", "Sentiment Analysis Modules", "Database Schema Designs", "Python Integration Scripts"],
+    title: "Systems & AI Integration",
+    short: "Integrating analytics, artificial intelligence, and databases.",
+    description: "Building data pipelines, integrating AI models, and structured databases to help make data-driven decisions.",
+    deliverables: ["Data Pipelines", "AI Model Integration", "Database Schema Design", "Python Scripts"],
     duration: "1 to 2 months",
   },
   {
     id: "cloud",
-    title: "Cloud Architecture & DevOps Operations",
-    short: "Deploying secure, isolated containers with automated workflows.",
-    description: "Docker multi-stage files, AWS infrastructure components, Vercel deployments, secure domain routing, database backup schedules, and GitHub Actions automation workflows.",
-    deliverables: ["Docker Integration Plans", "CI/CD Deploy Scripts", "Cloud Infrastructure Maps", "Security Hardening Setups"],
+    title: "Cloud & DevOps",
+    short: "Setting up secure deployments and automated workflows.",
+    description: "Configuring CI/CD pipelines, Docker, AWS infrastructure, Vercel deployments, and secure domain routing.",
+    deliverables: ["Docker Configurations", "CI/CD Pipelines", "Cloud Infrastructure Maps", "Security Hardening Setups"],
     duration: "2 to 4 weeks",
   },
 ];
@@ -67,13 +67,13 @@ export const Services = () => {
         <div className="lg:col-span-7 space-y-8">
           <div className="space-y-4">
             <span className="font-mono text-xs text-[#6B6661]">
-              02 / Tactical Capabilities
+              02 / Services Offered
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
-              Studio Services
+              Services Offered
             </h2>
             <p className="text-[#6B6661] text-sm leading-relaxed max-w-xl font-sans">
-              Click on each engineering capability below to reveal operational details, cycle timelines, and concrete deliverables.
+              Click on each service below to view description details, estimated timelines, and key deliverables.
             </p>
           </div>
 
@@ -123,7 +123,7 @@ export const Services = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <div>
                               <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
-                                Curated Deliverables:
+                                Key Deliverables:
                               </span>
                               <div className="space-y-1.5">
                                 {serv.deliverables.map((del, i) => (
@@ -137,11 +137,11 @@ export const Services = () => {
 
                             <div>
                               <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
-                                Standard Commission Cadence:
+                                Estimated Timeline:
                               </span>
                               <div className="p-3 bg-[#1C1A17]/5 border border-[#1C1A17]/10 font-mono text-[11px] text-[#1C1A17]">
                                 <p className="mb-1">Est: {serv.duration}</p>
-                                <p className="text-[#6B6661] leading-snug">Requires development scoping and codebase coordinates.</p>
+                                <p className="text-[#6B6661] leading-snug">Depends on project scope and requirements.</p>
                               </div>
                             </div>
                           </div>
