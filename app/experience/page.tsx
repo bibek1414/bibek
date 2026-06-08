@@ -1,52 +1,63 @@
 import { Experience as ExperienceComponent } from "@/components/Experience";
-import type { Metadata } from "next";
-import Script from "next/script";
+import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
+import { JsonLd } from "@/components/shared/json-ld";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
-export const metadata: Metadata = {
-  title: "Experience",
-  description: "Professional journey, career history, and educational background of Bibek Bhattarai.",
-  alternates: {
-    canonical: "/experience",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://bibekbhattarai14.com.np/experience",
-    title: "Work Experience | Bibek Bhattarai",
-    description: "Review my professional history and educational milestones.",
-  },
-  twitter: {
-    title: "Work Experience | Bibek Bhattarai",
-    description: "Professional career summary of Bibek Bhattarai.",
-  }
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Experience - Bibek Bhattarai",
-  "description": "Professional experience and education of Bibek Bhattarai.",
-  "mainEntity": {
-    "@type": "Person",
-    "name": "Bibek Bhattarai",
-    "hasCredential": [
-      {
-        "@type": "EducationalOccupationalCredential",
-        "credentialCategory": "degree",
-        "educationalLevel": "Bachelor's",
-        "about": "Computer Science"
-      }
-    ]
-  }
-};
+export const metadata = buildMarketingMetadata({
+  title: "Experience | Bibek Bhattarai - Career & Education",
+  description: "Professional journey, career history, and educational background of Bibek Bhattarai. Review my professional history and educational milestones.",
+  path: "/experience",
+  ogLabel: "Professional Journey",
+});
 
 export default function ExperiencePage() {
+  const experienceSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Experience - Bibek Bhattarai",
+    "description": "Professional experience and education of Bibek Bhattarai.",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Bibek Bhattarai",
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "degree",
+          "educationalLevel": "Bachelor's",
+          "about": "Computer Science"
+        }
+      ]
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": absoluteUrl(),
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Experience",
+        "item": absoluteUrl("/experience"),
+      },
+    ],
+  };
+
   return (
-    <main className="pt-20">
-      <Script
-        id="experience-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <main className="pt-24 min-h-screen bg-[#FAF9F6]">
+      <JsonLd id="experience-schema" data={experienceSchema} />
+      <JsonLd id="experience-breadcrumb" data={breadcrumbSchema} />
+      
+      <div className="max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ label: "Experience", href: "/experience" }]} />
+      </div>
+
       <ExperienceComponent />
     </main>
   );

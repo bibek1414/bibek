@@ -1,45 +1,56 @@
 import { Skills as SkillsComponent } from "@/components/Skills";
-import type { Metadata } from "next";
-import Script from "next/script";
+import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
+import { JsonLd } from "@/components/shared/json-ld";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
-export const metadata: Metadata = {
-  title: "Skills",
-  description: "Detailed overview of the technical skills and technologies mastered by Bibek Bhattarai, including React, Node.js, and Machine Learning.",
-  alternates: {
-    canonical: "/skills",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://bibekbhattarai14.com.np/skills",
-    title: "Technical Skills | Bibek Bhattarai",
-    description: "Explore the technologies I use to build high-performance web applications.",
-  },
-  twitter: {
-    title: "Technical Skills | Bibek Bhattarai",
-    description: "A comprehensive look at my tech stack and expertise.",
-  }
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Skills - Bibek Bhattarai",
-  "description": "Technical skills and technologies mastered by Bibek Bhattarai.",
-  "mainEntity": {
-    "@type": "Person",
-    "name": "Bibek Bhattarai",
-    "knowsAbout": ["React", "Next.js", "TypeScript", "Node.js", "Python", "Django", "AWS", "Docker"]
-  }
-};
+export const metadata = buildMarketingMetadata({
+  title: "Skills | Bibek Bhattarai - Tech Stack & Expertise",
+  description: "Detailed overview of the technical skills and technologies mastered by Bibek Bhattarai. Explore the tech stack including React, Next.js, Node.js, and Machine Learning.",
+  path: "/skills",
+  ogLabel: "Competencies",
+});
 
 export default function SkillsPage() {
+  const skillsSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Skills - Bibek Bhattarai",
+    "description": "Technical skills and technologies mastered by Bibek Bhattarai.",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Bibek Bhattarai",
+      "knowsAbout": ["React", "Next.js", "TypeScript", "Node.js", "Python", "Django", "AWS", "Docker"]
+    }
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": absoluteUrl(),
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Skills",
+        "item": absoluteUrl("/skills"),
+      },
+    ],
+  };
+
   return (
-    <main className="pt-20">
-      <Script
-        id="skills-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <main className="pt-24 min-h-screen bg-[#FAF9F6]">
+      <JsonLd id="skills-schema" data={skillsSchema} />
+      <JsonLd id="skills-breadcrumb" data={breadcrumbSchema} />
+      
+      <div className="max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ label: "Skills", href: "/skills" }]} />
+      </div>
+
       <SkillsComponent />
     </main>
   );

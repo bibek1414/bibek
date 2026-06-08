@@ -6,8 +6,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
-import Script from "next/script";
 import { Toaster } from "sonner";
+import { JsonLd } from "@/components/shared/json-ld";
+import { SITE_URL } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,7 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bibekbhattarai14.com.np"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Bibek Bhattarai | React & Next.js Developer",
     template: "%s | Bibek Bhattarai"
@@ -55,8 +56,8 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://bibekbhattarai14.com.np",
+    locale: "en_NP",
+    url: SITE_URL,
     siteName: "Bibek Bhattarai Portfolio",
     title: "Bibek Bhattarai | React & Next.js Developer",
     description: "Modern web developer portfolio showcasing React and Next.js projects.",
@@ -93,8 +94,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Bibek Bhattarai",
-  url: "https://bibekbhattarai14.com.np",
-  image: "https://bibekbhattarai14.com.np/images/profile.png",
+  url: SITE_URL,
+  image: `${SITE_URL}/images/profile.png`,
   sameAs: [
     "https://github.com/bibek1414",
     "https://linkedin.com/in/bibek-bhattarai-292b90342/",
@@ -135,11 +136,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cormorantGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1A17] selection:bg-[#1C1A17] selection:text-[#FAF9F6] relative">
-        <Script
-          id="schema-org"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd id="main-person-schema" data={jsonLd} />
         
         {/* Desktop Navigation */}
         <div className="hidden lg:block">

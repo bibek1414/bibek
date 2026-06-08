@@ -3,7 +3,9 @@ import { blogs } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import Script from "next/script";
+import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
+import { JsonLd } from "@/components/shared/json-ld";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import type { Metadata } from "next";
 
 interface Props {
@@ -20,25 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  return {
-    title: blog.title,
+  return buildMarketingMetadata({
+    title: `${blog.title} | Bibek Bhattarai Blog`,
     description: blog.excerpt,
-    alternates: {
-      canonical: `/blog/${slug}`,
-    },
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      type: "article",
-      url: `https://bibekbhattarai14.com.np/blog/${slug}`,
-      publishedTime: blog.date,
-      authors: ["Bibek Bhattarai"],
-    },
-    twitter: {
-      title: blog.title,
-      description: blog.excerpt,
-    }
-  };
+    path: `/blog/${slug}`,
+    ogLabel: blog.category,
+  });
 }
 
 export async function generateStaticParams() {
@@ -71,18 +60,48 @@ export default async function BlogPostPage({ params }: Props) {
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://bibekbhattarai14.com.np/blog/${slug}`
+      "@id": absoluteUrl(`/blog/${slug}`)
     }
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": absoluteUrl(),
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": absoluteUrl("/blog"),
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": blog.title,
+        "item": absoluteUrl(`/blog/${slug}`),
+      },
+    ],
+  };
+
   return (
-    <main className="pt-32 pb-24 min-h-screen bg-[#FAF9F6]">
-      <Script
-        id="blog-post-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <main className="pt-24 pb-24 min-h-screen bg-[#FAF9F6]">
+      <JsonLd id="blog-post-jsonld" data={jsonLd} />
+      <JsonLd id="blog-post-breadcrumb" data={breadcrumbSchema} />
+
       <div className="max-w-4xl mx-auto px-6">
+        <Breadcrumbs 
+          items={[
+            { label: "Blog", href: "/blog" },
+            { label: blog.title, href: `/blog/${slug}` }
+          ]} 
+        />
+
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-[#6B6661] hover:text-[#1C1A17] transition-colors mb-8 group font-mono text-xs"
@@ -90,7 +109,7 @@ export default async function BlogPostPage({ params }: Props) {
           <ChevronLeft size={14} className="transition-transform group-hover:-translate-x-1" />
           Back to Insights
         </Link>
-
+...
         <div className="space-y-6">
           <div className="flex items-center gap-4 text-xs">
             <span className="font-mono text-[9px] text-[#1C1A17] bg-[#E8E6E1] px-2.5 py-0.5">

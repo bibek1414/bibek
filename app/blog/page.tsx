@@ -2,54 +2,64 @@ import React from "react";
 import { blogs } from "@/lib/data";
 import { Calendar, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
+import { JsonLd } from "@/components/shared/json-ld";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
-import type { Metadata } from "next";
-import Script from "next/script";
-
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Insights, articles, and technical deep-dives by Bibek Bhattarai on web development and software engineering.",
-  alternates: {
-    canonical: "/blog",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://bibekbhattarai14.com.np/blog",
-    title: "Tech Blog | Bibek Bhattarai",
-    description: "Read my latest thoughts on React, Next.js, and modern tech trends.",
-  },
-  twitter: {
-    title: "Tech Blog | Bibek Bhattarai",
-    description: "Technical articles and development insights.",
-  }
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Bibek Bhattarai's Blog",
-  "description": "Insights and articles on web development and modern tech.",
-  "publisher": {
-    "@type": "Person",
-    "name": "Bibek Bhattarai"
-  },
-  "blogPost": blogs.map((blog) => ({
-    "@type": "BlogPosting",
-    "headline": blog.title,
-    "description": blog.excerpt,
-    "datePublished": blog.date,
-    "url": `https://bibekbhattarai14.com.np/blog/${blog.slug}`
-  }))
-};
+export const metadata = buildMarketingMetadata({
+  title: "Blog | Bibek Bhattarai - Tech Insights & Articles",
+  description: "Insights, articles, and technical deep-dives by Bibek Bhattarai on web development, software engineering, and modern tech trends.",
+  path: "/blog",
+  ogLabel: "Written Records",
+});
 
 export default function BlogPage() {
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Bibek Bhattarai's Blog",
+    "description": "Insights and articles on web development and modern tech.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Bibek Bhattarai"
+    },
+    "blogPost": blogs.map((blog) => ({
+      "@type": "BlogPosting",
+      "headline": blog.title,
+      "description": blog.excerpt,
+      "datePublished": blog.date,
+      "url": absoluteUrl(`/blog/${blog.slug}`)
+    }))
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": absoluteUrl(),
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": absoluteUrl("/blog"),
+      },
+    ],
+  };
+
   return (
-    <main className="pt-32 pb-24 min-h-screen bg-[#FAF9F6]">
-      <Script
-        id="blog-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <main className="pt-24 pb-24 min-h-screen bg-[#FAF9F6]">
+      <JsonLd id="blog-schema" data={blogSchema} />
+      <JsonLd id="blog-breadcrumb" data={breadcrumbSchema} />
+
+      <div className="max-w-7xl mx-auto px-6">
+        <Breadcrumbs items={[{ label: "Blog", href: "/blog" }]} />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 space-y-12">
         <div className="space-y-4">
           <span className="font-mono text-xs text-[#6B6661]">

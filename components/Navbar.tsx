@@ -8,12 +8,12 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { name: "About", href: "/#about" },
-  { name: "Projects", href: "/#projects" },
-  { name: "Skills", href: "/#skills" },
-  { name: "Experience", href: "/#experience" },
-  { name: "Services", href: "/#services" },
-  { name: "FAQ", href: "/#faq" },
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Skills", href: "/skills" },
+  { name: "Experience", href: "/experience" },
+  { name: "Services", href: "/services" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 export const Navbar = () => {
@@ -50,21 +50,24 @@ export const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8 text-[11px] font-mono text-[#6B6661]">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
-              className="hover:text-[#1C1A17] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-[#1C1A17] after:transition-all duration-300"
+              className={cn(
+                "hover:text-[#1C1A17] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:h-[1px] after:w-0 hover:after:w-full after:bg-[#1C1A17] after:transition-all duration-300",
+                pathname === link.href && "text-[#1C1A17] after:w-full"
+              )}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="px-5 py-2.5 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-all rounded-none font-medium flex items-center gap-1.5"
           >
             Initiate Project
             <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -88,22 +91,25 @@ export const Navbar = () => {
           >
             <div className="flex flex-col space-y-6 px-6 py-8 text-xs font-mono text-[#6B6661]">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
-                  className="hover:text-[#1C1A17] transition-colors"
+                  className={cn(
+                    "hover:text-[#1C1A17] transition-colors",
+                    pathname === link.href && "text-[#1C1A17]"
+                  )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="w-full text-center px-4 py-3 border border-[#1C1A17] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-all"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Initiate Project
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
