@@ -1,6 +1,6 @@
 import { Services as ServicesSection } from "@/components/Services";
 import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
-import { JsonLd } from "@/components/shared/json-ld";
+import { JsonLd, ServiceJsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
 export const metadata = buildMarketingMetadata({
@@ -75,6 +75,15 @@ export default function ServicesPage() {
       <JsonLd id="services-schema" data={servicesSchema} />
       <JsonLd id="services-breadcrumb" data={breadcrumbSchema} />
       
+      <ServiceJsonLd 
+        services={[
+          { name: "Full Stack Web Development", description: "Building responsive frontends and scalable backend APIs using Next.js." },
+          { name: "Systems & AI Integration", description: "Integrating analytics, artificial intelligence, and databases." },
+          { name: "Cloud & DevOps", description: "Setting up secure deployments and automated workflows." }
+        ]}
+      />
+      <BreadcrumbJsonLd items={[{ label: "Services", href: "/services" }]} />
+
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Services", href: "/services" }]} />
       </div>

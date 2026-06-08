@@ -1,7 +1,7 @@
 import { ProjectsShowcase } from "@/components/ProjectsShowcase";
 import { projects } from "@/lib/data";
 import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
-import { JsonLd } from "@/components/shared/json-ld";
+import { JsonLd, ProjectListJsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
 export const metadata = buildMarketingMetadata({
@@ -56,6 +56,15 @@ export default function ProjectsPage() {
       <JsonLd id="projects-schema" data={projectSchema} />
       <JsonLd id="projects-breadcrumb" data={breadcrumbSchema} />
       
+      <ProjectListJsonLd 
+        projects={projects.map(p => ({
+          title: p.title,
+          description: p.description,
+          url: p.liveLink || p.githubLink || ""
+        }))}
+      />
+      <BreadcrumbJsonLd items={[{ label: "Projects", href: "/projects" }]} />
+
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
       </div>

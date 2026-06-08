@@ -1,6 +1,6 @@
 import { Skills as SkillsComponent } from "@/components/Skills";
 import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
-import { JsonLd } from "@/components/shared/json-ld";
+import { JsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
 export const metadata = buildMarketingMetadata({
@@ -47,6 +47,8 @@ export default function SkillsPage() {
       <JsonLd id="skills-schema" data={skillsSchema} />
       <JsonLd id="skills-breadcrumb" data={breadcrumbSchema} />
       
+      <BreadcrumbJsonLd items={[{ label: "Skills", href: "/skills" }]} />
+
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Skills", href: "/skills" }]} />
       </div>

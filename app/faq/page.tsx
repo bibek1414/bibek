@@ -1,6 +1,6 @@
 import { FAQ as FAQSection } from "@/components/FAQ";
 import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
-import { JsonLd } from "@/components/shared/json-ld";
+import { JsonLd, FaqJsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
 export const metadata = buildMarketingMetadata({
@@ -74,6 +74,28 @@ export default function FAQPage() {
       <JsonLd id="faq-schema" data={faqSchema} />
       <JsonLd id="faq-breadcrumb" data={breadcrumbSchema} />
       
+      <FaqJsonLd 
+        faqs={[
+          {
+            question: "What services do you provide?",
+            answer: "I specialize in full-stack web development, creating high-performance applications with React, Next.js, and Node.js. My services also include machine learning integration, DevOps automation, and UI/UX design focusing on premium digital experiences."
+          },
+          {
+            question: "How long does a typical project take?",
+            answer: "The timeline depends on the complexity of the project. A standard business website might take 2-4 weeks, while a complex full-stack application could take 8-12 weeks. I prioritize quality and performance in every project I undertake."
+          },
+          {
+            question: "Do you work with startups and international clients?",
+            answer: "Yes, I have extensive experience working with startups and collaborating with international clients across different time zones. I use modern communication and project management tools to ensure smooth collaboration."
+          },
+          {
+            question: "What is your approach to SEO and Performance?",
+            answer: "I build websites with a performance-first mindset, ensuring fast load times and excellent Core Web Vitals. I implement technical SEO best practices, including semantic HTML, meta-tag optimization, and structured data (JSON-LD) for better search engine visibility."
+          }
+        ]}
+      />
+      <BreadcrumbJsonLd items={[{ label: "FAQ", href: "/faq" }]} />
+
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "FAQ", href: "/faq" }]} />
       </div>

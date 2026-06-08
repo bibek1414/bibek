@@ -7,8 +7,9 @@ import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "sonner";
-import { JsonLd } from "@/components/shared/json-ld";
+import { PortfolioJsonLd, JsonLd } from "@/components/shared/json-ld";
 import { SITE_URL } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -137,6 +138,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1A17] selection:bg-[#1C1A17] selection:text-[#FAF9F6] relative">
         <JsonLd id="main-person-schema" data={jsonLd} />
+        <PortfolioJsonLd />
         
         {/* Desktop Navigation */}
         <div className="hidden lg:block">

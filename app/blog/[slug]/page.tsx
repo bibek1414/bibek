@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Calendar, Clock, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { buildMarketingMetadata, absoluteUrl } from "@/lib/seo";
-import { JsonLd } from "@/components/shared/json-ld";
+import { JsonLd, BlogJsonLd, BreadcrumbJsonLd } from "@/components/shared/json-ld";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import type { Metadata } from "next";
 
@@ -93,6 +93,19 @@ export default async function BlogPostPage({ params }: Props) {
     <main className="pt-24 pb-24 min-h-screen bg-[#FAF9F6]">
       <JsonLd id="blog-post-jsonld" data={jsonLd} />
       <JsonLd id="blog-post-breadcrumb" data={breadcrumbSchema} />
+      
+      <BlogJsonLd 
+        title={blog.title}
+        description={blog.excerpt}
+        date={blog.date}
+        slug={slug}
+      />
+      <BreadcrumbJsonLd 
+        items={[
+          { label: "Blog", href: "/blog" },
+          { label: blog.title, href: `/blog/${slug}` }
+        ]}
+      />
 
       <div className="max-w-4xl mx-auto px-6">
         <Breadcrumbs 
