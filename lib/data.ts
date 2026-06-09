@@ -138,10 +138,37 @@ export const projects = [
       "Features Our Story, Programs, and Community.",
       "Focused on clean UI, mobile responsiveness, and performance optimization."
     ]
-  },
-];
+    }
+    ];
 
-export const blogs = [
+    export const certificates = [
+    {
+    title: "Internship Certificate",
+    organization: "WorldLink Communications Ltd",
+    period: "March 14, 2024 – June 14, 2024",
+    field: "Technical Department (Networking & Technical)",
+    description: "Successfully completed a three-month internship program at the Hetauda Branch, gaining hands-on knowledge in networking and technical operations.",
+    image: "/certificate/worldlinks.jpeg",
+    },
+    {
+    title: "Python & Django Training",
+    organization: "Broadway Infosys",
+    period: "Dec 17, 2024 – March 4, 2025",
+    field: "Software Development",
+    description: "Completed 113 hours of professional Python & Django training, focusing on backend development, REST APIs, and database management.",
+    image: "/certificate/broadway-infosys.jpeg",
+    },
+    {
+    title: "Front End Developer Internship",
+    organization: "Baliyo Ventures Pvt Ltd",
+    period: "May 13, 2025 – Aug 20, 2025",
+    field: "Frontend Development",
+    description: "Successfully completed a frontend development internship, focusing on building responsive and interactive user interfaces under professional guidance.",
+    image: "/certificate/baliyo-ventures.jpeg",
+    },
+    ];
+
+    export const blogs = [
   {
     title: "Mastering Next.js 15: What's New?",
     excerpt: "Exploring the latest features in Next.js 15, from improved caching to React 19 integration and the new Compiler.",

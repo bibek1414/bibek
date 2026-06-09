@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Briefcase, History, BookOpen } from "lucide-react";
+import { Home, User, Briefcase, History, BookOpen, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -12,6 +12,7 @@ const navItems = [
   { name: "About", href: "/about", icon: User },
   { name: "Projects", href: "/projects", icon: Briefcase },
   { name: "Experience", href: "/experience", icon: History },
+  { name: "Certificates", href: "/certificates", icon: Award },
   { name: "Blog", href: "/blog", icon: BookOpen },
 ];
 

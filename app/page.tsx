@@ -4,6 +4,7 @@ import { ProjectsShowcase } from "@/components/ProjectsShowcase";
 import { Marquee } from "@/components/Marquee";
 import { Skills } from "@/components/Skills";
 import { Experience } from "@/components/Experience";
+import { Certificates } from "@/components/Certificates";
 import { Services } from "@/components/Services";
 import { Newsletter } from "@/components/Newsletter";
 import { Contact } from "@/components/Contact";
@@ -108,6 +109,8 @@ export default function Home() {
       <Skills />
       
       <Experience />
+
+      <Certificates />
 
       <BlogPreview />
 
