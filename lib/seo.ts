@@ -9,9 +9,21 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`; // Fallback image
 export const SITE_NAME = "Bibek Bhattarai";
 
 export function absoluteUrl(path = "") {
-  const normalizedPath =
-    path.startsWith("/") || path === "" ? path : `/${path}`;
-  return `${SITE_URL}${normalizedPath}`;
+  // 1. Handle root/empty path
+  if (!path || path === "/" || path === "") {
+    return SITE_URL;
+  }
+
+  // 2. Clean the path: remove leading/trailing slashes
+  const cleanedPath = path.replace(/^\/+/, "").replace(/\/+$/, "");
+  
+  // 3. Re-verify if empty after cleaning
+  if (cleanedPath === "") {
+    return SITE_URL;
+  }
+
+  // 4. Return joined URL (SITE_URL has no trailing slash)
+  return `${SITE_URL}/${cleanedPath}`;
 }
 
 export function getDynamicOgUrl({

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Bibek Bhattarai" }],
   creator: "Bibek Bhattarai",
   alternates: {
-    canonical: "/",
+    canonical: SITE_URL,
   },
   icons: {
     icon: "/favicon.ico",
