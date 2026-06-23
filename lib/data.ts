@@ -258,23 +258,146 @@ export const projects = [
   },
   {
     title: "State Management in Modern React",
-    excerpt: "Choosing between Redux, Zustand, Recoil, and Context API for your next enterprise-level React application.",
+    excerpt: "Choosing between Redux, Zustand, Recoil, and Context API for your next enterprise-level React application in 2026.",
     date: "March 01, 2026",
-    readTime: "10 min read",
+    readTime: "12 min read",
     category: "Architecture",
     slug: "state-management-2026",
     content: `
-      <h2>The State Management Dilemma</h2>
-      <p>With so many options available, choosing a state management library for React has never been harder—or easier, depending on your needs.</p>
-      
-      <h3>Zustand: The Lightweight Hero</h3>
-      <p>Zustand has quickly become the favorite for many developers due to its simplicity and lack of boilerplate. It's perfect for most applications that need a centralized store without the complexity of Redux.</p>
+      <h2>The State Management Landscape in 2026</h2>
+      <p>Over the last decade, state management in React has evolved from complex, monolithic architectures to highly specialized, modular tools. In 2026, the question is no longer simply "Redux or Context?", but rather "Which tool fits my state's lifecycle, size, and frequency of updates?"</p>
+      <p>With the widespread adoption of React Server Components (RSC) and server-side data fetching libraries (such as React Query or SWR), much of the state that used to live on the client—like API response caching and data fetching state—has shifted back to the server. Consequently, modern client-side state management is lighter, focusing primarily on UI state, transient interactions, and localized complex workflows.</p>
 
-      <h3>The Role of React Context</h3>
-      <p>React Context is still powerful for dependency injection and simple global state. However, for high-frequency updates, external stores like Zustand or Valtio often perform better.</p>
+      <h2>1. React Context API: For Dependency Injection, Not High-Frequency State</h2>
+      <p>The native React Context API is a built-in feature that allows passing data down the component tree without manually drilling props through every level. However, it is often misunderstood as a complete "state management tool."</p>
+      <p><strong>When to use Context:</strong> Context is perfect for low-frequency updates or static global configuration, such as:</p>
+      <ul>
+        <li>User authentication sessions (current logged-in user profile).</li>
+        <li>Theme configuration (switching between Dark Mode and Light Mode).</li>
+        <li>Localization and language settings (switching between English and Nepali).</li>
+      </ul>
+      <p><strong>When to avoid Context:</strong> Avoid using Context for high-frequency state updates or complex nested state objects. When a Context value changes, all components consuming that context will re-render, which can lead to severe performance bottlenecks in larger applications. To optimize Context, you have to split contexts, memoize consumers, or use complex workarounds.</p>
+
+      <h2>2. Zustand: The Modern Standard for Global State</h2>
+      <p>Zustand has emerged as the go-to state manager for general React applications. It is a lightweight, hook-based library that addresses the performance issues of Context without the verbosity of Redux.</p>
+      <p><strong>Key Advantages of Zustand:</strong></p>
+      <ul>
+        <li><strong>Minimal Boilerplate:</strong> You can define a store and its actions in just a few lines of code without configuration files or providers.</li>
+        <li><strong>High Performance:</strong> It uses selectors to ensure components only re-render when the specific slice of state they are subscribed to actually changes.</li>
+        <li><strong>No Provider Required:</strong> Unlike Context or Redux, you don't need to wrap your application in a provider component. It's clean and imports directly where needed.</li>
+      </ul>
+      <p>Here is a practical example of a basic Zustand store:</p>
+      <pre style="background: #E8E6E1; padding: 12px; font-family: monospace; font-size: 13px; border-radius: 4px; overflow-x: auto; color: #1C1A17;"><code>import { create } from 'zustand';
+
+interface CartStore {
+  items: string[];
+  addItem: (item: string) => void;
+  clearCart: () => void;
+}
+
+export const useCartStore = create&lt;CartStore&gt;((set) => ({
+  items: [],
+  addItem: (item) => set((state) => ({ items: [...state.items, item] })),
+  clearCart: () => set({ items: [] }),
+}));</code></pre>
+
+      <h2>3. Jotai & Recoil: Atomic State for Granular UI</h2>
+      <p>Atomic state libraries like Jotai treat state as a collection of independent, granular units called "atoms." This is highly effective for building interactive canvases, drawing tools, collaborative boards, or complex forms where individual components need to manage and share discrete pieces of state.</p>
+      <p>By connecting atoms together dynamically, you can build complex, reactive graphs of state without causing global layout re-renders. It combines the simplicity of React's useState with the performance of selective subscriptions.</p>
+
+      <h2>4. Redux Toolkit (RTK): The Enterprise Heavyweight</h2>
+      <p>While often criticized for its initial setup complexity, Redux remains the industry standard for large, enterprise-grade applications. Redux Toolkit (RTK) has significantly simplified writing Redux code, and it provides unmatched developer tooling (Redux DevTools) for debugging complex state transitions, action logging, and time-travel debugging.</p>
+      <p><strong>When to use Redux:</strong> Use Redux when working with a very large development team, where strict architectural patterns are required, or when the application depends on complex, multi-step asynchronous transactions that need absolute traceability and middle-ware logic.</p>
+
+      <h2>Summary: Decision Guide for Choosing Your State Library</h2>
+      <p>To help you choose the right tool for your next project, consider the following decision guide:</p>
+      <table border="1" cellpadding="10" style="border-collapse: collapse; margin-top: 15px; width: 100%; border: 1px solid #E8E6E1;">
+        <thead>
+          <tr style="background-color: #E8E6E1; text-align: left;">
+            <th style="padding: 10px;">Tool</th>
+            <th style="padding: 10px;">Type</th>
+            <th style="padding: 10px;">Best For</th>
+            <th style="padding: 10px;">Performance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 10px;"><strong>React Context</strong></td>
+            <td style="padding: 10px;">Built-in Injection</td>
+            <td style="padding: 10px;">Low-frequency static settings (Theme, Auth)</td>
+            <td style="padding: 10px;">Low (triggers full subtree re-renders)</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><strong>Zustand</strong></td>
+            <td style="padding: 10px;">Flux-like Store</td>
+            <td style="padding: 10px;">General global UI state, simple to medium apps</td>
+            <td style="padding: 10px;">High (selective renders via hooks)</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><strong>Jotai</strong></td>
+            <td style="padding: 10px;">Atomic State</td>
+            <td style="padding: 10px;">Granular UI components, canvas/dashboard interfaces</td>
+            <td style="padding: 10px;">Very High (atomic updates)</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><strong>Redux Toolkit</strong></td>
+            <td style="padding: 10px;">Centralized Store</td>
+            <td style="padding: 10px;">Large enterprise apps with complex state pipelines</td>
+            <td style="padding: 10px;">High (requires selectors)</td>
+          </tr>
+        </tbody>
+      </table>
       
-      <h3>When to still use Redux?</h3>
-      <p>Redux Toolkit remains a solid choice for large-scale enterprise apps with complex state logic and many developers. Its ecosystem and devtools are still unmatched for debugging complex state transitions.</p>
+      <p style="margin-top: 20px;">By aligning your state management choice with your specific application requirements, you can optimize your development speed, codebase maintainability, and client-side performance.</p>
+    `
+  },
+  {
+    title: "React Server Components (RSC) and the Future of Next.js SEO",
+    excerpt: "How React Server Components (RSC) improve SEO by delivering pre-rendered HTML to search engines and enhancing Core Web Vitals.",
+    date: "March 24, 2026",
+    readTime: "7 min read",
+    category: "SEO & React",
+    slug: "react-server-components-seo",
+    content: `
+      <h2>The SEO Challenge with Single Page Applications</h2>
+      <p>Traditional React Single Page Applications (SPAs) rely on client-side rendering (CSR). When a search engine crawler visits a CSR site, it initially receives an empty HTML shell and has to wait for JavaScript to execute before seeing any content. While Googlebot can execute JavaScript, other search engines (like Bing, DuckDuckGo, and Yandex) and social media scrapers often do not. This can result in poor search rankings and broken social previews.</p>
+
+      <h2>How React Server Components (RSC) Solve This</h2>
+      <p>React Server Components, popularized by Next.js, change the paradigm by rendering components on the server before sending the response to the client. This means search engines receive a fully formed, content-rich HTML document on the very first HTTP request.</p>
+
+      <h3>Key SEO Benefits of RSC:</h3>
+      <ul>
+        <li><strong>Zero Client-Side JavaScript for Static Parts:</strong> Static components render exclusively on the server, reducing the JavaScript bundle size and improving page load speed.</li>
+        <li><strong>Faster First Contentful Paint (FCP):</strong> Users and crawlers see the page layout and content immediately, resulting in lower bounce rates.</li>
+        <li><strong>Better Core Web Vitals:</strong> Faster rendering and smaller bundles directly improve metrics like LCP (Largest Contentful Paint) and INP (Interaction to Next Paint), which are official ranking factors.</li>
+      </ul>
+
+      <h2>Metadata and JSON-LD Integration</h2>
+      <p>With Next.js, managing page-specific metadata is straightforward using the built-in Metadata API. By exporting static or dynamic metadata objects from server components, search engines can easily scrape the page title, description, keywords, and Open Graph tags without waiting for client-side hydration.</p>
+    `
+  },
+  {
+    title: "The Rise of Full-Stack Developers in Nepal: Trends and Technical Skills",
+    excerpt: "Analyzing the increasing demand for Full-Stack Developers in Kathmandu and across Nepal, the core tech stacks in demand, and how to succeed in 2026.",
+    date: "March 28, 2026",
+    readTime: "8 min read",
+    category: "Career",
+    slug: "full-stack-developer-nepal",
+    content: `
+      <h2>The Evolution of the Nepali Tech Industry</h2>
+      <p>The tech ecosystem in Nepal has experienced massive growth over the past few years. Startups and international companies are increasingly establishing engineering hubs in Kathmandu, Lalitpur, and Hetauda. Consequently, the demand for versatile engineers who can handle both frontend and backend development—known as Full-Stack Developers—has reached an all-time high.</p>
+
+      <h2>In-Demand Tech Stacks in Nepal</h2>
+      <p>Nepali tech companies and remote employers generally prioritize JavaScript/TypeScript frameworks due to their speed of development and unified language ecosystem. The most sought-after technologies include:</p>
+      <ul>
+        <li><strong>Next.js & React:</strong> The gold standard for building modern, high-performance web frontends and e-commerce websites.</li>
+        <li><strong>Node.js (NestJS/Express):</strong> Widely used for building scalable, real-time microservices and RESTful/GraphQL APIs.</li>
+        <li><strong>Python & Django:</strong> Frequently chosen for data-intensive applications, SaaS backends, and AI/ML integrations.</li>
+        <li><strong>PostgreSQL & MongoDB:</strong> The dominant choices for relational and document-based databases.</li>
+      </ul>
+
+      <h2>How to Rank as a Developer in the Local Market</h2>
+      <p>For developers looking to get hired or work as freelancers in Nepal, having a high-performing digital portfolio is crucial. Search engine optimization (SEO) helps your portfolio rank when local businesses search for terms like "Hire Web Developer in Kathmandu" or "Best React Developer Nepal." Implementing correct metadata, structuring your projects, and writing tech insights are key methods to build your authority and secure opportunities.</p>
     `
   }
 ];
