@@ -15,24 +15,20 @@ function loadFonts() {
     fontCache = (async () => {
       const [r, m, s, b, e] = await Promise.all([
         fetch(
-          "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.ttf"
-        ).then(r => r.arrayBuffer()),
-
+          new URL("../../../lib/fonts/Inter-Regular.ttf", import.meta.url)
+        ).then(res => res.arrayBuffer()),
         fetch(
-          "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-500-normal.ttf"
-        ).then(r => r.arrayBuffer()),
-
+          new URL("../../../lib/fonts/Inter-Medium.ttf", import.meta.url)
+        ).then(res => res.arrayBuffer()),
         fetch(
-          "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.ttf"
-        ).then(r => r.arrayBuffer()),
-
+          new URL("../../../lib/fonts/Inter-SemiBold.ttf", import.meta.url)
+        ).then(res => res.arrayBuffer()),
         fetch(
-          "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.ttf"
-        ).then(r => r.arrayBuffer()),
-
+          new URL("../../../lib/fonts/Inter-Bold.ttf", import.meta.url)
+        ).then(res => res.arrayBuffer()),
         fetch(
-          "https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-800-normal.ttf"
-        ).then(r => r.arrayBuffer()),
+          new URL("../../../lib/fonts/Inter-ExtraBold.ttf", import.meta.url)
+        ).then(res => res.arrayBuffer()),
       ]);
 
       return {

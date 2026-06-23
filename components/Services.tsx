@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -50,9 +51,11 @@ export const Services = () => {
         {/* Left Column - Image */}
         <div className="lg:col-span-5">
           <div className="aspect-[3/4] relative w-full overflow-hidden bg-[#E8E6E1] border border-[#E8E6E1]">
-            <img 
+            <Image 
               src="/photos/IMG_1404.jpg" 
               alt="Bibek Bhattarai workspace setup" 
+              width={480}
+              height={640}
               className="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 transition-all duration-700"
             />
             {/* Fine metrics overlay */}

@@ -1,19 +1,22 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { profileData } from "@/lib/data";
 
 export const About = () => {
   return (
-    <section id="about" className="max-w-7xl mx-auto px-6 py-24 md:py-40">
+    <section id="about" className="max-w-7xl mx-auto px-6 py-8 sm:py-16 lg:py-24  ">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
         
         {/* Story Illustration image */}
         <div className="lg:col-span-6 relative">
           <div className="aspect-[4/5] relative w-full overflow-hidden bg-[#E8E6E1] border border-[#E8E6E1]">
-            <img 
+            <Image 
               src="/photos/IMG-20251005-WA0402.jpg" 
               alt="Quiet architectural landscape" 
+              width={500}
+              height={625}
               className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 hover:scale-[1.02] transition-all duration-1000 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A17]/20 to-transparent pointer-events-none"></div>

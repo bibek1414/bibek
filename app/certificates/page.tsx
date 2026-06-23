@@ -50,6 +50,9 @@ export default function CertificatesPage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Certificates", href: "/certificates" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          Certifications & Achievements
+        </h1>
       </div>
 
       <CertificatesComponent />

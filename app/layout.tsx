@@ -30,10 +30,7 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Bibek Bhattarai | React & Next.js Developer",
-    template: "%s | Bibek Bhattarai"
-  },
+  title: "Bibek Bhattarai | React & Next.js Developer",
   description: "Portfolio of Bibek Bhattarai, a frontend developer specializing in React, Next.js, and modern web development. Based in Nepal.",
   keywords: [
     "Bibek Bhattarai",

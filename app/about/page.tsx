@@ -5,7 +5,8 @@ import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 
 export const metadata = buildMarketingMetadata({
   title: "About Me | Bibek Bhattarai - Software Developer",
-  description: "Learn more about Bibek Bhattarai, a passionate Software Developer specialized in React, Next.js, and modern web technologies. Detailed background, skills, and professional overview.",
+  description:
+    "Learn more about Bibek Bhattarai, a passionate Software Developer specialized in React, Next.js, and modern web technologies. Detailed background, skills, and professional overview.",
   path: "/about",
   ogLabel: "Identity / Profile",
 });
@@ -14,34 +15,35 @@ export default function AboutPage() {
   const aboutSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "mainEntity": {
+    mainEntity: {
       "@type": "Person",
-      "name": "Bibek Bhattarai",
-      "description": "Software Developer specialized in React, Next.js, and modern web tech.",
-      "jobTitle": "Software Developer",
-      "address": {
+      name: "Bibek Bhattarai",
+      description:
+        "Software Developer specialized in React, Next.js, and modern web tech.",
+      jobTitle: "Software Developer",
+      address: {
         "@type": "PostalAddress",
-        "addressLocality": "Sankhamul, Lalitpur",
-        "addressCountry": "NP"
-      }
-    }
+        addressLocality: "Sankhamul, Lalitpur",
+        addressCountry: "NP",
+      },
+    },
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": absoluteUrl(),
+        position: 1,
+        name: "Home",
+        item: absoluteUrl(),
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "About",
-        "item": absoluteUrl("/about"),
+        position: 2,
+        name: "About",
+        item: absoluteUrl("/about"),
       },
     ],
   };
@@ -50,11 +52,14 @@ export default function AboutPage() {
     <main className="pt-24 min-h-screen bg-[#FAF9F6]">
       <JsonLd id="about-schema" data={aboutSchema} />
       <JsonLd id="about-breadcrumb" data={breadcrumbSchema} />
-      
+
       <BreadcrumbJsonLd items={[{ label: "About", href: "/about" }]} />
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "About", href: "/about" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17]  font-medium">
+          About Me
+        </h1>
       </div>
 
       <AboutComponent />

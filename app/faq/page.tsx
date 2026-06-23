@@ -98,6 +98,9 @@ export default function FAQPage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "FAQ", href: "/faq" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          Frequently Asked Questions
+        </h1>
       </div>
 
       <FAQSection />

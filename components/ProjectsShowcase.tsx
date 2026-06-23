@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, Maximize2, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/data";
@@ -78,9 +79,11 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
               >
                 {/* Image */}
                 <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#E8E6E1]">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                   />
                   <div className="absolute top-4 left-4">
@@ -166,9 +169,11 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
 
               {/* Left Column Image */}
               <div className="md:w-1/2 bg-stone-50 relative flex items-center justify-center p-6 border-b md:border-b-0 md:border-r border-[#E8E6E1] min-h-[300px] md:min-h-0">
-                <img
+                <Image
                   src={selectedProject.image}
                   alt={selectedProject.title}
+                  width={500}
+                  height={380}
                   className="w-full h-auto max-h-[380px] object-contain shadow-xs border border-[#E8E6E1]"
                 />
                 <div className="absolute bottom-4 left-4 bg-[#1C1A17] text-[#FAF9F6] px-3 py-1 text-[10px] font-mono">

@@ -67,6 +67,9 @@ export default function ProjectsPage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          Selected Works & Projects
+        </h1>
       </div>
 
       <ProjectsShowcase />

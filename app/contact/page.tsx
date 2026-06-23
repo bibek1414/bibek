@@ -55,6 +55,9 @@ export default function ContactPage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          Contact Me
+        </h1>
       </div>
 
       <ContactComponent />

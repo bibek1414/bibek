@@ -53,11 +53,12 @@ export default function ProfilePage() {
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Profile", href: "/profile" }]} />
         
-        <SectionHeader 
-          title="Digital Identity" 
-          subtitle="Experienced in architecting modern web applications and machine learning pipelines."
-          align="left"
-        />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-4 font-medium">
+          Digital Identity
+        </h1>
+        <p className="text-sm text-[#6B6661] max-w-xl leading-relaxed font-sans mb-12">
+          Experienced in architecting modern web applications and machine learning pipelines.
+        </p>
 
         <ProfileContent />
       </div>

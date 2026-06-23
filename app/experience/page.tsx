@@ -58,6 +58,9 @@ export default function ExperiencePage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Experience", href: "/experience" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          Professional Experience
+        </h1>
       </div>
 
       <ExperienceComponent />

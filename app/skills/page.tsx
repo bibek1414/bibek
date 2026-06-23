@@ -51,6 +51,9 @@ export default function SkillsPage() {
 
       <div className="max-w-7xl mx-auto px-6">
         <Breadcrumbs items={[{ label: "Skills", href: "/skills" }]} />
+        <h1 className="font-serif text-4xl sm:text-5xl text-[#1C1A17] mb-8 font-medium">
+          My Skills & Expertise
+        </h1>
       </div>
 
       <SkillsComponent />

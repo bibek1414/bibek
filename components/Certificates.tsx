@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Maximize2 } from "lucide-react";
 import { certificates } from "@/lib/data";
@@ -34,9 +35,11 @@ export const Certificates = () => {
               className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col"
             >
               <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#E8E6E1]">
-                <img
+                <Image
                   src={cert.image}
                   alt={cert.title}
+                  width={400}
+                  height={300}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
                 <div className="absolute top-4 left-4">
@@ -96,9 +99,11 @@ export const Certificates = () => {
 
               <div className="flex flex-col md:flex-row">
                 <div className="md:w-3/5 bg-stone-50 p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-[#E8E6E1]">
-                  <img
+                  <Image
                     src={selectedCertificate.image}
                     alt={selectedCertificate.title}
+                    width={800}
+                    height={600}
                     className="max-w-full max-h-[70vh] object-contain shadow-lg"
                   />
                 </div>

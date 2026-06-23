@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { profileData } from "@/lib/data";
@@ -51,9 +52,12 @@ export const Hero = () => {
       {/* Hero Image Block - Asymmetric Minimal layout */}
       <div className="lg:col-span-5 relative mt-6 lg:mt-0">
         <div className="relative aspect-[4/5] w-full max-w-md mx-auto overflow-hidden bg-[#E8E6E1] border border-[#E8E6E1]">
-          <img
+          <Image
             src="/photos/IMG-20251030-WA0031.jpg"
             alt="Portrait of Bibek Bhattarai"
+            width={400}
+            height={500}
+            priority
             className="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 hover:scale-[1.02] transition-all duration-1000 ease-out"
           />
           {/* Fine print overlay */}
