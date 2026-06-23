@@ -22,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/profile',
     '/contact',
+    '/gallery',
+    '/testimonials',
+    '/resume',
+    '/newsletter',
+    '/privacy',
+    '/terms',
   ] as const).map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),

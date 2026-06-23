@@ -25,7 +25,7 @@ const TESTIMONIALS = [
   },
 ];
 
-export const Testimonials = () => {
+export const Testimonials = ({ hideHeader = false }: { hideHeader?: boolean }) => {
   const [index, setIndex] = useState(0);
 
   const handlePrev = () => {
@@ -38,17 +38,19 @@ export const Testimonials = () => {
 
   return (
     <section id="testimonials" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
-      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div className={`max-w-7xl mx-auto px-6 ${hideHeader ? "pb-24 md:pb-32 pt-4" : "py-24 md:py-32"}`}>
         
         <div className="max-w-4xl mx-auto space-y-12">
-          <div className="text-center space-y-2">
-            <span className="font-mono text-xs text-[#6B6661]">
-              05 / Direct Feedback
-            </span>
-            <h2 className="font-serif text-3xl text-[#1C1A17] font-medium">
-              Client Dialogues
-            </h2>
-          </div>
+          {!hideHeader && (
+            <div className="text-center space-y-2">
+              <span className="font-mono text-xs text-[#6B6661]">
+                05 / Direct Feedback
+              </span>
+              <h2 className="font-serif text-3xl text-[#1C1A17] font-medium">
+                Client Dialogues
+              </h2>
+            </div>
+          )}
 
           {/* Slider frame */}
           <div className="border border-[#E8E6E1] p-8 md:p-16 relative bg-[#FAF9F6] bg-white">

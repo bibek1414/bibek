@@ -6,7 +6,7 @@ import { Send, Bell } from "lucide-react";
 import { createNewsletter, ApiError } from "@/lib/api";
 import { toast } from "sonner";
 
-export const Newsletter = () => {
+export const Newsletter = ({ hideHeader = false }: { hideHeader?: boolean }) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "loading">("idle");
 
@@ -29,7 +29,7 @@ export const Newsletter = () => {
 
   return (
     <section className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
-      <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div className={`max-w-7xl mx-auto px-6 ${hideHeader ? "pb-24 md:pb-32 pt-4" : "py-24 md:py-32"}`}>
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -37,29 +37,33 @@ export const Newsletter = () => {
             viewport={{ once: true }}
             className="relative p-8 md:p-16 border border-[#E8E6E1] bg-[#FAF9F6] bg-white text-center space-y-8"
           >
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="flex justify-center"
-            >
-              <div className="w-14 h-14 border border-[#E8E6E1] flex items-center justify-center text-stone-700 bg-[#FAF9F6]">
-                <Bell size={24} />
-              </div>
-            </motion.div>
+            {!hideHeader && (
+              <>
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="flex justify-center"
+                >
+                  <div className="w-14 h-14 border border-[#E8E6E1] flex items-center justify-center text-stone-700 bg-[#FAF9F6]">
+                    <Bell size={24} />
+                  </div>
+                </motion.div>
 
-            <div className="space-y-4">
-              <span className="font-mono text-xs text-[#6B6661]">
-                10 / Dispatch
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
-                Stay in the Loop
-              </h2>
-              <p className="text-[#6B6661] text-sm max-w-xl mx-auto font-sans leading-relaxed">
-                Subscribe to my newsletter for insights on modern web development, 
-                AI pipelines, and clean technical execution notes.
-              </p>
-            </div>
+                <div className="space-y-4">
+                  <span className="font-mono text-xs text-[#6B6661]">
+                    10 / Dispatch
+                  </span>
+                  <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
+                    Stay in the Loop
+                  </h2>
+                  <p className="text-[#6B6661] text-sm max-w-xl mx-auto font-sans leading-relaxed">
+                    Subscribe to my newsletter for insights on modern web development, 
+                    AI pipelines, and clean technical execution notes.
+                  </p>
+                </div>
+              </>
+            )}
 
             <form 
               onSubmit={handleSubmit}

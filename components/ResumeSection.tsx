@@ -6,25 +6,27 @@ import { Mail, MapPin, ExternalLink, GraduationCap, Briefcase, Award, Code2 } fr
 import { FaGithub } from "react-icons/fa6";
 import { profileData, skills, projects } from "@/lib/data";
 
-export const ResumeSection = () => {
+export const ResumeSection = ({ hideHeader = false }: { hideHeader?: boolean }) => {
   return (
-    <section id="profile" className="py-16 md:py-32 border-b border-[#E8E6E1] bg-[#FAF9F6] scroll-mt-20">
+    <section id="profile" className={`${hideHeader ? "pb-16 md:pb-32 pt-4" : "py-16 md:py-32"} border-b border-[#E8E6E1] bg-[#FAF9F6] scroll-mt-20`}>
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#E8E6E1] mb-16">
-          <div className="space-y-4">
-            <span className="font-mono text-xs text-[#6B6661]">
-              04 / Professional Profile
-            </span>
-            <h2 className="font-serif text-3xl md:text-5xl text-[#1C1A17]">
-              Interactive Resume
-            </h2>
+        {!hideHeader && (
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#E8E6E1] mb-16">
+            <div className="space-y-4">
+              <span className="font-mono text-xs text-[#6B6661]">
+                04 / Professional Profile
+              </span>
+              <h2 className="font-serif text-3xl md:text-5xl text-[#1C1A17]">
+                Interactive Resume
+              </h2>
+            </div>
+            <p className="text-[#6B6661] text-sm max-w-md font-sans leading-relaxed">
+              A comprehensive overview of my experience, projects, skills, and academic background in software engineering.
+            </p>
           </div>
-          <p className="text-[#6B6661] text-sm max-w-md font-sans leading-relaxed">
-            A comprehensive overview of my experience, projects, skills, and academic background in software engineering.
-          </p>
-        </div>
+        )}
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-20">

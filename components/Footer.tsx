@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { profileData } from "@/lib/data";
 
 export const Footer = () => {
@@ -9,10 +10,10 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12">
         
         {/* Brand Narrative */}
-        <div className="md:col-span-4 space-y-6">
-          <h3 className="font-serif text-2xl font-bold text-white">
+        <div className="md:col-span-3 space-y-6">
+          <Link href="/" className="font-serif text-2xl font-bold text-white hover:opacity-80 transition-opacity">
             Bibek
-          </h3>
+          </Link>
           <p className="text-xs text-stone-400 leading-relaxed font-sans max-w-sm">
             I operate at the intersection of high-performance system backends and clean frontends, seeking simple code form, structural integrity, and digital silence.
           </p>
@@ -21,22 +22,40 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Space Coordinates */}
-        <div className="md:col-span-4 space-y-4">
+        {/* General Navigation */}
+        <div className="md:col-span-3 space-y-4">
           <h4 className="font-mono text-xs tracking-widest text-[#FAF9F6] font-bold">
-            Workspace Coordinates
+            General Navigation
           </h4>
-          <div className="space-y-2 text-xs text-stone-400 font-sans">
-            <p>Sankhamul, Lalitpur</p>
-            <p>Nepal, 44700</p>
-            <p className="font-mono text-[10px] text-stone-400">
-              Tel: {profileData.phone}
-            </p>
+          <div className="flex flex-col space-y-2 text-xs text-stone-400 font-mono tracking-[0.08em]">
+            <Link href="/about" className="hover:text-white transition-colors">About Me</Link>
+            <Link href="/projects" className="hover:text-white transition-colors">Projects Showcase</Link>
+            <Link href="/skills" className="hover:text-white transition-colors">Skills & Expertise</Link>
+            <Link href="/experience" className="hover:text-white transition-colors">Work Experience</Link>
+            <Link href="/services" className="hover:text-white transition-colors">Services Offered</Link>
+            <Link href="/certificates" className="hover:text-white transition-colors">Certifications</Link>
+            <Link href="/faq" className="hover:text-white transition-colors">Help & FAQ</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact Desk</Link>
+          </div>
+        </div>
+
+        {/* Portals & Compliance */}
+        <div className="md:col-span-3 space-y-4">
+          <h4 className="font-mono text-xs tracking-widest text-[#FAF9F6] font-bold">
+            Portals & Compliance
+          </h4>
+          <div className="flex flex-col space-y-2 text-xs text-stone-400 font-mono tracking-[0.08em]">
+            <Link href="/gallery" className="hover:text-white transition-colors">Studio Gallery</Link>
+            <Link href="/testimonials" className="hover:text-white transition-colors">Client Testimonials</Link>
+            <Link href="/resume" className="hover:text-white transition-colors">Interactive Resume</Link>
+            <Link href="/newsletter" className="hover:text-white transition-colors">Newsletter Dispatch</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
 
         {/* Social Navigation */}
-        <div className="md:col-span-4 space-y-4">
+        <div className="md:col-span-3 space-y-4">
           <h4 className="font-mono text-xs tracking-widest text-[#FAF9F6] font-bold">
             Direct Narratives
           </h4>
@@ -55,6 +74,13 @@ export const Footer = () => {
             <a href={`mailto:${profileData.email}`} className="hover:text-white transition-colors">
               Intake Desk
             </a>
+            <div className="pt-2 text-stone-500 font-sans">
+              <p>Sankhamul, Lalitpur</p>
+              <p>Nepal, 44700</p>
+              <p className="text-[10px] mt-1">
+                Tel: {profileData.phone}
+              </p>
+            </div>
           </div>
         </div>
 
