@@ -161,12 +161,12 @@ export const ResumeSection = ({ hideHeader = false }: { hideHeader?: boolean }) 
                       </div>
                       <div className="flex gap-4 text-xs font-mono pt-2 border-t border-[#E8E6E1]">
                         {proj.githubLink && (
-                          <a href={proj.githubLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#1C1A17] transition-colors text-[#6B6661]">
+                          <a href={proj.githubLink} target="_blank" rel="noopener noreferrer" aria-label={`View ${proj.title} on GitHub`} className="flex items-center gap-1 hover:text-[#1C1A17] transition-colors text-[#6B6661]">
                             GitHub <ExternalLink size={10} />
                           </a>
                         )}
                         {proj.liveLink && (
-                          <a href={proj.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-[#1C1A17] transition-colors text-[#6B6661]">
+                          <a href={proj.liveLink} target="_blank" rel="noopener noreferrer" aria-label={`View ${proj.title} live demo`} className="flex items-center gap-1 hover:text-[#1C1A17] transition-colors text-[#6B6661]">
                             Live <ExternalLink size={10} />
                           </a>
                         )}

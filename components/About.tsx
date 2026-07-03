@@ -17,6 +17,7 @@ export const About = () => {
               alt="Quiet architectural landscape" 
               width={500}
               height={625}
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 hover:scale-[1.02] transition-all duration-1000 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A17]/20 to-transparent pointer-events-none"></div>

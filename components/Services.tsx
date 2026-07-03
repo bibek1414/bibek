@@ -56,6 +56,7 @@ export const Services = () => {
               alt="Bibek Bhattarai workspace setup" 
               width={480}
               height={640}
+              sizes="(max-width: 1024px) 100vw, 40vw"
               className="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 transition-all duration-700"
             />
             {/* Fine metrics overlay */}
@@ -91,6 +92,9 @@ export const Services = () => {
                   <button
                     onClick={() => setExpandedService(isExpanded ? null : serv.id)}
                     className="w-full flex items-center justify-between text-left py-3 group cursor-pointer"
+                    aria-expanded={isExpanded}
+                    aria-controls={`service-panel-${serv.id}`}
+                    id={`service-btn-${serv.id}`}
                   >
                     <div className="space-y-1">
                       <h3 className="font-serif text-lg sm:text-xl font-medium text-[#1C1A17] tracking-normal group-hover:text-[#1C1A17] transition-all">
@@ -112,6 +116,9 @@ export const Services = () => {
                   <AnimatePresence initial={false}>
                     {isExpanded && (
                       <motion.div
+                        id={`service-panel-${serv.id}`}
+                        role="region"
+                        aria-labelledby={`service-btn-${serv.id}`}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}

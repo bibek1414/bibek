@@ -94,9 +94,9 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <h3 className="font-serif text-2xl font-medium text-[#1C1A17]">
+                <h2 className="font-serif text-2xl font-medium text-[#1C1A17]">
                   {blog.title}
-                </h3>
+                </h2>
 
                 <p className="text-sm text-[#6B6661] leading-relaxed font-sans max-w-3xl">
                   {blog.excerpt}
@@ -105,6 +105,7 @@ export default function BlogPage() {
                 <div className="pt-4">
                   <Link
                     href={`/blog/${blog.slug}`}
+                    aria-label={`Read article: ${blog.title}`}
                     className="inline-flex items-center gap-2 border border-[#1C1A17] text-[#1C1A17] text-xs font-mono px-4 py-2 hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-colors"
                   >
                     Read Article

@@ -160,7 +160,7 @@ export default async function BlogPostPage({ params }: Props) {
               BB
             </div>
             <div className="flex-1 text-center md:text-left space-y-2">
-              <h4 className="font-serif text-lg font-medium text-[#1C1A17]">Bibek Bhattarai</h4>
+              <p className="font-serif text-lg font-medium text-[#1C1A17]">Bibek Bhattarai</p>
               <p className="text-xs text-[#6B6661] font-sans leading-relaxed">
                 A versatile full-stack developer passionate about building high-performance web applications 
                 and exploring the latest trends in technology, from Next.js to AI/ML.
@@ -169,11 +169,12 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
 
           <div className="flex flex-col items-center gap-4 py-8">
-            <h5 className="font-mono text-[10px] text-[#6B6661] font-bold">Share this article</h5>
+            <p className="font-mono text-[10px] text-[#6B6661] font-bold">Share this article</p>
             <div className="flex gap-4">
               {['Twitter', 'LinkedIn', 'Facebook'].map((platform) => (
                 <button
                   key={platform}
+                  aria-label={`Share on ${platform}`}
                   className="px-6 py-2 border border-[#E8E6E1] text-[#1C1A17] hover:bg-[#1C1A17] hover:text-[#FAF9F6] text-xs font-mono transition-colors cursor-pointer"
                 >
                   {platform}

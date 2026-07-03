@@ -58,6 +58,8 @@ export const Hero = () => {
             width={400}
             height={500}
             priority
+            fetchPriority="high"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
             className="w-full h-full object-cover grayscale brightness-95 hover:grayscale-0 hover:scale-[1.02] transition-all duration-1000 ease-out"
           />
           {/* Fine print overlay */}

@@ -40,6 +40,7 @@ export const Certificates = () => {
                   alt={cert.title}
                   width={400}
                   height={300}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 />
                 <div className="absolute top-4 left-4">
@@ -49,6 +50,7 @@ export const Certificates = () => {
                 </div>
                 <button
                   onClick={() => setSelectedCertificate(cert)}
+                  aria-label={`Expand ${cert.title} certificate`}
                   className="absolute bottom-4 right-4 p-2 bg-[#FAF9F6]/90 backdrop-blur-sm border border-[#E8E6E1] text-[#1C1A17] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#1C1A17] hover:text-[#FAF9F6] cursor-pointer"
                 >
                   <Maximize2 className="w-4 h-4" />
@@ -92,6 +94,7 @@ export const Certificates = () => {
             >
               <button
                 onClick={() => setSelectedCertificate(null)}
+                aria-label="Close certificate preview"
                 className="absolute top-4 right-4 z-10 p-2.5 bg-[#1C1A17] text-[#FAF9F6] hover:bg-stone-800 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
@@ -104,6 +107,7 @@ export const Certificates = () => {
                     alt={selectedCertificate.title}
                     width={800}
                     height={600}
+                    sizes="(max-width: 768px) 100vw, 60vw"
                     className="max-w-full max-h-[70vh] object-contain shadow-lg"
                   />
                 </div>

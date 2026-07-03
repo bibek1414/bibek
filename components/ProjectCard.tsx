@@ -204,6 +204,7 @@ export const ProjectCard = ({
             alt={title}
             width={600}
             height={400}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="w-full h-full object-cover"
             style={{ filter: hovered ? "brightness(1.08)" : "brightness(1)" }}
           />
@@ -271,6 +272,7 @@ export const ProjectCard = ({
               href={liveLink}
               target="_blank"
               rel="noreferrer"
+              aria-label={`View ${title} live demo`}
               className="group/link flex items-center justify-center gap-1.5 text-sm font-semibold text-white hover:text-brand-blue transition-colors duration-200 min-h-[44px] min-w-[44px] px-2"
             >
               {isCompact ? "Live" : "Live Project"}
@@ -289,7 +291,7 @@ export const ProjectCard = ({
               target="_blank"
               rel="noreferrer"
               className="text-muted-foreground hover:text-white transition-colors p-3 rounded-full bg-white/5 border border-white/10 hover:border-white/30 flex items-center justify-center min-h-[44px] min-w-[44px]"
-              aria-label="GitHub"
+              aria-label={`View ${title} on GitHub`}
             >
               <motion.span
                 animate={hovered ? { rotate: 15 } : { rotate: 0 }}

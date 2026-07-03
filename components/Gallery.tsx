@@ -117,6 +117,7 @@ export const Gallery = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                 alt={photo.title}
                 width={500}
                 height={400}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="w-full h-auto object-cover grayscale brightness-95 group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-out"
               />
               

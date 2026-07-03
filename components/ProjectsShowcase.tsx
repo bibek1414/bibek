@@ -52,6 +52,8 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
+                aria-pressed={activeFilter === filter}
+                aria-label={`Filter projects by ${filter}`}
                 className={`px-5 py-2 text-xs font-mono transition-all cursor-pointer ${
                   activeFilter === filter
                     ? "bg-[#1C1A17] text-[#FAF9F6]"
@@ -84,6 +86,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                     alt={project.title}
                     width={400}
                     height={300}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                   />
                   <div className="absolute top-4 left-4">
@@ -95,7 +98,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                   <button
                     onClick={() => setSelectedProject(project as Project)}
                     className="absolute bottom-4 right-4 p-2 bg-[#FAF9F6]/90 backdrop-blur-sm border border-[#E8E6E1] text-[#1C1A17] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#1C1A17] hover:text-[#FAF9F6] cursor-pointer"
-                    aria-label="View Project details"
+                    aria-label={`View ${project.title} details`}
                   >
                     <Maximize2 className="w-4 h-4" />
                   </button>
@@ -126,6 +129,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                     </div>
                     <button
                       onClick={() => setSelectedProject(project as Project)}
+                      aria-label={`View ${project.title} details`}
                       className="font-mono text-[10px] text-[#1C1A17] flex items-center hover:translate-x-1 transition-transform font-medium cursor-pointer"
                     >
                       View Details
@@ -174,6 +178,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                   alt={selectedProject.title}
                   width={500}
                   height={380}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="w-full h-auto max-h-[380px] object-contain shadow-xs border border-[#E8E6E1]"
                 />
                 <div className="absolute bottom-4 left-4 bg-[#1C1A17] text-[#FAF9F6] px-3 py-1 text-[10px] font-mono">
@@ -233,6 +238,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                         href={selectedProject.liveLink}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`View ${selectedProject.title} live demo`}
                         className="px-4 py-2 bg-[#1C1A17] text-[#FAF9F6] text-[10px] font-mono hover:bg-stone-850 transition-colors flex items-center gap-1"
                       >
                         Live Link
@@ -244,6 +250,7 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                         href={selectedProject.githubLink}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`View ${selectedProject.title} on GitHub`}
                         className="px-4 py-2 border border-[#1C1A17] text-[#1C1A17] text-[10px] font-mono hover:bg-[#1C1A17] hover:text-[#FAF9F6] transition-colors flex items-center gap-1"
                       >
                         GitHub Code
