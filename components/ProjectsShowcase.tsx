@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { X, ChevronRight, Maximize2, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/data";
 
@@ -25,12 +25,9 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
   const [activeFilter, setActiveFilter] = useState<"All" | "Web App" | "AI/ML">("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filteredProjects = projects.filter((p) => {
-    if (activeFilter === "All") return true;
-    return p.category === activeFilter;
-  });
-
-  const displayedProjects = limit ? filteredProjects.slice(0, limit) : filteredProjects;
+  const allProjects = limit ? projects.slice(0, limit) : projects;
+  const isVisible = (p: { category: string }) =>
+    activeFilter === "All" || p.category === activeFilter;
 
   return (
     <section id="projects" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
@@ -68,78 +65,75 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {displayedProjects.map((project, index) => (
-              <motion.article
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between"
-              >
-                {/* Image */}
-                <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#E8E6E1]">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={400}
-                    height={300}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="font-mono text-[9px] bg-[#1C1A17] text-[#FAF9F6] px-2.5 py-1">
-                      {project.category}
-                    </span>
-                  </div>
+          {allProjects.map((project, index) => (
+            <motion.article
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: isVisible(project) ? undefined : "none" }}
+              className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between"
+            >
+              {/* Image */}
+              <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#E8E6E1]">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={400}
+                  height={300}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="font-mono text-[9px] bg-[#1C1A17] text-[#FAF9F6] px-2.5 py-1">
+                    {project.category}
+                  </span>
+                </div>
 
+                <button
+                  onClick={() => setSelectedProject(project as Project)}
+                  className="absolute bottom-4 right-4 p-2 bg-[#FAF9F6]/90 backdrop-blur-sm border border-[#E8E6E1] text-[#1C1A17] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#1C1A17] hover:text-[#FAF9F6] cursor-pointer"
+                  aria-label={`View ${project.title} details`}
+                >
+                  <Maximize2 className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Body Content */}
+              <div className="p-6 space-y-4 flex-1 flex flex-col justify-between bg-white">
+                <div>
+                  <div className="flex justify-between items-center text-[10px] font-mono text-[#6B6661] mb-2">
+                    <span>{project.location}</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <h3 className="font-serif text-xl font-medium text-[#1C1A17] mb-3 group-hover:text-stone-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-xs text-[#6B6661] leading-relaxed font-sans line-clamp-3">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-[#E8E6E1] flex items-center justify-between">
+                  <div className="flex flex-wrap gap-1.5 max-w-[70%]">
+                    {project.materials.slice(0, 2).map((mat, i) => (
+                      <span key={i} className="font-mono text-[9px] text-[#6B6661] bg-[#1C1A17]/5 px-1.5 py-0.5 rounded-none">
+                        {mat}
+                      </span>
+                    ))}
+                  </div>
                   <button
                     onClick={() => setSelectedProject(project as Project)}
-                    className="absolute bottom-4 right-4 p-2 bg-[#FAF9F6]/90 backdrop-blur-sm border border-[#E8E6E1] text-[#1C1A17] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#1C1A17] hover:text-[#FAF9F6] cursor-pointer"
                     aria-label={`View ${project.title} details`}
+                    className="font-mono text-[10px] text-[#1C1A17] flex items-center hover:translate-x-1 transition-transform font-medium cursor-pointer"
                   >
-                    <Maximize2 className="w-4 h-4" />
+                    View Details
+                    <ChevronRight className="w-3.5 h-3.5 ml-1" />
                   </button>
                 </div>
-
-                {/* Body Content */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between bg-white">
-                  <div>
-                    <div className="flex justify-between items-center text-[10px] font-mono text-[#6B6661] mb-2">
-                      <span>{project.location}</span>
-                      <span>{project.year}</span>
-                    </div>
-                    <h3 className="font-serif text-xl font-medium text-[#1C1A17] mb-3 group-hover:text-stone-600 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs text-[#6B6661] leading-relaxed font-sans line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-[#E8E6E1] flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1.5 max-w-[70%]">
-                      {project.materials.slice(0, 2).map((mat, i) => (
-                        <span key={i} className="font-mono text-[9px] text-[#6B6661] bg-[#1C1A17]/5 px-1.5 py-0.5 rounded-none">
-                          {mat}
-                        </span>
-                      ))}
-                    </div>
-                    <button
-                      onClick={() => setSelectedProject(project as Project)}
-                      aria-label={`View ${project.title} details`}
-                      className="font-mono text-[10px] text-[#1C1A17] flex items-center hover:translate-x-1 transition-transform font-medium cursor-pointer"
-                    >
-                      View Details
-                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                    </button>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </AnimatePresence>
+              </div>
+            </motion.article>
+          ))}
         </div>
 
       </div>

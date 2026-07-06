@@ -113,52 +113,50 @@ export const Services = () => {
                     </div>
                   </button>
 
-                  <AnimatePresence initial={false}>
-                    {isExpanded && (
-                      <motion.div
-                        id={`service-panel-${serv.id}`}
-                        role="region"
-                        aria-labelledby={`service-btn-${serv.id}`}
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-4 pb-2 space-y-5">
-                          <p className="text-xs text-[#6B6661] leading-relaxed font-sans max-w-2xl">
-                            {serv.description}
-                          </p>
+                  <motion.div
+                    id={`service-panel-${serv.id}`}
+                    role="region"
+                    aria-labelledby={`service-btn-${serv.id}`}
+                    initial={false}
+                    animate={{
+                      height: isExpanded ? "auto" : 0,
+                      opacity: isExpanded ? 1 : 0,
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-4 pb-2 space-y-5">
+                      <p className="text-xs text-[#6B6661] leading-relaxed font-sans max-w-2xl">
+                        {serv.description}
+                      </p>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                            <div>
-                              <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
-                                Key Deliverables:
-                              </span>
-                              <div className="space-y-1.5">
-                                {serv.deliverables.map((del, i) => (
-                                  <div key={i} className="text-[11px] text-[#6B6661] font-mono flex items-center">
-                                    <span className="w-1.5 h-[1px] bg-[#6B6661]/40 mr-2 shrink-0"></span>
-                                    {del}
-                                  </div>
-                                ))}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div>
+                          <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
+                            Key Deliverables:
+                          </span>
+                          <div className="space-y-1.5">
+                            {serv.deliverables.map((del, i) => (
+                              <div key={i} className="text-[11px] text-[#6B6661] font-mono flex items-center">
+                                <span className="w-1.5 h-[1px] bg-[#6B6661]/40 mr-2 shrink-0"></span>
+                                {del}
                               </div>
-                            </div>
-
-                            <div>
-                              <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
-                                Estimated Timeline:
-                              </span>
-                              <div className="p-3 bg-[#1C1A17]/5 border border-[#1C1A17]/10 font-mono text-[11px] text-[#1C1A17]">
-                                <p className="mb-1">Est: {serv.duration}</p>
-                                <p className="text-[#6B6661] leading-snug">Depends on project scope and requirements.</p>
-                              </div>
-                            </div>
+                            ))}
                           </div>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+
+                        <div>
+                          <span className="font-mono text-[9px] text-[#1C1A17] block font-bold mb-2">
+                            Estimated Timeline:
+                          </span>
+                          <div className="p-3 bg-[#1C1A17]/5 border border-[#1C1A17]/10 font-mono text-[11px] text-[#1C1A17]">
+                            <p className="mb-1">Est: {serv.duration}</p>
+                            <p className="text-[#6B6661] leading-snug">Depends on project scope and requirements.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               );
             })}

@@ -59,29 +59,41 @@ export const Testimonials = ({ hideHeader = false }: { hideHeader?: boolean }) =
               &ldquo;
             </div>
             
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-8 relative"
-              >
-                <p className="font-serif text-xl sm:text-2xl text-[#1C1A17] leading-relaxed italic text-center text-stone-700">
-                  {TESTIMONIALS[index].quote}
-                </p>
+            <div className="grid grid-cols-1 grid-rows-1 relative">
+              {TESTIMONIALS.map((testimonial, idx) => {
+                const isActive = index === idx;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={false}
+                    animate={{
+                      opacity: isActive ? 1 : 0,
+                      x: isActive ? 0 : (index > idx ? -20 : 20),
+                    }}
+                    style={{
+                      gridColumn: "1",
+                      gridRow: "1",
+                      pointerEvents: isActive ? "auto" : "none",
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-8 relative w-full"
+                  >
+                    <p className="font-serif text-xl sm:text-2xl text-[#1C1A17] leading-relaxed italic text-center text-stone-700">
+                      {testimonial.quote}
+                    </p>
 
-                <div className="text-center pt-4 border-t border-[#E8E6E1] max-w-xs mx-auto">
-                  <div className="font-serif text-base font-medium text-[#1C1A17]">
-                    {TESTIMONIALS[index].author}
-                  </div>
-                  <div className="font-mono text-[10px] text-[#6B6661] mt-1">
-                    {TESTIMONIALS[index].role} / {TESTIMONIALS[index].firm}
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                    <div className="text-center pt-4 border-t border-[#E8E6E1] max-w-xs mx-auto">
+                      <div className="font-serif text-base font-medium text-[#1C1A17]">
+                        {testimonial.author}
+                      </div>
+                      <div className="font-mono text-[10px] text-[#6B6661] mt-1">
+                        {testimonial.role} / {testimonial.firm}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
 
             {/* Slider tools */}
             <div className="flex justify-between items-center mt-12 md:mt-8 pt-4 border-t border-[#E8E6E1]">

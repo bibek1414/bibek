@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Code2, Cpu, Database, Server } from "lucide-react";
 

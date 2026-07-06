@@ -60,20 +60,19 @@ export const FAQ = () => {
                   </span>
                 </button>
 
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-xs sm:text-sm text-[#6B6661] leading-relaxed font-sans pt-2 pb-4">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: isOpen ? "auto" : 0,
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-xs sm:text-sm text-[#6B6661] leading-relaxed font-sans pt-2 pb-4">
+                    {faq.answer}
+                  </p>
+                </motion.div>
               </div>
             );
           })}

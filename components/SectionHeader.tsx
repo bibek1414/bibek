@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +25,7 @@ export const SectionHeader = ({
       className={cn(
         "mb-12",
         align === "center" ? "text-center" : "text-left",
-        className
+        className,
       )}
     >
       <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -37,10 +36,12 @@ export const SectionHeader = ({
           {subtitle}
         </p>
       )}
-      <div className={cn(
-        "h-1 w-12 rounded-full bg-white/20 mt-6",
-        align === "center" ? "mx-auto" : "mr-auto"
-      )} />
+      <div
+        className={cn(
+          "h-1 w-12 rounded-full bg-white/20 mt-6",
+          align === "center" ? "mx-auto" : "mr-auto",
+        )}
+      />
     </motion.div>
   );
 };
