@@ -1,15 +1,11 @@
-"use client";
-
 import React from "react";
 import { motion } from "framer-motion";
 import { blogs } from "@/lib/data";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export const BlogPreview = () => {
   const latestBlogs = blogs.slice(0, 3);
-  const router = useRouter();
 
   return (
     <section id="blog" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
@@ -39,38 +35,39 @@ export const BlogPreview = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between cursor-pointer hover:border-[#1C1A17] transition-colors duration-300"
-              onClick={() => router.push(`/blog/${blog.slug}`)}
             >
-              <div className="p-8 space-y-6 flex-1 flex flex-col justify-between bg-white">
-                <div className="space-y-4">
-                  <span className="font-mono text-[9px] text-[#1C1A17] bg-[#E8E6E1] px-2.5 py-0.5 w-fit block">
-                    {blog.category}
-                  </span>
-                  
-                  <h3 className="font-serif text-xl font-medium text-[#1C1A17] group-hover:text-stone-600 transition-colors line-clamp-2">
-                    <Link href={`/blog/${blog.slug}`} onClick={(e) => e.stopPropagation()}>
+              <Link
+                href={`/blog/${blog.slug}`}
+                className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between hover:border-[#1C1A17] transition-colors duration-300 h-full block"
+              >
+                <div className="p-8 space-y-6 flex-1 flex flex-col justify-between bg-white">
+                  <div className="space-y-4">
+                    <span className="font-mono text-[9px] text-[#1C1A17] bg-[#E8E6E1] px-2.5 py-0.5 w-fit block">
+                      {blog.category}
+                    </span>
+                    
+                    <h3 className="font-serif text-xl font-medium text-[#1C1A17] group-hover:text-stone-600 transition-colors line-clamp-2">
                       {blog.title}
-                    </Link>
-                  </h3>
-                  
-                  <p className="text-xs text-[#6B6661] leading-relaxed font-sans line-clamp-3">
-                    {blog.excerpt}
-                  </p>
-                </div>
-
-                <div className="pt-6 border-t border-[#E8E6E1] flex items-center justify-between">
-                  <div className="flex space-x-3 text-[10px] font-mono text-[#6B6661]">
-                    <span>{blog.date}</span>
-                    <span>&bull;</span>
-                    <span>{blog.readTime}</span>
+                    </h3>
+                    
+                    <p className="text-xs text-[#6B6661] leading-relaxed font-sans line-clamp-3">
+                      {blog.excerpt}
+                    </p>
                   </div>
-                  
-                  <span className="text-[#1C1A17] group-hover:translate-x-1 transition-transform flex items-center">
-                    <ChevronRight size={16} />
-                  </span>
+
+                  <div className="pt-6 border-t border-[#E8E6E1] flex items-center justify-between">
+                    <div className="flex space-x-3 text-[10px] font-mono text-[#6B6661]">
+                      <span>{blog.date}</span>
+                      <span>&bull;</span>
+                      <span>{blog.readTime}</span>
+                    </div>
+                    
+                    <span className="text-[#1C1A17] group-hover:translate-x-1 transition-transform flex items-center">
+                      <ChevronRight size={16} />
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -89,3 +86,4 @@ export const BlogPreview = () => {
     </section>
   );
 };
+
