@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, Maximize2, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/data";
 
