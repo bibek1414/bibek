@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronRight, Maximize2, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/data";
@@ -19,6 +20,7 @@ interface Project {
   location: string;
   materials: string[];
   details: string[];
+  slug: string;
 }
 
 export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
@@ -75,14 +77,14 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
               className="group bg-[#FAF9F6] border border-[#E8E6E1] overflow-hidden flex flex-col justify-between"
             >
               {/* Image */}
-              <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#E8E6E1]">
+              <div className="aspect-[4/3] w-full relative overflow-hidden bg-[#FAF9F6] border-b border-[#E8E6E1] p-4 flex items-center justify-center">
                 <Image
                   src={project.image}
                   alt={project.title}
                   width={400}
                   height={300}
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                  className="w-full h-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-[1.01] transition-all duration-700 ease-out"
                 />
                 <div className="absolute top-4 left-4">
                   <span className="font-mono text-[9px] bg-[#1C1A17] text-[#FAF9F6] px-2.5 py-1">
@@ -122,14 +124,14 @@ export const ProjectsShowcase = ({ limit }: { limit?: number }) => {
                       </span>
                     ))}
                   </div>
-                  <button
-                    onClick={() => setSelectedProject(project as Project)}
+                  <Link
+                    href={`/projects/${project.slug}`}
                     aria-label={`View ${project.title} details`}
                     className="font-mono text-[10px] text-[#1C1A17] flex items-center hover:translate-x-1 transition-transform font-medium cursor-pointer"
                   >
                     View Details
                     <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.article>

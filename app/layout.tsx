@@ -33,16 +33,22 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Bibek Bhattarai | React & Next.js Developer",
-  description: "Portfolio of Bibek Bhattarai, a frontend developer specializing in React, Next.js, and modern web development. Based in Nepal.",
+  title: "Bibek Bhattarai | Full Stack Developer & Next.js Expert",
+  description: "Portfolio of Bibek Bhattarai, a Full Stack Developer, Next.js Expert, and DevOps Engineer based in Kathmandu, Nepal. Specializing in React, Python, AI, and cloud architectures.",
   keywords: [
     "Bibek Bhattarai",
-    "Frontend Developer Nepal",
-    "React Developer Portfolio",
-    "Next.js Developer",
+    "Bibek Bhattarai Portfolio",
+    "Bibek Bhattarai Developer",
     "Full Stack Developer Nepal",
-    "React developer portfolio in Nepal",
-    "Web Developer Kathmandu"
+    "Next.js Developer Nepal",
+    "React Developer Nepal",
+    "Python Developer Nepal",
+    "AI Developer Nepal",
+    "DevOps Engineer Nepal",
+    "Freelance Web Developer Nepal",
+    "Web Developer Kathmandu",
+    "Software Engineer Kathmandu",
+    "React & Next.js Developer",
   ],
   authors: [{ name: "Bibek Bhattarai" }],
   creator: "Bibek Bhattarai",
@@ -60,7 +66,7 @@ export const metadata: Metadata = {
     locale: "en_NP",
     url: SITE_URL,
     siteName: "Bibek Bhattarai Portfolio",
-    title: "Bibek Bhattarai | React & Next.js Developer",
+    title: "Bibek Bhattarai | Full Stack Developer & Next.js Expert",
     description: "Modern web developer portfolio showcasing React and Next.js projects.",
     images: [
       {
@@ -73,8 +79,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bibek Bhattarai | React & Next.js Developer",
-    description: "Frontend Developer using React & Next.js to build premium digital experiences.",
+    title: "Bibek Bhattarai | Full Stack Developer & Next.js Expert",
+    description: "Full Stack Developer & Next.js Expert based in Kathmandu, Nepal building premium digital experiences.",
     images: ["/og-image.png"],
     creator: "@bibekbhattarai14",
   },
