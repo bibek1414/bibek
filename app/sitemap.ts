@@ -2,8 +2,15 @@ import { MetadataRoute } from 'next';
 import { blogs, projects } from '@/lib/data';
 import { SITE_URL } from '@/lib/seo';
 import { industries, MAJOR_CITIES } from '@/lib/seo-services';
+import { hireRoles } from '@/lib/hire-roles';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const hireRoleEntries: MetadataRoute.Sitemap = hireRoles.map((role) => ({
+    url: `${SITE_URL}/hire/${role}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }));
   const blogEntries: MetadataRoute.Sitemap = blogs.map((blog) => ({
     url: `${SITE_URL}/blog/${blog.slug}`,
     lastModified: new Date(),
@@ -72,5 +79,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...projectEntries,
     ...industryRootEntries,
     ...industryCityEntries,
+    ...hireRoleEntries,
   ];
 }

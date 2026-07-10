@@ -18,11 +18,11 @@ interface ProposalFormData {
 
 type SubmissionStep = "idle" | "verifying" | "caching" | "completed";
 
-export const Contact = () => {
+export const Contact = ({ initialCategory = "Digital Systems" }: { initialCategory?: string }) => {
   const [formData, setFormData] = useState<ProposalFormData>({
     name: "",
     email: "",
-    type: "Digital Systems",
+    type: initialCategory,
     budget: 5000,
     goals: "",
     website: "",
@@ -85,7 +85,7 @@ ${formData.goals}`;
     setFormData({
       name: "",
       email: "",
-      type: "Digital Systems",
+      type: initialCategory,
       budget: 5000,
       goals: "",
       website: "",
