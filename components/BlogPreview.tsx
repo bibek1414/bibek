@@ -16,7 +16,7 @@ export const BlogPreview = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="space-y-4">
             <span className="font-mono text-xs text-[#6B6661]">
-              09 / Written Records
+              10 / Written Records
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
               Latest Insights

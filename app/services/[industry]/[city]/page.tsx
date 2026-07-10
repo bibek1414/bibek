@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { industries, cities, INDUSTRY_LABELS, getIndustryContent } from "@/lib/seo-services";
+import { industries, cities, INDUSTRY_LABELS, getIndustryContent, MAJOR_CITIES } from "@/lib/seo-services";
 import { projects } from "@/lib/data";
 import Link from "next/link";
 import { ChevronLeft, ArrowUpRight, CheckCircle2, MessageSquare, Send } from "lucide-react";
@@ -291,6 +291,27 @@ export default async function LocalizedServicePage({ params }: Props) {
                   {faq.answer}
                 </p>
               </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Other Locations Section */}
+        <div className="border-t border-[#E8E6E1] mt-16 pt-12 space-y-6">
+          <h2 className="font-serif text-xl font-medium text-[#1C1A17]">
+            Other Service Locations in Nepal
+          </h2>
+          <p className="text-xs text-[#6B6661] font-mono">
+            Explore web development solutions, payment options, and SEO strategies for other cities:
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {MAJOR_CITIES.filter((c) => c !== "nepal" && c !== cityLower).map((otherCity) => (
+              <Link
+                key={otherCity}
+                href={`/services/${industry}/${otherCity}`}
+                className="font-mono text-[10px] text-[#6B6661] bg-white border border-[#E8E6E1] hover:border-[#1C1A17] hover:text-[#1C1A17] p-2.5 text-center transition-all capitalize"
+              >
+                {label} in {otherCity}
+              </Link>
             ))}
           </div>
         </div>

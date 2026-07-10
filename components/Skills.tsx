@@ -73,7 +73,7 @@ export const Skills = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           <div className="lg:col-span-5 space-y-4">
             <span className="font-mono text-xs text-[#6B6661]">
-              06 / Systematic Expertise
+              07 / Systematic Expertise
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] leading-tight">
               Skills &amp; Tech Stack

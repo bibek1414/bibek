@@ -28,7 +28,7 @@ export const ResumeSection = ({
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#E8E6E1] mb-16">
             <div className="space-y-4">
               <span className="font-mono text-xs text-[#6B6661]">
-                04 / Professional Profile
+                05 / Professional Profile
               </span>
               <h2 className="font-serif text-3xl md:text-5xl text-[#1C1A17]">
                 Interactive Resume
