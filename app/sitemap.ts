@@ -66,6 +66,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/newsletter',
     '/privacy',
     '/terms',
+    '/llms.txt',
+    '/llms-full.txt',
   ] as const).map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),
