@@ -102,7 +102,7 @@ ${formData.goals}`;
         <div className="lg:col-span-5 space-y-8">
           <div className="space-y-4">
             <span className="font-mono text-xs tracking-[0.25em] text-[#6B6661]">
-              13 / Start a Project
+              14 / Start a Project
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] tracking-wide leading-tight">
               Get in Touch

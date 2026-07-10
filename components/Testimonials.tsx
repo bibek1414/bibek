@@ -44,7 +44,7 @@ export const Testimonials = ({ hideHeader = false }: { hideHeader?: boolean }) =
           {!hideHeader && (
             <div className="text-center space-y-2">
               <span className="font-mono text-xs text-[#6B6661]">
-                06 / Direct Feedback
+                07 / Direct Feedback
               </span>
               <h2 className="font-serif text-3xl text-[#1C1A17] font-medium">
                 Client Dialogues

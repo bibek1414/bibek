@@ -14,7 +14,7 @@ export const Certificates = () => {
       <div className="max-w-7xl mx-auto px-6 py-24 md:py-32">
         <div className="space-y-4 mb-16">
           <span className="font-mono text-xs text-[#6B6661]">
-            09 / Professional Certifications
+            10 / Professional Certifications
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17]">
             Certificates & Achievements

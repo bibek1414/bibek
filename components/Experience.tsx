@@ -1,12 +1,18 @@
 "use client";
 import React from "react";
-import { Briefcase, GraduationCap, Award, MapPin, Calendar } from "lucide-react";
+import {
+  Briefcase,
+  GraduationCap,
+  Award,
+  MapPin,
+  Calendar,
+} from "lucide-react";
 
 const CHRONOLOGY = [
   {
     period: "May 2025 — Present",
     title: "Software Developer",
-    institution: "Baliyo Technologies (Nepdora)",
+    institution: "Baliyo Technologies",
     type: "Work",
     typeIcon: Briefcase,
     location: "Sankhamul, Lalitpur, Nepal",
@@ -18,7 +24,15 @@ const CHRONOLOGY = [
       "Worked on real-time site preview, page management, and subdomain-based deployment",
       "Developed checkout, hero, and product showcase flows for e-commerce clients",
     ],
-    technologies: ["Next.js 15", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Docker", "Vercel"],
+    technologies: [
+      "Next.js 15",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Docker",
+      "Vercel",
+    ],
   },
   {
     period: "2019 — 2025",
@@ -34,7 +48,15 @@ const CHRONOLOGY = [
       "Final year project: AI-powered sentiment analysis system for social media data",
       "Coursework: Data Structures, Algorithms, DBMS, OS, Computer Networks, ML",
     ],
-    technologies: ["Java", "C", "Python", "SQL", "Data Structures", "Algorithms", "Machine Learning"],
+    technologies: [
+      "Java",
+      "C",
+      "Python",
+      "SQL",
+      "Data Structures",
+      "Algorithms",
+      "Machine Learning",
+    ],
   },
   {
     period: "2025",
@@ -50,7 +72,14 @@ const CHRONOLOGY = [
       "Deployed production applications on Linux servers with Nginx",
       "Integrated PostgreSQL databases with Django ORM",
     ],
-    technologies: ["Python", "Django", "Django REST Framework", "PostgreSQL", "Nginx", "Linux"],
+    technologies: [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "PostgreSQL",
+      "Nginx",
+      "Linux",
+    ],
   },
   {
     period: "2017 — 2019",
@@ -73,23 +102,24 @@ export const Experience = () => {
   return (
     <section id="experience" className="border-t border-[#E8E6E1] bg-[#FAF9F6]">
       <div className="max-w-7xl mx-auto px-6 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-
         {/* Left Stick Column */}
         <div className="lg:col-span-4 space-y-4 lg:sticky lg:top-28 h-fit">
           <span className="font-mono text-xs tracking-[0.25em] text-[#6B6661]">
-            08 / Historic Milestones
+            09 / Historic Milestones
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1A17] tracking-wide">
             Experience &amp; Education
           </h2>
           <p className="text-[#6B6661] text-sm leading-relaxed font-sans max-w-sm">
-            A full chronological record of professional work experience, academic qualifications,
-            and specialized technical training. Based in Kathmandu, Nepal — available for remote work worldwide.
+            A full chronological record of professional work experience,
+            academic qualifications, and specialized technical training. Based
+            in Kathmandu, Nepal — available for remote work worldwide.
           </p>
           <p className="text-[#6B6661] text-xs leading-relaxed font-sans max-w-sm pt-2">
-            Bibek Bhattarai is a Full Stack Developer with experience at Baliyo Technologies,
-            specializing in React, Next.js, Node.js, TypeScript, PostgreSQL, Docker, and AWS.
-            BSc CSIT graduate from Hetauda City College, Nepal.
+            Bibek Bhattarai is a Full Stack Developer with experience at Baliyo
+            Technologies, specializing in React, Next.js, Node.js, TypeScript,
+            PostgreSQL, Docker, and AWS. BSc CSIT graduate from Hetauda City
+            College, Nepal.
           </p>
         </div>
 
@@ -116,7 +146,9 @@ export const Experience = () => {
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-[#6B6661]">
-                    <span className="font-semibold text-[#1C1A17]">{item.institution}</span>
+                    <span className="font-semibold text-[#1C1A17]">
+                      {item.institution}
+                    </span>
                     <span className="flex items-center gap-1">
                       <MapPin size={10} />
                       {item.location}
@@ -132,7 +164,10 @@ export const Experience = () => {
 
                 <ul className="space-y-1.5">
                   {item.highlights.map((h, i) => (
-                    <li key={i} className="flex items-start gap-2 text-xs text-[#6B6661] font-sans">
+                    <li
+                      key={i}
+                      className="flex items-start gap-2 text-xs text-[#6B6661] font-sans"
+                    >
                       <span className="w-1 h-1 bg-[#6B6661] rounded-full mt-1.5 shrink-0" />
                       {h}
                     </li>
@@ -141,7 +176,10 @@ export const Experience = () => {
 
                 <div className="flex flex-wrap gap-1.5 pt-2">
                   {item.technologies.map((tech) => (
-                    <span key={tech} className="font-mono text-[9px] text-[#6B6661] bg-[#1C1A17]/5 border border-[#E8E6E1] px-2 py-0.5">
+                    <span
+                      key={tech}
+                      className="font-mono text-[9px] text-[#6B6661] bg-[#1C1A17]/5 border border-[#E8E6E1] px-2 py-0.5"
+                    >
                       {tech}
                     </span>
                   ))}
@@ -150,7 +188,6 @@ export const Experience = () => {
             </article>
           ))}
         </div>
-
       </div>
     </section>
   );

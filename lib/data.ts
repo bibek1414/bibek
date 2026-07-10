@@ -157,10 +157,16 @@ export const projects = [
     ],
   },
   {
-    title: "NepDora Website Builder",
+    title: "Nepdora Website Builder",
     description:
       "A drag and drop website builder designed for creating custom websites in Nepal. Features dynamic JSON configuration rendering, drag-and-drop page builders, live site previewing, and domain registration and mapping for local businesses.",
-    technologies: ["Next.js", "Tailwind CSS", "TypeScript", "PostgreSQL", "dnd-kit"],
+    technologies: [
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "PostgreSQL",
+      "dnd-kit",
+    ],
     githubLink: "",
     liveLink: "https://nepdora.com/",
     image: "/images/nepdora.png",
@@ -169,7 +175,13 @@ export const projects = [
     category: "Web App",
     year: "2025",
     location: "Baliyo Ventures",
-    materials: ["Next.js 15", "TypeScript", "Tailwind CSS", "dnd-kit", "PostgreSQL"],
+    materials: [
+      "Next.js 15",
+      "TypeScript",
+      "Tailwind CSS",
+      "dnd-kit",
+      "PostgreSQL",
+    ],
     details: [
       "Contributed to Nepdora, a custom website builder with drag and drop capabilities.",
       "Designed dynamic rendering engine that parses component JSON layouts.",
@@ -211,7 +223,13 @@ export const projects = [
     category: "Web App",
     year: "2025",
     location: "Personal Project",
-    materials: ["React.js", "Node.js", "Socket.io", "Express.js", "Tailwind CSS"],
+    materials: [
+      "React.js",
+      "Node.js",
+      "Socket.io",
+      "Express.js",
+      "Tailwind CSS",
+    ],
     details: [
       "Built a full-stack real-time messaging workspace utilizing Socket.io protocol.",
       "Created channel subscription and private direct messaging functionalities.",
@@ -253,7 +271,13 @@ export const projects = [
     category: "AI/ML",
     year: "2025",
     location: "Personal Project",
-    materials: ["React", "FastAPI", "Python", "Ollama (Llama 3)", "Tailwind CSS"],
+    materials: [
+      "React",
+      "FastAPI",
+      "Python",
+      "Ollama (Llama 3)",
+      "Tailwind CSS",
+    ],
     details: [
       "Integrated YouTube Data API v3 for fetching video comment threads.",
       "Utilized local AI models via Ollama to process natural language sentiment.",
@@ -274,7 +298,13 @@ export const projects = [
     category: "Web App",
     year: "2024",
     location: "Personal Project",
-    materials: ["React.js", "TypeScript", "Tailwind CSS", "Framer Motion", "LocalStorage"],
+    materials: [
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "LocalStorage",
+    ],
     details: [
       "Built timed quiz session workflows with dynamic question sequences.",
       "Configured category-specific selection rules and score multipliers.",

@@ -166,11 +166,48 @@ export const Services = () => {
 
       </div>
 
+      {/* Specialized Hiring Roles */}
+      <div className="max-w-7xl mx-auto px-6 pb-12 pt-12 border-t border-[#E8E6E1]">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <span className="font-mono text-xs text-[#6B6661]">
+              03 / Hiring & Commissioning
+            </span>
+            <h3 className="font-serif text-2xl font-medium text-[#1C1A17]">
+              Hire Specialized Technical Roles
+            </h3>
+            <p className="text-xs text-[#6B6661] max-w-2xl leading-relaxed">
+              Looking for dedicated engineering capability or contract work? Explore services and frameworks by role:
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            {[
+              { name: "Next.js Developer", slug: "nextjs-developer" },
+              { name: "React Developer", slug: "react-developer" },
+              { name: "Full Stack Developer", slug: "full-stack-developer" },
+              { name: "Python Developer", slug: "python-developer" },
+              { name: "DevOps Engineer", slug: "devops-engineer" },
+              { name: "Freelance Web Developer", slug: "freelance-web-developer" },
+            ].map((role) => (
+              <Link
+                key={role.slug}
+                href={`/hire/${role.slug}`}
+                className="font-mono text-[10px] text-[#6B6661] border border-[#E8E6E1] hover:border-[#1C1A17] hover:text-[#1C1A17] p-2.5 flex items-center justify-center gap-1.5 transition-all bg-white font-semibold"
+              >
+                {role.name}
+                <ChevronRight size={10} className="shrink-0" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 pb-24 pt-12 border-t border-[#E8E6E1]">
         <div className="space-y-6">
           <div className="space-y-2">
             <span className="font-mono text-xs text-[#6B6661]">
-              03 / Programmatic Local SEO
+              04 / Programmatic Local SEO
             </span>
             <h3 className="font-serif text-2xl font-medium text-[#1C1A17]">
               Local Web Development Services
