@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -163,6 +164,47 @@ export const Services = () => {
           </div>
         </div>
 
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 pb-24 pt-12 border-t border-[#E8E6E1]">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <span className="font-mono text-xs text-[#6B6661]">
+              03 / Programmatic Local SEO
+            </span>
+            <h3 className="font-serif text-2xl font-medium text-[#1C1A17]">
+              Local Web Development Services
+            </h3>
+            <p className="text-xs text-[#6B6661] max-w-2xl leading-relaxed">
+              I build tailored web solutions for businesses in major cities across Nepal. Select your location to learn about custom local payment setups, SEO strategies, and portfolio examples:
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {[
+              { name: "Kathmandu", slug: "kathmandu" },
+              { name: "Pokhara", slug: "pokhara" },
+              { name: "Lalitpur", slug: "lalitpur" },
+              { name: "Bharatpur", slug: "bharatpur" },
+              { name: "Biratnagar", slug: "biratnagar" },
+              { name: "Birgunj", slug: "birgunj" },
+              { name: "Dharan", slug: "dharan" },
+              { name: "Itahari", slug: "itahari" },
+              { name: "Butwal", slug: "butwal" },
+              { name: "Hetauda", slug: "hetauda" },
+              { name: "Janakpur", slug: "janakpur" },
+              { name: "Nepalgunj", slug: "nepalgunj" },
+            ].map((city) => (
+              <Link
+                key={city.slug}
+                href={`/services/website-developer/${city.slug}`}
+                className="font-mono text-[10px] text-[#6B6661] border border-[#E8E6E1] hover:border-[#1C1A17] hover:text-[#1C1A17] p-2.5 text-center transition-all bg-white"
+              >
+                Developer in {city.name}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
