@@ -39,7 +39,7 @@ ${projects
 ## Technical Articles
 ${blogs
   .map(
-    (b) => `- [${b.title}](${SITE_URL}/blog/${b.slug}): ${b.description}`
+    (b) => `- [${b.title}](${SITE_URL}/blog/${b.slug}): ${b.excerpt}`
   )
   .join("\n")}
 `;
