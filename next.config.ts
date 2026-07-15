@@ -55,6 +55,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/services/:industry-website",
+        destination: "/services/:industry",
+        permanent: true,
+      },
+      {
+        source: "/services/:industry-website/:city",
+        destination: "/services/:industry/:city",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

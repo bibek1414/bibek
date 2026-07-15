@@ -56,10 +56,10 @@ export default async function IndustryServicePage({ params }: Props) {
     const titleLower = p.title.toLowerCase();
     const descLower = p.description.toLowerCase();
 
-    if (industry === "ecommerce-website" || industry === "clothing-website" || industry === "grocery-website") {
+    if (industry === "ecommerce" || industry === "clothing" || industry === "grocery") {
       return titleLower.includes("ecommerce") || titleLower.includes("pasal") || descLower.includes("shop") || descLower.includes("ecommerce") || descLower.includes("stripe");
     }
-    if (industry === "school-college-website" || industry === "educational-consultancy-website") {
+    if (industry === "school-college" || industry === "educational-consultancy") {
       return titleLower.includes("education") || descLower.includes("school") || descLower.includes("learn");
     }
     if (industry === "website-developer") {
